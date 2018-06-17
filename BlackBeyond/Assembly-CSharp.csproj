@@ -63,6 +63,7 @@
     <Compile Include="Assets\Controller\ModelLink.cs" />
     <Compile Include="Assets\Controller\ShipController.cs" />
     <Compile Include="Assets\Controller\SpaceController.cs" />
+    <Compile Include="Assets\Model\IModelLink.cs" />
     <Compile Include="Assets\Model\Map.cs" />
     <Compile Include="Assets\Model\Space.cs" />
     <Compile Include="Assets\Model\SpaceCallback.cs" />

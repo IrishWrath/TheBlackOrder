@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ModelLink 
+public class ModelLink : IModelLink
 {
-    private GameObject toSpawn;
+    private GameObject SpaceView;
 
-    public ModelLink(GameObject toSpawn)
+    public ModelLink(GameObject spaceView)
     {
-        this.toSpawn = toSpawn;
+        this.SpaceView = spaceView;
     }
     public ISpaceCallback CreateSpaceView(int row, int column)
     {
-        return SpaceController.Create(row, column, toSpawn);
+        return SpaceController.Create(row, column, SpaceView);
     }
 }
