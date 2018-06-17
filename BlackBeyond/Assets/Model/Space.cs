@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
-public class Space {
+public class Space 
+{
 
 
-    public Space(int row, int column, ModelLink link)
+    public Space(int row, int column, IModelLink link)
     {
         this.Row = row;
         this.Column = column;

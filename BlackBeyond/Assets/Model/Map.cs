@@ -9,7 +9,7 @@ public class Map
     private int rows;
     private int columns;
 
-    public Map(int rows, int columns, ModelLink link)
+    public Map(int rows, int columns, IModelLink link)
     {
         this.rows = rows;
         this.columns = columns;
@@ -44,7 +44,7 @@ public class Map
         return map;
     }
 
-    public Space moveNE(Space startSpace)
+    public Space GetNE(Space startSpace)
     {
         int newSpaceRow = startSpace.Row - 1;
         int newSpaceColumn = startSpace.Column + 1;
@@ -55,7 +55,7 @@ public class Map
         return map[newSpaceRow][newSpaceColumn];
     }
 
-    public Space moveE(Space startSpace)
+    public Space GetE(Space startSpace)
     {
         int newSpaceRow = startSpace.Row;
         int newSpaceColumn = startSpace.Column + 2;
@@ -66,7 +66,7 @@ public class Map
         return map[newSpaceRow][newSpaceColumn];
     }
 
-    public Space moveSE(Space startSpace)
+    public Space GetSE(Space startSpace)
     {
         int newSpaceRow = startSpace.Row + 1;
         int newSpaceColumn = startSpace.Column + 1;
@@ -76,7 +76,7 @@ public class Map
         }
         return map[newSpaceRow][newSpaceColumn];
     }
-    public Space moveSW(Space startSpace)
+    public Space GetSW(Space startSpace)
     {
         int newSpaceRow = startSpace.Row + 1;
         int newSpaceColumn = startSpace.Column - 1;
@@ -86,7 +86,7 @@ public class Map
         }
         return map[newSpaceRow][newSpaceColumn];
     }
-    public Space moveW(Space startSpace)
+    public Space GetW(Space startSpace)
     {
         int newSpaceRow = startSpace.Row;
         int newSpaceColumn = startSpace.Column - 2;
@@ -96,7 +96,7 @@ public class Map
         }
         return map[newSpaceRow][newSpaceColumn];
     }
-    public Space moveNW(Space startSpace)
+    public Space GetNW(Space startSpace)
     {
         int newSpaceRow = startSpace.Row - 1;
         int newSpaceColumn = startSpace.Column - 1;
