@@ -38,6 +38,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1548947039
+    locked: 0
+  - name: Terrain
+    uniqueID: 3723654535
+    locked: 0
+  - name: Tiles
+    uniqueID: 3349764137
+    locked: 0
+  - name: Lasers
+    uniqueID: 3237408061
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
