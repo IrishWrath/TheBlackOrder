@@ -12,10 +12,10 @@ public class SpaceController : ScriptableObject, ISpaceCallback
     public static SpaceController Create(int row, int column, GameObject toSpawn)
     {
         SpaceController spaceControl = CreateInstance<SpaceController>();
-        spaceControl.spaceView = Instantiate(toSpawn, new Vector2(((float)column - 1) / 2, 0 - row), Quaternion.identity) as GameObject;
+        spaceControl.spaceView = Instantiate(toSpawn, new Vector2(((float)column - 1) / 2, (0 - row)), Quaternion.identity) as GameObject;
         spaceControl.row = row;
         spaceControl.column = column;
-        spaceControl.spaceView.transform.GetChild(0).GetComponent<TextMesh>().text = row + "," + column;
+        //spaceControl.spaceView.transform.GetChild(0).GetComponent<TextMesh>().text = row + "," + column;
         return spaceControl;
     }
 
