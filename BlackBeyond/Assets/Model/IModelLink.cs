@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IModelLink 
 {
-    ISpaceCallback CreateSpaceView(int row, int column);
+    void CreateSpaceView(Space space);
 }

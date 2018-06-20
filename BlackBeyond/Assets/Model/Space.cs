@@ -2,22 +2,23 @@
 
 public class Space 
 {
-
-
-    public Space(int row, int column, IModelLink link)
+    public Space(int row, int column)
     {
         this.Row = row;
         this.Column = column;
-        this.callback = link.CreateSpaceView(row, column);
-
     }
 
     public int Row { get; private set; }
     public int Column { get; private set; }
-    private readonly ISpaceCallback callback;
+    private ISpaceCallback callback;
 
-    public Vector2 GetPosition()
+    public ISpaceCallback GetCallback()
     {
-        return callback.GetPosition();
+        return callback;
+    }
+
+    public void SetCallback(ISpaceCallback callback)
+    {
+        this.callback = callback;
     }
 }
