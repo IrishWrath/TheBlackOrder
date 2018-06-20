@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class ModelLink : IModelLink
 {
-    private GameObject SpaceView;
 
-    public ModelLink(GameObject spaceView)
+    public GameController GameController { get; private set; }
+
+    public ModelLink(GameController gameController)
     {
-        this.SpaceView = spaceView;
+        this.GameController = gameController;
     }
-    public ISpaceCallback CreateSpaceView(int row, int column)
+    public void CreateSpaceView(Space space)
     {
-        return SpaceController.Create(row, column, SpaceView);
+        GameObject spaceView = Object.Instantiate(GameController.GetSpaceView(), 
+                               new Vector2(((float)space.Column - 1) / 2, (0 - space.Row)), Quaternion.identity);
+        SpaceController controller = spaceView.GetComponent<SpaceController>();
+        space.SetCallback(controller);
     }
 }

@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4860248522231458}
   - component: {fileID: 212007015623654184}
+  - component: {fileID: 114500021857920158}
   m_Layer: 0
   m_Name: SpaceHex
   m_TagString: Untagged
@@ -40,6 +41,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114500021857920158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1590571068747506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5d2e50c1d9a460d88efe7271ca4375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spaceView: {fileID: 1590571068747506}
 --- !u!212 &212007015623654184
 SpriteRenderer:
   m_ObjectHideFlags: 1
