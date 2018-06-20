@@ -16,6 +16,8 @@ public class ModelLink : IModelLink
         GameObject spaceView = Object.Instantiate(GameController.GetSpaceView(), 
                                new Vector2(((float)space.Column - 1) / 2, (0 - space.Row)), Quaternion.identity);
         SpaceController controller = spaceView.GetComponent<SpaceController>();
+        controller.spaceView = spaceView;
+        controller.SetSpace(space);
         space.SetCallback(controller);
     }
 }

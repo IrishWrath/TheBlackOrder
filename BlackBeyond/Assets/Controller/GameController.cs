@@ -41,16 +41,18 @@ public class GameController : MonoBehaviour
             {
                 if (hit.transform.tag == "SpaceHex")        // If object collided was SpaceHex
                 {
-                    string spacehexName = hit.transform.name;
-                    int row = int.Parse(spacehexName[0].ToString());
-                    int column = int.Parse(spacehexName[2].ToString());
+                    // Oisín: Not getting by name, below gets the space.
+                    //string spacehexName = hit.transform.name;
+                    //int row = int.Parse(spacehexName[0].ToString());
+                    //int column = int.Parse(spacehexName[2].ToString());
+                    //Space newSpace = MapController.GetSpace(row, column);
 
-                    Space newSpace = Map.GetSpace(row, column);
+                    Space newSpace = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();
 
-                    Debug.Log("Space Co-ords: " + spacehexName);
-                    Debug.Log("Space Vector2: " + newSpace.GetPosition().ToString());
+                    Debug.Log("Space Co-ords: " + newSpace.Row + ":" + newSpace.Column);
+                    Debug.Log("Space Vector2: " + newSpace.GetCallback().GetPosition().ToString());
 
-                    ship.gameObject.transform.position = newSpace.GetPosition();
+                    ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
                 }
             }
         }
