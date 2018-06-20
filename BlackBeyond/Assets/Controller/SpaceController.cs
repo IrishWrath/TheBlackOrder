@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpaceController : ScriptableObject, ISpaceCallback
+public class SpaceController : MonoBehaviour, ISpaceCallback
 {
     public int row { get; private set; }
     public int column { get; private set; }
     public GameObject spaceView;
 
-    public static SpaceController Create(int row, int column, GameObject toSpawn)
+    public static void Setup(SpaceController spaceControl, int row, int column, GameObject toSpawn)
     {
         SpaceController spaceControl = CreateInstance<SpaceController>();
         spaceControl.spaceView = Instantiate(toSpawn, new Vector2(((float)column - 1) / 2, (0 - row)), Quaternion.identity) as GameObject;
@@ -17,7 +17,6 @@ public class SpaceController : ScriptableObject, ISpaceCallback
         spaceControl.row = row;
         spaceControl.column = column;
         //spaceControl.spaceView.transform.GetChild(0).GetComponent<TextMesh>().text = row + "," + column;
-        return spaceControl;
     }
 
     // Use this for initialization

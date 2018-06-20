@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Map 
 {
-    private Space[][] map;
+    private readonly Space[][] map;
     private int rows;
     private int columns;
 
@@ -14,6 +14,7 @@ public class Map
         this.rows = rows;
         this.columns = columns;
         map = new Space[rows][];
+        Space tempSpace;
         for (int row = 0; row < rows; row++)
         {
             map[row] = new Space[columns*2];
@@ -21,14 +22,18 @@ public class Map
             {
                 for (int column = 0; column < columns * 2; column += 2)
                 {
-                    map[row][column] = new Space(row, column, link);
+                    tempSpace = new Space(row, column);
+                    map[row][column] = tempSpace;
+                    link.CreateSpaceView(tempSpace);
                 }
             }
             else
             {
                 for (int column = 1; column < columns * 2; column += 2)
                 {
-                    map[row][column] = new Space(row, column, link);
+                    tempSpace = new Space(row, column);
+                    map[row][column] = tempSpace;
+                    link.CreateSpaceView(tempSpace);
                 }
             }
         }
