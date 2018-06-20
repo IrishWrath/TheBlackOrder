@@ -47,11 +47,13 @@ public class GameController : MonoBehaviour
                     //int column = int.Parse(spacehexName[2].ToString());
                     //Space newSpace = MapController.GetSpace(row, column);
 
+                    // Oisín: Gets the space that the Ray hit, could get the controller instead.
                     Space newSpace = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();
 
                     Debug.Log("Space Co-ords: " + newSpace.Row + ":" + newSpace.Column);
                     Debug.Log("Space Vector2: " + newSpace.GetCallback().GetPosition().ToString());
 
+                    // Oisín: I think it would be best to call a move method in ShipController (Not my one though. That doesn't work yet.)
                     ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
                 }
             }
