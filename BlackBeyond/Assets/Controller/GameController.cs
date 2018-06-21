@@ -54,7 +54,15 @@ public class GameController : MonoBehaviour
                     Debug.Log("Space Vector2: " + newSpace.GetCallback().GetPosition().ToString());
 
                     // Oisín: I think it would be best to call a move method in ShipController (Not my one though. That doesn't work yet.)
-                    ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
+                    //ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
+
+
+                    List<PathfindingNode> nodes =  new DijkstrasPathfinding(newSpace, 1).GetNodes();
+                    foreach(PathfindingNode node in nodes)
+                    {
+                        node.GetSpace().GetCallback().SetSelectable(node.GetCost());
+                    }
+
                 }
             }
         }

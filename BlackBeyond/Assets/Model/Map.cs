@@ -22,7 +22,7 @@ public class Map
             {
                 for (int column = 0; column < columns * 2; column += 2)
                 {
-                    tempSpace = new Space(row, column);
+                    tempSpace = new Space(row, column, this);
                     map[row][column] = tempSpace;
                     link.CreateSpaceView(tempSpace);
                 }
@@ -31,9 +31,20 @@ public class Map
             {
                 for (int column = 1; column < columns * 2; column += 2)
                 {
-                    tempSpace = new Space(row, column);
+                    tempSpace = new Space(row, column, this);
                     map[row][column] = tempSpace;
                     link.CreateSpaceView(tempSpace);
+                }
+            }
+        }
+        // Setting each space's adjacent spaces. Must be done after the map is generated
+        for (int row = 0; row < rows; row++)
+        {
+            for (int column = 0; column < columns * 2; column++)
+            {
+                if(map[row][column] != null)
+                {
+                    map[row][column].SetAdjacentSpaces();
                 }
             }
         }
@@ -53,7 +64,7 @@ public class Map
     {
         int newSpaceRow = startSpace.Row - 1;
         int newSpaceColumn = startSpace.Column + 1;
-        if(newSpaceRow < 0 || newSpaceColumn > columns)
+        if(newSpaceRow < 0 || newSpaceColumn >= (columns * 2))
         {
             return null;
         }
@@ -64,7 +75,7 @@ public class Map
     {
         int newSpaceRow = startSpace.Row;
         int newSpaceColumn = startSpace.Column + 2;
-        if (newSpaceColumn > columns)
+        if (newSpaceColumn >= (columns * 2))
         {
             return null;
         }
@@ -75,7 +86,7 @@ public class Map
     {
         int newSpaceRow = startSpace.Row + 1;
         int newSpaceColumn = startSpace.Column + 1;
-        if (newSpaceRow > rows  || newSpaceColumn > columns)
+        if (newSpaceRow >= rows  || newSpaceColumn >= (columns * 2))
         {
             return null;
         }
@@ -85,7 +96,7 @@ public class Map
     {
         int newSpaceRow = startSpace.Row + 1;
         int newSpaceColumn = startSpace.Column - 1;
-        if (newSpaceRow > rows || newSpaceColumn < 0)
+        if (newSpaceRow >= rows || newSpaceColumn < 0)
         {
             return null;
         }

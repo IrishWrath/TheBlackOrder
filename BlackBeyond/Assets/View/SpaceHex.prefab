@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5d2e50c1d9a460d88efe7271ca4375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spaceView: {fileID: 0}
+  selectedSprite: {fileID: 21300000, guid: e253c5a6962804bcd84ff53ab2f03f95, type: 3}
 --- !u!212 &212007015623654184
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -6,7 +6,9 @@ using UnityEngine;
 public class SpaceController : MonoBehaviour, ISpaceCallback
 {
     
-    public GameObject spaceView;
+    private GameObject spaceView;
+
+    public Sprite selectedSprite;
 
     private Space space;
 
@@ -42,8 +44,18 @@ public class SpaceController : MonoBehaviour, ISpaceCallback
 
     }
 
+    public void SetSpaceView(GameObject spaceView)
+    {
+        this.spaceView = spaceView;
+    }
+
     public Vector2 GetPosition()
     {
         return spaceView.transform.position;
+    }
+
+    public void SetSelectable(int number)
+    {
+        spaceView.GetComponent<SpriteRenderer>().sprite = selectedSprite;
     }
 }
