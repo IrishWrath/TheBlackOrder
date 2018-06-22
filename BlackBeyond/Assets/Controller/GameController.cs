@@ -3,68 +3,83 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour 
+public class GameController : MonoBehaviour
 {
     public MapController MapController { get; private set; }
 
     private IModelLink modelLink;
     public GameObject spaceView;
-    public GameObject ship;
-    public Material selectColour;
+    public GameObject playership;
+    private Player player;
 
     // Use this for initialization
-    public void Start () 
+    public void Start()
     {
         this.modelLink = new ModelLink(this);
         this.MapController = new MapController(5, 5, modelLink);
 
-        //ShipController.Create(MapController.GetSpace(1,4), ship);
+        // Gets a starting space for the player
         Space playerSpace = MapController.GetSpace(1, 4);
-        GameObject playerView = Instantiate(ship, playerSpace.GetCallback().GetPosition(), Quaternion.identity);
+
+        this.player = new Player(playerSpace);
+        modelLink.CreatePlayerView(player);
     }
 
     public GameObject GetSpaceView()
     {
         return spaceView;
     }
+    public GameObject GetPlayerView()
+    {
+        return playership;
+    }
+
+
 
     // Update is called once per frame
-	void Update () 
+    void Update()
     {
         // If left mouse button pressed perform raycast
-		if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            
+
             if (Physics.Raycast(ray, out hit))      // If raycast collided with object
             {
                 if (hit.transform.tag == "SpaceHex")        // If object collided was SpaceHex
                 {
-                    // Oisín: Not getting by name, below gets the space.
-                    //string spacehexName = hit.transform.name;
-                    //int row = int.Parse(spacehexName[0].ToString());
-                    //int column = int.Parse(spacehexName[2].ToString());
-                    //Space newSpace = MapController.GetSpace(row, column);
 
-                    // Oisín: Gets the space that the Ray hit, could get the controller instead.
-                    Space newSpace = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();
+                    PlayerController ShC = (PlayerController)player.GetCallback();       // Create required instance of ShipController class
 
-                    Debug.Log("Space Co-ords: " + newSpace.Row + ":" + newSpace.Column);
-                    Debug.Log("Space Vector2: " + newSpace.GetCallback().GetPosition().ToString());
+
+
+                    Space destination = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();        // Convert vector2 location of spacehex to a space and then assign to destination
+                    
+                    //Debug.Log("Destination Co-ords: " + destination.Row + ":" + destination.Column);
+                    //Debug.Log("Destination Vector2: " + destination.GetCallback().GetPosition().ToString());
+
+                    ShC.MoveShip(destination);       // call moveShip function in shipcontroller and pass destination space
+
+
+
 
                     // Oisín: I think it would be best to call a move method in ShipController (Not my one though. That doesn't work yet.)
                     //ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
 
+//                     This is a test method
+//                     List<PathfindingNode> nodes =  new DijkstrasPathfinding(newSpace, 1).GetNodes();
+//                     foreach(PathfindingNode node in nodes)
+//                     {
+//                         node.GetSpace().GetCallback().SetSelectable(node.GetCost());
+//                     }
 
-                    List<PathfindingNode> nodes =  new DijkstrasPathfinding(newSpace, 1).GetNodes();
-                    foreach(PathfindingNode node in nodes)
-                    {
-                        node.GetSpace().GetCallback().SetSelectable(node.GetCost());
-                    }
-
+                    //Tell the model to move instead
+                    //player.Move();
+                    //  in that method, callback.move()
+                    //      view (the gameobject) <- set position.
                 }
             }
         }
-	}
+    }
 }

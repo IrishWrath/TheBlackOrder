@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IModelLink 
 {
     void CreateSpaceView(Space space);
+    void CreatePlayerView(Player player);
 }
