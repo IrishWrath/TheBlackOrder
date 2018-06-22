@@ -25,6 +25,6 @@ public class ShipController : MonoBehaviour
     public void moveShip(Space destination)
     {
         Vector2 currentLocation = playerShip.transform.position;        // get vector2 of playerShip and assign to currentLocation
-        playerShip.gameObject.transform.position = Vector2.MoveTowards(currentLocation, destination.GetCallback().GetPosition(), 5.0f);     // move playerShip gameobject to vector2 of destination from currentLocation
+        playerShip.gameObject.transform.position = Vector2.MoveTowards(currentLocation, destination.GetCallback().GetPosition(), 6.0f);     // move playerShip gameobject to vector2 of destination from currentLocation
     }
 }
