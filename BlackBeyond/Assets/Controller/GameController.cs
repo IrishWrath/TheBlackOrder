@@ -63,6 +63,17 @@ public class GameController : MonoBehaviour
 
 
 
+
+                    // Oisín: I think it would be best to call a move method in ShipController (Not my one though. That doesn't work yet.)
+                    //ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
+
+//                     This is a test method
+//                     List<PathfindingNode> nodes =  new DijkstrasPathfinding(newSpace, 1).GetNodes();
+//                     foreach(PathfindingNode node in nodes)
+//                     {
+//                         node.GetSpace().GetCallback().SetSelectable(node.GetCost());
+//                     }
+
                     //Tell the model to move instead
                     //player.Move();
                     //  in that method, callback.move()
