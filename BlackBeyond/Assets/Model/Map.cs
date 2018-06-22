@@ -7,8 +7,10 @@ public class Map
 {
     private readonly Space[][] map;
     private int rows;
+    // TODO columns should be stored doubled, or the Map created halfed
     private int columns;
 
+    // Create a map. TODO nothing in this map yet.
     public Map(int rows, int columns, IModelLink link)
     {
         this.rows = rows;
@@ -50,16 +52,19 @@ public class Map
         }
     }
 
+    // Gets spaces by cooridinates. Avoid this method
     public Space GetSpace(int row, int column)
     {
         return map[row][column];
     }
 
+    // Gives the map. Avoid this method
     public Space[][] getMap()
     {
         return map;
     }
 
+    // Movement Methods. Only used in Space generation.
     public Space GetNE(Space startSpace)
     {
         int newSpaceRow = startSpace.Row - 1;

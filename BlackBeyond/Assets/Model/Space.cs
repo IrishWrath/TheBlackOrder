@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+// Model class for a Space
 public class Space 
 {
     public Space(int row, int column, Map map)
@@ -15,7 +16,7 @@ public class Space
     private readonly Map map;
     private Space[] adjacentSpaces;
     private ISpaceCallback callback;
-
+    // This should be null most of the time. Possibly avoid, and use the nodes themselves.
     public PathfindingNode node;
 
     public ISpaceCallback GetCallback()
@@ -27,6 +28,7 @@ public class Space
     {
         this.callback = callback;
     }
+
 
     // For Pathfinding
 

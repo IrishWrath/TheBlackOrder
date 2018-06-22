@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Pathfinding class for players
 public class DijkstrasPathfinding 
 {
 
     private List<PathfindingNode> allNodes;
 
+    // this uses Dijkstra's Algorithm to get all the spaces a player can visit.
     public DijkstrasPathfinding(Space startSpace, int maxCost)
     {
         allNodes = new List<PathfindingNode>();
@@ -83,6 +85,7 @@ public class DijkstrasPathfinding
         }
     }
 
+    // Returns a list of nodes that can be reached
     public List<PathfindingNode> GetNodes()
     {
         return allNodes;

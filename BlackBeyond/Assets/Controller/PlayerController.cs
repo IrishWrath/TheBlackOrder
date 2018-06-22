@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 
+// Class for Player only methods. 
 public class PlayerController : ShipController, IPlayerCallback
 {
     private Player model;
@@ -9,5 +10,10 @@ public class PlayerController : ShipController, IPlayerCallback
     public void SetModel(Player model)
     {
         this.model = model;
+    }
+
+    public void Update()
+    {
+        // Player Movement Logic should be here.
     }
 }

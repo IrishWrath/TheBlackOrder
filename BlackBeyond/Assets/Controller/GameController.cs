@@ -3,28 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// This is the main class of this system. It is the starting point of our code.
 public class GameController : MonoBehaviour
 {
     public MapController MapController { get; private set; }
 
+    // A model link. TODO This class might be better as a static class
     private IModelLink modelLink;
+
+    // The Prefab for Spaces
     public GameObject spaceView;
+    // The Prefab for Player's ship
     public GameObject playership;
+
+    // A reference to the player.
     private Player player;
 
-    // Use this for initialization
+    // Use this for initialization. Starting method for our code.
     public void Start()
     {
         this.modelLink = new ModelLink(this);
+
+        // Creates the map.
         this.MapController = new MapController(5, 5, modelLink);
 
-        // Gets a starting space for the player
+        // Gets a starting space for the player, based on coordinates. TODO moving away from coordinates, find another method of getting spaces
         Space playerSpace = MapController.GetSpace(1, 4);
 
+        // Create a player, and set up MVC connections
         this.player = new Player(playerSpace);
         modelLink.CreatePlayerView(player);
     }
 
+    // Returns the Prefabs
     public GameObject GetSpaceView()
     {
         return spaceView;
@@ -35,7 +46,7 @@ public class GameController : MonoBehaviour
     }
 
 
-
+    // This Update should be avoided. Only place testing code here.
     // Update is called once per frame
     void Update()
     {
