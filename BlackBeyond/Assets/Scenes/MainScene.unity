@@ -938,8 +938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceView: {fileID: 1590571068747506, guid: f6fddf2c853e943f6916152b077b9d9d, type: 2}
-  ship: {fileID: 1010566008670778, guid: fffa1cf2a929d4254984e3764bdcfb18, type: 2}
-  selectColour: {fileID: 2100000, guid: 9abe39b8b2f0c4cf5a9dcba5e1406c62, type: 2}
+  playership: {fileID: 1010566008670778, guid: fffa1cf2a929d4254984e3764bdcfb18, type: 2}
 --- !u!4 &2045183071
 Transform:
   m_ObjectHideFlags: 0
