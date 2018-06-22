@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour 
+public class GameController : MonoBehaviour
 {
     public MapController MapController { get; private set; }
 
@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour
     public Material selectColour;
 
     // Use this for initialization
-    public void Start () 
+    public void Start()
     {
         this.modelLink = new ModelLink(this);
         this.MapController = new MapController(5, 5, modelLink);
@@ -29,34 +29,28 @@ public class GameController : MonoBehaviour
     }
 
     // Update is called once per frame
-	void Update () 
+    void Update()
     {
         // If left mouse button pressed perform raycast
-		if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            
+
             if (Physics.Raycast(ray, out hit))      // If raycast collided with object
             {
                 if (hit.transform.tag == "SpaceHex")        // If object collided was SpaceHex
                 {
-                    // Oisín: Not getting by name, below gets the space.
-                    //string spacehexName = hit.transform.name;
-                    //int row = int.Parse(spacehexName[0].ToString());
-                    //int column = int.Parse(spacehexName[2].ToString());
-                    //Space newSpace = MapController.GetSpace(row, column);
+                    ShipController ShC = new ShipController();       // Create required instance of ShipController class
+                    
+                    Space destination = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();        // Convert vector2 location of spacehex to a space and then assign to destination
+                    
+                    //Debug.Log("Destination Co-ords: " + destination.Row + ":" + destination.Column);
+                    //Debug.Log("Destination Vector2: " + destination.GetCallback().GetPosition().ToString());
 
-                    // Oisín: Gets the space that the Ray hit, could get the controller instead.
-                    Space newSpace = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();
-
-                    Debug.Log("Space Co-ords: " + newSpace.Row + ":" + newSpace.Column);
-                    Debug.Log("Space Vector2: " + newSpace.GetCallback().GetPosition().ToString());
-
-                    // Oisín: I think it would be best to call a move method in ShipController (Not my one though. That doesn't work yet.)
-                    ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
+                    ShC.moveShip(destination);       // call moveShip function in shipcontroller and pass destination space
                 }
             }
         }
-	}
+    }
 }
