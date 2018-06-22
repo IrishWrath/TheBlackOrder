@@ -11,6 +11,7 @@ public class ModelLink : IModelLink
     {
         this.GameController = gameController;
     }
+
     public void CreateSpaceView(Space space)
     {
         GameObject spaceView = Object.Instantiate(GameController.GetSpaceView(), 
@@ -19,5 +20,15 @@ public class ModelLink : IModelLink
         controller.spaceView = spaceView;
         controller.SetSpace(space);
         space.SetCallback(controller);
+    }
+
+    public void CreatePlayerView(Player player)
+    {
+        GameObject playerView = Object.Instantiate(GameController.GetPlayerView(),
+                                                   new Vector2(((float)player.GetSpace().Column - 1) / 2, (0 - player.GetSpace().Row)), Quaternion.identity);
+        PlayerController controller = playerView.GetComponent<PlayerController>();
+        controller.SetShipView(playerView);
+        controller.SetModel(player);
+        player.SetCallback(controller);
     }
 }

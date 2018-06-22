@@ -9,8 +9,8 @@ public class GameController : MonoBehaviour
 
     private IModelLink modelLink;
     public GameObject spaceView;
-    public GameObject ship;
-    public Material selectColour;
+    public GameObject playership;
+    private Player player;
 
     // Use this for initialization
     public void Start()
@@ -18,15 +18,23 @@ public class GameController : MonoBehaviour
         this.modelLink = new ModelLink(this);
         this.MapController = new MapController(5, 5, modelLink);
 
-        //ShipController.Create(MapController.GetSpace(1,4), ship);
+        // Gets a starting space for the player
         Space playerSpace = MapController.GetSpace(1, 4);
-        GameObject playerView = Instantiate(ship, playerSpace.GetCallback().GetPosition(), Quaternion.identity);
+
+        this.player = new Player(playerSpace);
+        modelLink.CreatePlayerView(player);
     }
 
     public GameObject GetSpaceView()
     {
         return spaceView;
     }
+    public GameObject GetPlayerView()
+    {
+        return playership;
+    }
+
+
 
     // Update is called once per frame
     void Update()
@@ -41,14 +49,24 @@ public class GameController : MonoBehaviour
             {
                 if (hit.transform.tag == "SpaceHex")        // If object collided was SpaceHex
                 {
-                    ShipController ShC = new ShipController();       // Create required instance of ShipController class
-                    
+
+                    PlayerController ShC = (PlayerController)player.GetCallback();       // Create required instance of ShipController class
+
+
+
                     Space destination = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();        // Convert vector2 location of spacehex to a space and then assign to destination
                     
                     //Debug.Log("Destination Co-ords: " + destination.Row + ":" + destination.Column);
                     //Debug.Log("Destination Vector2: " + destination.GetCallback().GetPosition().ToString());
 
-                    ShC.moveShip(destination);       // call moveShip function in shipcontroller and pass destination space
+                    ShC.MoveShip(destination);       // call moveShip function in shipcontroller and pass destination space
+
+
+
+                    //Tell the model to move instead
+                    //player.Move();
+                    //  in that method, callback.move()
+                    //      view (the gameobject) <- set position.
                 }
             }
         }
