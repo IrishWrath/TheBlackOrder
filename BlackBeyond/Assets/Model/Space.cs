@@ -15,18 +15,18 @@ public class Space
 
     private readonly Map map;
     private Space[] adjacentSpaces;
-    private ISpaceCallback callback;
+    private SpaceController controller;
     // This should be null most of the time. Possibly avoid, and use the nodes themselves.
     public PathfindingNode node;
 
-    public ISpaceCallback GetCallback()
+    public SpaceController GetController()
     {
-        return callback;
+        return controller;
     }
 
-    public void SetCallback(ISpaceCallback callback)
+    public void SetController(SpaceController controller)
     {
-        this.callback = callback;
+        this.controller = controller;
     }
 
 

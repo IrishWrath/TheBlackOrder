@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player 
 {
-    private IPlayerCallback callback;
+    private PlayerController controller;
     private Space playerSpace;
 
     public Player(Space playerSpace)
@@ -12,14 +12,14 @@ public class Player
         this.playerSpace = playerSpace;
     }
 
-    public IPlayerCallback GetCallback()
+    public PlayerController GetController()
     {
-        return callback;
+        return controller;
     }
 
-    public void SetCallback(IPlayerCallback callback)
+    public void SetController(PlayerController controller)
     {
-        this.callback = callback;
+        this.controller = controller;
     }
 
     public Space GetSpace()

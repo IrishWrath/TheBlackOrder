@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     public MapController MapController { get; private set; }
 
     // A model link. TODO This class might be better as a static class
-    private IModelLink modelLink;
+    private ModelLink modelLink;
 
     // The Prefab for Spaces
     public GameObject spaceView;
@@ -25,10 +25,10 @@ public class GameController : MonoBehaviour
         this.modelLink = new ModelLink(this);
 
         // Creates the map.
-        this.MapController = new MapController(5, 5, modelLink);
+        this.MapController = new MapController(8, 16, modelLink);
 
         // Gets a starting space for the player, based on coordinates. TODO moving away from coordinates, find another method of getting spaces
-        Space playerSpace = MapController.GetSpace(1, 4);
+        Space playerSpace = MapController.Map.GetSpace(1, 4);
 
         // Create a player, and set up MVC connections
         this.player = new Player(playerSpace);
@@ -61,7 +61,7 @@ public class GameController : MonoBehaviour
                 if (hit.transform.tag == "SpaceHex")        // If object collided was SpaceHex
                 {
 
-                    PlayerController ShC = (PlayerController)player.GetCallback();       // Create required instance of ShipController class
+                    PlayerController ShC = (PlayerController)player.GetController();       // Create required instance of ShipController class
 
 
 

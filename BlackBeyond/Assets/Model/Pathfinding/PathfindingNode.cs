@@ -44,6 +44,11 @@ public class PathfindingNode
         return cost;
     }
 
+    public List<Space> GetPath()
+    {
+        return path;
+    }
+
     // Is this new path better than the current one? If yes, replace the current one.
     internal void Update(int newCost, List<Space> shortestPath)
     {

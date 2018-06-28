@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // This class controls a single space
-public class SpaceController : MonoBehaviour, ISpaceCallback
+public class SpaceController : MonoBehaviour
 {
     // The view of this controller
     private GameObject spaceView;

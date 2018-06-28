@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 
 // Class for Player only methods. 
-public class PlayerController : ShipController, IPlayerCallback
+public class PlayerController : ShipController
 {
     private Player model;
 
