@@ -10,7 +10,9 @@ public class SpaceController : MonoBehaviour
     private GameObject spaceView;
 
     // TODO put a selected sprite in here.
+    public Sprite defaultSprite;
     public Sprite selectedSprite;
+    public Sprite nebulaSprite;
 
     // The model of this controller
     private Space space;
@@ -43,5 +45,12 @@ public class SpaceController : MonoBehaviour
     public void SetSelectable(int number)
     {
         spaceView.GetComponent<SpriteRenderer>().sprite = selectedSprite;
+    }
+
+    // Sets this space to a nebula
+    public void SetNebula()
+    {
+        defaultSprite = nebulaSprite;
+        spaceView.GetComponent<SpriteRenderer>().sprite = nebulaSprite;
     }
 }

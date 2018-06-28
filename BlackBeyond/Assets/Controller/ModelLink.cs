@@ -38,6 +38,7 @@ public class ModelLink
         CreateSpaceView(space);
         Object.Instantiate(GameController.GetNebula(),
                            space.GetController().GetPosition(), Quaternion.identity, MapContainer);
+        space.GetController().SetNebula();
     }
 
     // Same as above for a Space GameObject
