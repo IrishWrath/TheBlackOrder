@@ -14,6 +14,6 @@ public class PlayerController : ShipController
 
     public void Update()
     {
-        // Player Movement Logic should be here.
+
     }
 }

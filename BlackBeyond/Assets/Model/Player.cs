@@ -7,6 +7,9 @@ public class Player
     private PlayerController controller;
     private Space playerSpace;
 
+    public int maxPlayerMovement = 3;
+    public int currentPlayerMovement = 3;
+
     public Player(Space playerSpace)
     {
         this.playerSpace = playerSpace;
@@ -25,5 +28,15 @@ public class Player
     public Space GetSpace()
     {
         return playerSpace;
+    }
+
+    public int getCurrentPlayerMovement()
+    {
+        return currentPlayerMovement;
+    }
+
+    public void updateCurrentPlayerMovement(int movementUsed)
+    {
+        currentPlayerMovement = currentPlayerMovement - movementUsed;
     }
 }

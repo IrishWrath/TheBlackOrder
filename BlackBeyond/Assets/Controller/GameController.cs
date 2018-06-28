@@ -65,40 +65,34 @@ public class GameController : MonoBehaviour
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit))      // If raycast collided with object
+            // If raycast collided with object with SpaceHex tag
+            if ((Physics.Raycast(ray, out hit)) && hit.transform.tag == "SpaceHex")
             {
-                if (hit.transform.tag == "SpaceHex")        // If object collided was SpaceHex
-                {
+                // Create required instance of ShipController class
+                ShipController shipController = player.GetController();
 
-                    PlayerController ShC = (PlayerController)player.GetController();       // Create required instance of ShipController class
+                // Assign space location of SpaceHex to destination
+                Space destination = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();
 
-
-
-                    Space destination = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();        // Convert vector2 location of spacehex to a space and then assign to destination
-                    
-                    //Debug.Log("Destination Co-ords: " + destination.Row + ":" + destination.Column);
-                    //Debug.Log("Destination Vector2: " + destination.GetCallback().GetPosition().ToString());
-
-                    ShC.MoveShip(destination);       // call moveShip function in shipcontroller and pass destination space
+                // Call moveShip function in shipcontroller and pass destination space
+                shipController.MoveShip(destination);       
+                
 
 
+                // Oisín: I think it would be best to call a move method in ShipController (Not my one though. That doesn't work yet.)
+                //ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
 
+//                 This is a test method
+//                 List<PathfindingNode> nodes =  new DijkstrasPathfinding(newSpace, 1).GetNodes();
+//                 foreach(PathfindingNode node in nodes)
+//                 {
+//                     node.GetSpace().GetCallback().SetSelectable(node.GetCost());
+//                 }
 
-                    // Oisín: I think it would be best to call a move method in ShipController (Not my one though. That doesn't work yet.)
-                    //ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
-
-//                     This is a test method
-//                     List<PathfindingNode> nodes =  new DijkstrasPathfinding(newSpace, 1).GetNodes();
-//                     foreach(PathfindingNode node in nodes)
-//                     {
-//                         node.GetSpace().GetCallback().SetSelectable(node.GetCost());
-//                     }
-
-                    //Tell the model to move instead
-                    //player.Move();
-                    //  in that method, callback.move()
-                    //      view (the gameobject) <- set position.
-                }
+                //Tell the model to move instead
+                //player.Move();
+                //  in that method, callback.move()
+                //      view (the gameobject) <- set position.
             }
         }
     }
