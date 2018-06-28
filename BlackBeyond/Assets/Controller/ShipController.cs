@@ -2,24 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipController : MonoBehaviour 
+// Class for all ships. TODO Possibly make abstract
+public class ShipController : MonoBehaviour
 {
+    // The space the user is in. TODO should be model only.
     public Space CurrentSpace { get; private set; }
-    private readonly GameObject ship;
 
-    //public static ShipController Create(Space startSpace, GameObject toSpawn)
-    //{
-    //    ShipController ship = CreateInstance<ShipController>();
-    //    ship.CurrentSpace = startSpace;
-    //    ship.ship = Instantiate(toSpawn, startSpace.GetPosition(), Quaternion.identity) as GameObject;
-    //    return ship;
-    //}
+    private GameObject ship;
 
-    public void Move(Space newSpace)
+    // Gives the GameObject
+    public GameObject GetShipView()
     {
-        CurrentSpace = newSpace;
-        ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
+        return ship;
     }
 
+    // For the Model link, lets this access the GameObject.
+    public void SetShipView(GameObject ship)
+    {
+        this.ship = ship;
+    }
 
+    // Moves the ship to a new location
+    // TODO make smoother with the update function
+    public void MoveShip(Space destination)
+    {
+        Vector2 currentLocation = ship.transform.position;        // get vector2 of playerShip and assign to currentLocation
+        ship.gameObject.transform.position = Vector2.Lerp(currentLocation, destination.GetController().GetPosition(), 1);     // move playerShip gameobject to vector2 of destination from currentLocation
+    }
 }
