@@ -15,6 +15,11 @@ public class GameController : MonoBehaviour
     public GameObject spaceView;
     // The Prefab for Player's ship
     public GameObject playership;
+    // The Nebula Terrain
+    public GameObject nebulaTerrain;
+
+    // Container for spaces
+    public GameObject mapGameObject;
 
     // A reference to the player.
     private Player player;
@@ -22,7 +27,7 @@ public class GameController : MonoBehaviour
     // Use this for initialization. Starting method for our code.
     public void Start()
     {
-        this.modelLink = new ModelLink(this);
+        this.modelLink = new ModelLink(this, mapGameObject);
 
         // Creates the map.
         this.MapController = new MapController(125, 500, modelLink);
@@ -43,6 +48,10 @@ public class GameController : MonoBehaviour
     public GameObject GetPlayerView()
     {
         return playership;
+    }
+    public GameObject GetNebula()
+    {
+        return nebulaTerrain;
     }
 
 

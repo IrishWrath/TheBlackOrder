@@ -7,7 +7,6 @@ public class Map
 {
     private readonly Space[][] map;
     private int rows;
-    // TODO columns should be stored doubled, or the Map created halfed
     private int columns;
 
     // Create a map. TODO nothing in this map yet.
@@ -24,18 +23,36 @@ public class Map
             {
                 for (int column = 0; column < columns; column += 2)
                 {
-                    tempSpace = new Space(row, column, this);
-                    map[row][column] = tempSpace;
-                    link.CreateSpaceView(tempSpace);
+                    if(UnityEngine.Random.Range(1, 11) == 1)
+                    {
+                        tempSpace = new NebulaSpace(row, column, this);
+                        map[row][column] = tempSpace;
+                        link.CreateNebulaSpace((NebulaSpace)tempSpace);
+                    }
+                    else
+                    {
+                        tempSpace = new Space(row, column, this);
+                        map[row][column] = tempSpace;
+                        link.CreateSpaceView(tempSpace);
+                    }
                 }
             }
             else
             {
                 for (int column = 1; column < columns; column += 2)
                 {
-                    tempSpace = new Space(row, column, this);
-                    map[row][column] = tempSpace;
-                    link.CreateSpaceView(tempSpace);
+                    if (UnityEngine.Random.Range(1, 11) == 1)
+                    {
+                        tempSpace = new NebulaSpace(row, column, this);
+                        map[row][column] = tempSpace;
+                        link.CreateNebulaSpace((NebulaSpace)tempSpace);
+                    }
+                    else
+                    {
+                        tempSpace = new Space(row, column, this);
+                        map[row][column] = tempSpace;
+                        link.CreateSpaceView(tempSpace);
+                    }
                 }
             }
         }

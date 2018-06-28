@@ -8,10 +8,12 @@ public class ModelLink
 {
 
     public GameController GameController { get; private set; }
+    public Transform MapContainer { get; private set; }
 
-    public ModelLink(GameController gameController)
+    public ModelLink(GameController gameController, GameObject mapGameObject)
     {
         this.GameController = gameController;
+        this.MapContainer = mapGameObject.transform;
     }
 
     // Creates the view and gets the controller for a Space
@@ -19,7 +21,7 @@ public class ModelLink
     {
         // Creates the space GameObject in the correct position. TODO update this formula for hexes
         GameObject spaceView = Object.Instantiate(GameController.GetSpaceView(), 
-                               new Vector2((float)space.Column * 0.6f, (0 - space.Row * 1.04f)), Quaternion.identity);
+                                                  new Vector2((float)space.Column * 0.6f, (0 - space.Row * 1.04f)), Quaternion.identity, MapContainer);
         // Gets the controller from the GameObject.
         SpaceController controller = spaceView.GetComponent<SpaceController>();
         // Lets the Controller access the GameObject
@@ -28,6 +30,14 @@ public class ModelLink
         controller.SetSpace(space);
         // Lets the Model access the Controller, as a callback
         space.SetController(controller);
+    }
+
+    // Creates a Nebula space.
+    public void CreateNebulaSpace(NebulaSpace space)
+    {
+        CreateSpaceView(space);
+        Object.Instantiate(GameController.GetNebula(),
+                           space.GetController().GetPosition(), Quaternion.identity, MapContainer);
     }
 
     // Same as above for a Space GameObject
