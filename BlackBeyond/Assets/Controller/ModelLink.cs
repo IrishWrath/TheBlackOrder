@@ -38,6 +38,7 @@ public class ModelLink
                                                    player.GetSpace().GetController().GetPosition(), Quaternion.identity);
         // Sets the camera following the player
         Camera.main.transform.parent = playerView.transform;
+        Camera.main.transform.localPosition = new Vector3(0, 0, -10);
 
         // Gets the controller from the GameObject.
         PlayerController controller = playerView.GetComponent<PlayerController>();

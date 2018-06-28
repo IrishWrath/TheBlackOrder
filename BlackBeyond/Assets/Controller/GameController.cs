@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
         this.modelLink = new ModelLink(this);
 
         // Creates the map.
-        this.MapController = new MapController(8, 16, modelLink);
+        this.MapController = new MapController(125, 500, modelLink);
 
         // Gets a starting space for the player, based on coordinates. TODO moving away from coordinates, find another method of getting spaces
         Space playerSpace = MapController.Map.GetSpace(1, 4);
