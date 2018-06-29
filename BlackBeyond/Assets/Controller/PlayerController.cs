@@ -5,9 +5,9 @@ using System;
 // Class for Player only methods. 
 public class PlayerController : ShipController
 {
-    private Player model;
+    private PlayerModel model;
 
-    public void SetModel(Player model)
+    public void SetModel(PlayerModel model)
     {
         this.model = model;
     }

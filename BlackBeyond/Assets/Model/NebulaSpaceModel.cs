@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class NebulaSpace: Space
+public class NebulaSpaceModel: SpaceModel
 {
-    public NebulaSpace(int row, int column, Map map) : base(row, column, map)
+    public NebulaSpaceModel(int row, int column, MapModel map) : base(row, column, map)
     {
     }
 

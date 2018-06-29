@@ -7,12 +7,12 @@ using UnityEngine;
 public class PathfindingNode
 {
     private int cost;
-    private List<Space> path;
+    private List<SpaceModel> path;
     private bool seen;
-    private Space thisSpace;
+    private SpaceModel thisSpace;
 
     // Create a node on a space.
-    public PathfindingNode(Space space, bool seen, List<Space> path, int cost)
+    public PathfindingNode(SpaceModel space, bool seen, List<SpaceModel> path, int cost)
     {
         thisSpace = space;
         this.seen = seen;
@@ -33,7 +33,7 @@ public class PathfindingNode
     }
 
     // Gets the space this node is attached to.
-    public Space GetSpace()
+    public SpaceModel GetSpace()
     {
         return thisSpace;
     }
@@ -44,20 +44,20 @@ public class PathfindingNode
         return cost;
     }
 
-    public List<Space> GetPath()
+    public List<SpaceModel> GetPath()
     {
         return path;
     }
 
     // Is this new path better than the current one? If yes, replace the current one.
-    internal void Update(int newCost, List<Space> shortestPath)
+    internal void Update(int newCost, List<SpaceModel> shortestPath)
     {
         if(newCost < cost)
         {
             cost = newCost;
-            List<Space> newPath = new List<Space>(shortestPath);
+            List<SpaceModel> newPath = new List<SpaceModel>(shortestPath);
             newPath.Add(thisSpace);
-            path = new List<Space>(newPath);
+            path = new List<SpaceModel>(newPath);
         }
     }
 }

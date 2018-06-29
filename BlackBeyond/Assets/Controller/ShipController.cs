@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShipController : MonoBehaviour
 {
     // The space the user is in. TODO should be model only.
-    public Space CurrentSpace { get; private set; }
+    public SpaceModel CurrentSpace { get; private set; }
 
     private GameObject ship;
 
@@ -24,7 +24,7 @@ public class ShipController : MonoBehaviour
 
     // Moves the ship to a new location
     // TODO make smoother with the update function
-    public void MoveShip(Space destination)
+    public void MoveShip(SpaceModel destination)
     {
         // GET PLAYER.CURRENTMOVEMENT
 

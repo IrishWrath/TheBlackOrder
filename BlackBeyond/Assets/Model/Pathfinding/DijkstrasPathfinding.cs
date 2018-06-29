@@ -9,10 +9,10 @@ public class DijkstrasPathfinding
     private List<PathfindingNode> allNodes;
 
     // this uses Dijkstra's Algorithm to get all the spaces a player can visit.
-    public DijkstrasPathfinding(Space startSpace, int maxCost)
+    public DijkstrasPathfinding(SpaceModel startSpace, int maxCost)
     {
         allNodes = new List<PathfindingNode>();
-        List<Space> shortestPath = new List<Space>
+        List<SpaceModel> shortestPath = new List<SpaceModel>
         {
             startSpace
         };
@@ -22,7 +22,7 @@ public class DijkstrasPathfinding
         bool done = false;
         while(!done)
         {
-            foreach (Space adjacentSpace in currentnode.GetSpace().GetAdjacentSpaces())
+            foreach (SpaceModel adjacentSpace in currentnode.GetSpace().GetAdjacentSpaces())
             {
                 if (adjacentSpace != null)
                 {
@@ -42,7 +42,7 @@ public class DijkstrasPathfinding
                         int newNodeCost = currentnode.GetCost() + adjacentSpace.GetMovementCost();
                         if (newNodeCost <= maxCost)
                         {
-                            List<Space> newNodePath = new List<Space>(shortestPath)
+                            List<SpaceModel> newNodePath = new List<SpaceModel>(shortestPath)
                         {
                             adjacentSpace
                         };

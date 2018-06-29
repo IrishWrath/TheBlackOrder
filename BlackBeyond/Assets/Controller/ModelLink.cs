@@ -17,7 +17,7 @@ public class ModelLink
     }
 
     // Creates the view and gets the controller for a Space
-    public void CreateSpaceView(Space space)
+    public void CreateSpaceView(SpaceModel space)
     {
         // Creates the space GameObject in the correct position. TODO update this formula for hexes
         GameObject spaceView = Object.Instantiate(GameController.GetSpaceView(), 
@@ -33,7 +33,7 @@ public class ModelLink
     }
 
     // Creates a Nebula space.
-    public void CreateNebulaSpace(NebulaSpace space)
+    public void CreateNebulaSpace(NebulaSpaceModel space)
     {
         CreateSpaceView(space);
         Object.Instantiate(GameController.GetNebula(),
@@ -42,7 +42,7 @@ public class ModelLink
     }
 
     // Same as above for a Space GameObject
-    public void CreatePlayerView(Player player)
+    public void CreatePlayerView(PlayerModel player)
     {
         // Creates the player GameObject in the correct position. TODO update this formula for hexes
         GameObject playerView = Object.Instantiate(GameController.GetPlayerView(),

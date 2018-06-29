@@ -9,9 +9,9 @@ public class MapController
     // Creates Map 
     public MapController(int rows, int columns, ModelLink link)
     {
-        this.Map = new Map(rows, columns, link);
+        this.Map = new MapModel(rows, columns, link);
     }
 
     // The Map Model
-    public Map Map { get; private set; }
+    public MapModel Map { get; private set; }
 }

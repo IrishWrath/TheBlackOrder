@@ -15,16 +15,16 @@ public class SpaceController : MonoBehaviour
     public Sprite nebulaSprite;
 
     // The model of this controller
-    private Space space;
+    private SpaceModel space;
 
     // Sets the model
-    public void SetSpace(Space space)
+    public void SetSpace(SpaceModel space)
     {
         this.space = space;
     }
 
     // Returns the model
-    public Space GetSpace()
+    public SpaceModel GetSpace()
     {
         return space;
     }

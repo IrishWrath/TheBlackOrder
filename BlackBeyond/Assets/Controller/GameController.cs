@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
     public GameObject mapGameObject;
 
     // A reference to the player.
-    private Player player;
+    private PlayerModel playerModel;
 
     // Use this for initialization. Starting method for our code.
     public void Start()
@@ -33,11 +33,11 @@ public class GameController : MonoBehaviour
         this.MapController = new MapController(125, 250, modelLink);
 
         // Gets a starting space for the player, based on coordinates. TODO moving away from coordinates, find another method of getting spaces
-        Space playerSpace = MapController.Map.GetSpace(62, 125);
+        SpaceModel playerSpace = MapController.Map.GetSpace(62, 125);
 
         // Create a player, and set up MVC connections
-        this.player = new Player(playerSpace);
-        modelLink.CreatePlayerView(player);
+        this.playerModel = new PlayerModel(playerSpace);
+        modelLink.CreatePlayerView(playerModel);
     }
 
     // Returns the Prefabs
@@ -69,10 +69,10 @@ public class GameController : MonoBehaviour
             if ((Physics.Raycast(ray, out hit)) && hit.transform.tag == "SpaceHex")
             {
                 // Create required instance of ShipController class
-                ShipController shipController = player.GetController();
+                ShipController shipController = playerModel.GetController();
 
                 // Assign space location of SpaceHex to destination
-                Space destination = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();
+                SpaceModel destination = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();
 
                 // Call moveShip function in shipcontroller and pass destination space
                 shipController.MoveShip(destination);       

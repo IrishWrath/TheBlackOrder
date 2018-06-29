@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player 
+public class PlayerModel 
 {
     private PlayerController controller;
-    private Space playerSpace;
+    private SpaceModel playerSpace;
 
     public int maxPlayerMovement = 3;
     public int currentPlayerMovement = 3;
 
-    public Player(Space playerSpace)
+    public PlayerModel(SpaceModel playerSpace)
     {
         this.playerSpace = playerSpace;
     }
@@ -25,7 +25,7 @@ public class Player
         this.controller = controller;
     }
 
-    public Space GetSpace()
+    public SpaceModel GetSpace()
     {
         return playerSpace;
     }

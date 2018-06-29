@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 // Model class for a Space
-public class Space 
+public class SpaceModel 
 {
-    public Space(int row, int column, Map map)
+    public SpaceModel(int row, int column, MapModel map)
     {
         Row = row;
         Column = column;
@@ -13,8 +13,8 @@ public class Space
     public int Row { get; private set; }
     public int Column { get; private set; }
 
-    private readonly Map map;
-    private Space[] adjacentSpaces;
+    private readonly MapModel map;
+    private SpaceModel[] adjacentSpaces;
     private SpaceController controller;
     // This should be null most of the time. Possibly avoid, and use the nodes themselves.
     public PathfindingNode node;
@@ -44,7 +44,7 @@ public class Space
 
     public void SetAdjacentSpaces()
     {
-        adjacentSpaces = new Space[6];
+        adjacentSpaces = new SpaceModel[6];
         adjacentSpaces[0] = map.GetNE(this);
         adjacentSpaces[1] = map.GetE(this);
         adjacentSpaces[2] = map.GetSE(this);
@@ -53,7 +53,7 @@ public class Space
         adjacentSpaces[5] = map.GetNW(this);
     }
 
-    public Space[] GetAdjacentSpaces()
+    public SpaceModel[] GetAdjacentSpaces()
     {
         return adjacentSpaces;
     }
