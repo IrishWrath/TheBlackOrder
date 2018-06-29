@@ -69,13 +69,13 @@ public class GameController : MonoBehaviour
             if ((Physics.Raycast(ray, out hit)) && hit.transform.tag == "SpaceHex")
             {
                 // Create required instance of ShipController class
-                ShipController shipController = playerModel.GetController();
+                PlayerController playerController = playerModel.GetController();
 
                 // Assign space location of SpaceHex to destination
                 SpaceModel destination = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();
 
                 // Call moveShip function in shipcontroller and pass destination space
-                shipController.MoveShip(destination);       
+                playerController.MoveShip(destination);       
                 
 
 
