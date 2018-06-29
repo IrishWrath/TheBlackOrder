@@ -65,7 +65,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5d2e50c1d9a460d88efe7271ca4375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedSprite: {fileID: 21300000, guid: e253c5a6962804bcd84ff53ab2f03f95, type: 3}
+  defaultSprite: {fileID: 21300000, guid: 978f815fb81d14cfbbaefe7442cde498, type: 3}
+  selectedSprite: {fileID: 21300000, guid: 3a5c56660480440628310902d0792471, type: 3}
+  nebulaSprite: {fileID: 21300000, guid: 4edd59e143b464098b4f9e1b6fa4d8a9, type: 3}
 --- !u!212 &212007015623654184
 SpriteRenderer:
   m_ObjectHideFlags: 1
