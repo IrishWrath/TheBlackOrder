@@ -16,7 +16,7 @@ public class SpaceModel
     private readonly MapModel map;
     private SpaceModel[] adjacentSpaces;
     private SpaceController controller;
-    // This should be null most of the time. Possibly avoid, and use the nodes themselves.
+    // This should be null most of the time. Avoid, outside of pathfinding, these will be null
     public PathfindingNode node;
 
     public SpaceController GetController()
@@ -58,7 +58,7 @@ public class SpaceModel
         return adjacentSpaces;
     }
 
-    public int GetMovementCost()
+    public virtual int GetMovementCost()
     {
         // TODO update movement costs
         return 1;

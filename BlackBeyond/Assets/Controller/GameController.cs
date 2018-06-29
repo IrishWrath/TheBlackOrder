@@ -57,7 +57,7 @@ public class GameController : MonoBehaviour
 
     // This Update should be avoided. Only place testing code here.
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         // If left mouse button pressed perform raycast
         if (Input.GetMouseButtonDown(0))
@@ -68,14 +68,21 @@ public class GameController : MonoBehaviour
             // If raycast collided with object with SpaceHex tag
             if ((Physics.Raycast(ray, out hit)) && hit.transform.tag == "SpaceHex")
             {
-                // Create required instance of ShipController class
-                PlayerController playerController = playerModel.GetController();
+                ////Testing A*
+                //foreach(SpaceModel space in AStarPathfinding.GetPathToDestination(playerModel.GetSpace(), hit.transform.gameObject.GetComponent<SpaceController>().GetSpace()))
+                //{
+                //    space.GetController().TestAstroids();
+                //}
 
-                // Assign space location of SpaceHex to destination
-                SpaceModel destination = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();
 
-                // Call moveShip function in shipcontroller and pass destination space
-                playerController.MoveShip(destination);       
+                //// Create required instance of ShipController class
+                //PlayerController playerController = playerModel.GetController();
+
+                //// Assign space location of SpaceHex to destination
+                //SpaceModel destination = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();
+
+                //// Call moveShip function in shipcontroller and pass destination space
+                //playerController.MoveShip(destination);       
                 
 
 

@@ -8,7 +8,7 @@ public class NebulaSpaceModel: SpaceModel
     }
 
     // Nebula movement is 2
-    public new int GetMovementCost()
+    public override int GetMovementCost()
     {
         return 2;
     }

@@ -40,9 +40,9 @@ public static class DijkstrasPathfinding
                         if (newNodeCost <= maxCost)
                         {
                             List<SpaceModel> newNodePath = new List<SpaceModel>(shortestPath)
-                        {
-                            adjacentSpace
-                        };
+                            {
+                                adjacentSpace
+                            };
                             PathfindingNode newNode = new PathfindingNode(adjacentSpace, false, newNodePath, newNodeCost);
                             allNodes.Add(newNode);
                             adjacentSpace.SetNode(newNode);
@@ -77,9 +77,13 @@ public static class DijkstrasPathfinding
                 lowestNode.Seen();
                 shortestPath.Add(lowestNode.GetSpace());
                 currentnode = lowestNode;
-                Debug.Log(lowestNode.GetCost() + " -> " + lowestNode.GetSpace().Row +":"+ lowestNode.GetSpace().Column);
             }
         }
+        foreach(PathfindingNode node in allNodes)
+        {
+            node.GetSpace().SetNode(null);
+        }
+
         return allNodes;
     }
 }
