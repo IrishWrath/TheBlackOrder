@@ -5,13 +5,10 @@ using UnityEngine;
 // Pathfinding class for players
 public class DijkstrasPathfinding 
 {
-
-    private List<PathfindingNode> allNodes;
-
     // this uses Dijkstra's Algorithm to get all the spaces a player can visit.
-    public DijkstrasPathfinding(SpaceModel startSpace, int maxCost)
+    public static List<PathfindingNode> GetSpacesForMovement(SpaceModel startSpace, int maxCost)
     {
-        allNodes = new List<PathfindingNode>();
+        List<PathfindingNode> allNodes = new List<PathfindingNode>();
         List<SpaceModel> shortestPath = new List<SpaceModel>
         {
             startSpace
@@ -83,11 +80,6 @@ public class DijkstrasPathfinding
                 Debug.Log(lowestNode.GetCost() + " -> " + lowestNode.GetSpace().Row +":"+ lowestNode.GetSpace().Column);
             }
         }
-    }
-
-    // Returns a list of nodes that can be reached
-    public List<PathfindingNode> GetNodes()
-    {
         return allNodes;
     }
 }
