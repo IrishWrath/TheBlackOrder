@@ -4,38 +4,38 @@ using UnityEngine;
 
 public class PlayerModel 
 {
-    private PlayerController controller;
-    private SpaceModel playerSpace;
+    private PlayerController playerController;
+    private SpaceModel playerSpaceModel;
 
     public int maxPlayerMovement = 3;
     public int currentPlayerMovement = 3;
 
     public PlayerModel(SpaceModel playerSpace)
     {
-        this.playerSpace = playerSpace;
+        this.playerSpaceModel = playerSpace;
     }
 
     public PlayerController GetController()
     {
-        return controller;
+        return playerController;
     }
 
     public void SetController(PlayerController controller)
     {
-        this.controller = controller;
+        this.playerController = controller;
     }
 
     public SpaceModel GetSpace()
     {
-        return playerSpace;
+        return playerSpaceModel;
     }
 
-    public int getCurrentPlayerMovement()
+    public int GetCurrentPlayerMovement()
     {
         return currentPlayerMovement;
     }
 
-    public void updateCurrentPlayerMovement(int movementUsed)
+    public void UpdateCurrentPlayerMovement(int movementUsed)
     {
         currentPlayerMovement = currentPlayerMovement - movementUsed;
     }
