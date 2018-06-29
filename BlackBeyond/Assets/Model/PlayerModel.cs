@@ -7,12 +7,15 @@ public class PlayerModel
     private PlayerController playerController;
     private SpaceModel playerSpaceModel;
 
+    public SpaceModel playerLocation;
+
     public int maxPlayerMovement = 2;
     public int currentPlayerMovement = 2;
 
     public PlayerModel(SpaceModel playerSpace)
     {
         this.playerSpaceModel = playerSpace;
+        this.playerLocation = playerSpace;
     }
 
     public PlayerController GetController()
@@ -37,6 +40,11 @@ public class PlayerModel
 
     public void UpdateCurrentPlayerMovement(int movementUsed)
     {
-        currentPlayerMovement = currentPlayerMovement - movementUsed;
+        this.currentPlayerMovement = currentPlayerMovement - movementUsed;
+    }
+
+    public void UpdatePlayerLocation(SpaceModel location)
+    {
+        this.playerLocation = location;
     }
 }

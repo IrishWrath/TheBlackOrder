@@ -33,28 +33,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // UNDER CONSTRUCTION! Something is broken here.
+    // UNDER CONSTRUCTION! Something is broken here. (Suspect issue might actually be in Pathfinding script as does not seem to allow multiple runs with different playerLocation)
     public void GetValidSpaces(SpaceModel destination)
     {
         int nodeCount = 0;
-        Debug.Log("["+playerModel.maxPlayerMovement.ToString()+"] Running Pathfinding..");
+        Debug.Log("[" + playerModel.playerLocation.Row + ":" + playerModel.playerLocation.Column +"] Running Pathfinding..");
+        
         // Get all spaces that are valid moves and return into list
-        List<PathfindingNode> validMovementSpaces = DijkstrasPathfinding.GetSpacesForMovement(playerModel.GetSpace(), playerModel.maxPlayerMovement);
+        List<PathfindingNode> validMovementSpaces = DijkstrasPathfinding.GetSpacesForMovement(playerModel.playerLocation, playerModel.maxPlayerMovement);
+
         foreach (PathfindingNode node in validMovementSpaces)
-        {
             nodeCount++;
-        }
+
         Debug.Log("Pathfinding completed with " + nodeCount.ToString() + " results.");
 
         foreach (PathfindingNode node in validMovementSpaces)
         {
             SpaceModel space = node.GetSpace();
-            //Debug.Log("Space Co-ords: " + space.Row + ":" + space.Column);
+
+            Debug.Log("Space Co-ords: " + space.Row + ":" + space.Column);
 
             if (space == destination)
-            {
                 MoveShip(destination);
-            }
         }
     }
 
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
             // move playerShip gameobject to vector2 of destination from currentLocation
             shipView.gameObject.transform.position = Vector2.Lerp(currentLocation, currentDestination, 1);
-
+            playerModel.UpdatePlayerLocation(destination);
             // pass cost of movement to playerModel
             //playerModel.UpdateCurrentPlayerMovement(movementCost);
         }        
