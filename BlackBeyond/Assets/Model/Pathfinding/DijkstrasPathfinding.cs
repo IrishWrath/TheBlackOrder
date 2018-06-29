@@ -77,7 +77,7 @@ public static class DijkstrasPathfinding
                 lowestNode.Seen();
                 shortestPath.Add(lowestNode.GetSpace());
                 currentnode = lowestNode;
-                Debug.Log(lowestNode.GetCost() + " -> " + lowestNode.GetSpace().Row +":"+ lowestNode.GetSpace().Column);
+                //Debug.Log(lowestNode.GetCost() + " -> " + lowestNode.GetSpace().Row +":"+ lowestNode.GetSpace().Column);
             }
         }
         return allNodes;

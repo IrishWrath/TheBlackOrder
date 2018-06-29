@@ -7,8 +7,8 @@ public class PlayerModel
     private PlayerController playerController;
     private SpaceModel playerSpaceModel;
 
-    public int maxPlayerMovement = 3;
-    public int currentPlayerMovement = 3;
+    public int maxPlayerMovement = 2;
+    public int currentPlayerMovement = 2;
 
     public PlayerModel(SpaceModel playerSpace)
     {
