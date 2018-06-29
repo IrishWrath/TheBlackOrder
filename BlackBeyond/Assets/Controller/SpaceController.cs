@@ -3,47 +3,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpaceController : MonoBehaviour, ISpaceCallback
+// This class controls a single space
+public class SpaceController : MonoBehaviour
 {
-    
-    public GameObject spaceView;
+    // The view of this controller
+    private GameObject spaceView;
 
-    private Space space;
+    // TODO put a selected sprite in here.
+    public Sprite defaultSprite;
+    public Sprite selectedSprite;
+    public Sprite nebulaSprite;
+    public Sprite astroidSprite;
 
-    public static void Setup(SpaceController spaceControl, int row, int column, GameObject toSpawn)
-    {
-        //SpaceController spaceControl = CreateInstance<SpaceController>();
-        //spaceControl.spaceView = Instantiate(toSpawn, new Vector2(((float)column - 1) / 2, (0 - row)), Quaternion.identity) as GameObject;
-        //spaceControl.spaceView.name = row.ToString() + "," + column.ToString();     // Added so as to name the SpaceHex Clones with the Space co-ordinates
-        //spaceControl.row = row;
-        //spaceControl.column = column;
-        //spaceControl.spaceView.transform.GetChild(0).GetComponent<TextMesh>().text = row + "," + column;
-    }
+    // The model of this controller
+    private SpaceModel space;
 
-    public void SetSpace(Space space)
+    // Sets the model
+    public void SetSpace(SpaceModel space)
     {
         this.space = space;
     }
 
-    public Space GetSpace()
+    // Returns the model
+    public SpaceModel GetSpace()
     {
         return space;
     }
 
-    // Use this for initialization
-    void Start()
+    // Sets the view
+    public void SetSpaceView(GameObject spaceView)
     {
-
+        this.spaceView = spaceView;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    // Returns the view's position
     public Vector2 GetPosition()
     {
         return spaceView.transform.position;
     }
+
+    // Changes the sprite to match some event. TODO method
+    public void SetSelectable(int number)
+    {
+        spaceView.GetComponent<SpriteRenderer>().sprite = selectedSprite;
+    }
+
+    // Sets this space to a nebula
+    public void SetNebula()
+    {
+        defaultSprite = nebulaSprite;
+        spaceView.GetComponent<SpriteRenderer>().sprite = nebulaSprite;
+    }
+
+    // If you need to turn a space into astroids, it can be done. Pathfinding path tester function.
+    //internal void TestAstroids()
+    //{
+    //    spaceView.GetComponent<SpriteRenderer>().sprite = astroidSprite;
+    //}
 }

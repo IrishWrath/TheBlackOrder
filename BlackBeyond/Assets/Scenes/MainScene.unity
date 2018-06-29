@@ -113,6 +113,34 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &90238576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 90238577}
+  m_Layer: 0
+  m_Name: Map
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &90238577
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 90238576}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &472184261
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +365,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -360,7 +388,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: -2.5, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1225568485}
@@ -585,7 +613,7 @@ Transform:
   m_GameObject: {fileID: 1225568484}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
-  m_LocalScale: {x: 0.34393373, y: 0.34393373, z: 0.34393373}
+  m_LocalScale: {x: 0.22720508, y: 0.22720508, z: 0.22720508}
   m_Children: []
   m_Father: {fileID: 519420032}
   m_RootOrder: 0
@@ -938,8 +966,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceView: {fileID: 1590571068747506, guid: f6fddf2c853e943f6916152b077b9d9d, type: 2}
-  ship: {fileID: 1010566008670778, guid: fffa1cf2a929d4254984e3764bdcfb18, type: 2}
-  selectColour: {fileID: 2100000, guid: 9abe39b8b2f0c4cf5a9dcba5e1406c62, type: 2}
+  playership: {fileID: 1010566008670778, guid: fffa1cf2a929d4254984e3764bdcfb18, type: 2}
+  nebulaTerrain: {fileID: 1261053534705998, guid: eb2017eec4c4c43b6b7db01479417c3d,
+    type: 2}
+  mapGameObject: {fileID: 90238576}
 --- !u!4 &2045183071
 Transform:
   m_ObjectHideFlags: 0
