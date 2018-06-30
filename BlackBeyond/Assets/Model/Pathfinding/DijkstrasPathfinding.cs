@@ -80,6 +80,11 @@ public static class DijkstrasPathfinding
                 //Debug.Log(lowestNode.GetCost() + " -> " + lowestNode.GetSpace().Row +":"+ lowestNode.GetSpace().Column);
             }
         }
+        foreach (PathfindingNode node in allNodes)
+        {
+            node.GetSpace().SetNode(null);
+        }
+
         return allNodes;
     }
 }
