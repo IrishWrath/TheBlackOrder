@@ -58,7 +58,7 @@ public class SpaceModel
         return adjacentSpaces;
     }
 
-    public int GetMovementCost()
+    public virtual int GetMovementCost()
     {
         // TODO update movement costs
         return 1;
