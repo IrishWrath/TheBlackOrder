@@ -9,13 +9,14 @@ public class PlayerModel
 
     public SpaceModel playerLocation;
 
-    public int maxPlayerMovement = 2;
-    public int currentPlayerMovement = 2;
+    public int maxPlayerMovement = 3;
+    public int currentPlayerMovement = 3;
 
     public PlayerModel(SpaceModel playerSpace)
     {
         this.playerSpaceModel = playerSpace;
         this.playerLocation = playerSpace;
+        Debug.Log("Moves Available: " + this.currentPlayerMovement.ToString());
     }
 
     public PlayerController GetController()
