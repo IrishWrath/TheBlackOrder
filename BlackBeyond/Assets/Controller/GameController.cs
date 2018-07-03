@@ -65,6 +65,7 @@ public class GameController : MonoBehaviour
         // Pirates move
         // Foreach pirate in map.GetPirates()
         //      pirate.DoTurn();
+        // Or something...
 
         playerModel.StartTurn();
     }
