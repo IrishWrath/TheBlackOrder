@@ -8,6 +8,7 @@ public class SpaceModel
         Row = row;
         Column = column;
         this.map = map;
+        occupied = false;
     }
 
     public int Row { get; private set; }
@@ -16,6 +17,7 @@ public class SpaceModel
     private readonly MapModel map;
     private SpaceModel[] adjacentSpaces;
     private SpaceController controller;
+    private bool occupied;
     // This should be null most of the time. Possibly avoid, and use the nodes themselves.
     public PathfindingNode node;
 
@@ -29,6 +31,22 @@ public class SpaceModel
         this.controller = controller;
     }
 
+
+    public void WithinMovementRange(int cost)
+    {
+        if(!occupied)
+        {
+            controller.SetSelectable(cost);
+        }
+    }
+    public void OccupySpace()
+    {
+        occupied = true;
+    }
+    public void LeaveSpace()
+    {
+        occupied = false;
+    }
 
     // For Pathfinding
 
