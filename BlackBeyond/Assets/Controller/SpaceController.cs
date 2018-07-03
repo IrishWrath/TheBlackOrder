@@ -13,7 +13,7 @@ public class SpaceController : MonoBehaviour
     public Sprite defaultSprite;
     public Sprite selectedSprite;
     public Sprite nebulaSprite;
-    public Sprite mouseOverSprite;
+    public Sprite mouseEnterSprite;
 
     // The model of this controller
     private SpaceModel space;
@@ -60,11 +60,11 @@ public class SpaceController : MonoBehaviour
         spaceView.transform.GetChild(0).GetComponent<TextMesh>().text = "";
     }
 
-	private void OnMouseOver()
+	private void OnMouseEnter()
 	{
         if(selectable)
         {
-            spaceView.GetComponent<SpriteRenderer>().sprite = mouseOverSprite;
+            spaceView.GetComponent<SpriteRenderer>().sprite = mouseEnterSprite;
         }
 	}
 
