@@ -11,19 +11,19 @@ public class PirateModel : MonoBehaviour {
     //ship combat stat variables
        
         private int health;
-        private int damage;
+        private int shotDamage;
         private int detectRange;
         private int attackRange;
-        private int maxPirateMovement;
+        public int maxPirateMovement;
         public int currentPirateMovement;
-        private int currentMovement;
+        public int currentMovement;
 
     //pirate ship builder template
-    public PirateModel(int health, int damage, int detectRange, int attackRange , int maxPirateMovement)
+    public PirateModel(int health, int shotDamage, int detectRange, int attackRange , int maxPirateMovement)
     {
      
         this.health = health;
-        this.damage = damage;
+        this.shotDamage = shotDamage;
         this.detectRange = detectRange;
         this.attackRange = attackRange;
         this.maxPirateMovement = maxPirateMovement;
