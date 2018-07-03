@@ -55,6 +55,20 @@ public class GameController : MonoBehaviour
     }
 
 
+    // This function is called whe the player presses "end turn"
+    public void EndTurn()
+    {
+        playerModel.EndTurn();
+
+        // End of turn Housekeeping
+
+        // Pirates move
+        // Foreach pirate in map.GetPirates()
+        //      pirate.DoTurn();
+
+        playerModel.StartTurn();
+    }
+
     // This Update should be avoided. Only place testing code here.
     // Update is called once per frame
     void Update()

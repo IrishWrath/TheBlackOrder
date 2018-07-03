@@ -88,7 +88,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 134dc58948a85479d8665f8fb40bf525, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -137,7 +137,7 @@ TextMesh:
   m_FontSize: 26
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: 134dc58948a85479d8665f8fb40bf525, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -155,6 +155,7 @@ MonoBehaviour:
   defaultSprite: {fileID: 21300000, guid: 978f815fb81d14cfbbaefe7442cde498, type: 3}
   selectedSprite: {fileID: 21300000, guid: 3a5c56660480440628310902d0792471, type: 3}
   nebulaSprite: {fileID: 21300000, guid: 4edd59e143b464098b4f9e1b6fa4d8a9, type: 3}
+  mouseEnterSprite: {fileID: 0}
 --- !u!212 &212007015623654184
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -48,4 +48,18 @@ public class PlayerModel
     {
         this.playerLocation = location;
     }
+
+    // For turn structure
+    public void EndTurn()
+    {
+        // Should block player actions until their turn TODO
+    }
+
+    public void StartTurn()
+    {
+        // Unblock player actions TODO
+
+        // reset this player
+        currentPlayerMovement = maxPlayerMovement;
+    }
 }
