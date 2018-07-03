@@ -16,10 +16,10 @@ public class PirateModel : MonoBehaviour {
         private int attackRange;
         public int maxPirateMovement;
         public int currentPirateMovement;
-        public int currentMovement;
+        
 
     //pirate ship builder template
-    public PirateModel(int health, int shotDamage, int detectRange, int attackRange , int maxPirateMovement)
+    public PirateModel(int health, int shotDamage, int detectRange, int attackRange , int maxPirateMovement, int currentPirateMovement)
     {
      
         this.health = health;
@@ -27,15 +27,15 @@ public class PirateModel : MonoBehaviour {
         this.detectRange = detectRange;
         this.attackRange = attackRange;
         this.maxPirateMovement = maxPirateMovement;
-        this.currentPirateMovement = maxPirateMovement;
+        this.currentPirateMovement = currentPirateMovement;
     }
 
     //pirate ship classes and stats
-    PirateModel scout = new PirateModel(2, 1, 3, 1, 4);
-    PirateModel frigate = new PirateModel(4, 2, 3, 2, 3);
-    PirateModel platform = new PirateModel(4, 1, 4, 4, 0);
-    PirateModel destroyer = new PirateModel(7, 2, 3, 2, 2);
-    PirateModel dreadnaught = new PirateModel(10, 4, 2, 1, 2);
+    public PirateModel scout = new PirateModel(2, 1, 3, 1, 4, 4);
+    public PirateModel frigate = new PirateModel(4, 2, 3, 2, 3, 3);
+    public PirateModel platform = new PirateModel(4, 1, 4, 4, 0, 0);
+    public PirateModel destroyer = new PirateModel(7, 2, 3, 2, 2, 2);
+    public PirateModel dreadnaught = new PirateModel(10, 4, 2, 1, 2, 2);
 
     
 
@@ -62,11 +62,11 @@ public class PirateModel : MonoBehaviour {
 
         public int GetCurrentMovement()
         {
-            return currentMovement;
+            return currentPirateMovement;
         }
 
         public void UpdateCurrentMovement(int movementUsed)
         {
-            currentMovement = currentMovement - movementUsed;
+            currentPirateMovement = currentPirateMovement - movementUsed;
         }
     }
