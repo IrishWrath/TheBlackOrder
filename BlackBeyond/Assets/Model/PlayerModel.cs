@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerModel 
+public class PlayerModel : ShipModel
 {
     private PlayerController playerController;
     private SpaceModel playerSpaceModel;

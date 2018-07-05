@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
 {
     public MapController MapController { get; private set; }
 
-    // A model link. TODO This class might be better as a static class
+    // A model link.
     private ModelLink modelLink;
 
     // The Prefab for Spaces
@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour
         // Creates the map.
         this.MapController = new MapController(125, 250, modelLink);
 
-        // Gets a starting space for the player, based on coordinates. TODO moving away from coordinates, find another method of getting spaces
+        // Gets a starting space for the player, based on coordinates. Moving away from coordinates, but they are fine for setup
         SpaceModel playerSpace = MapController.Map.GetSpace(62, 125);
 
         // Create a player, and set up MVC connections

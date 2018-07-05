@@ -19,7 +19,7 @@ public class ModelLink
     // Creates the view and gets the controller for a Space
     public void CreateSpaceView(SpaceModel spaceModel)
     {
-        // Creates the space GameObject in the correct position. TODO update this formula for hexes
+        // Creates the space GameObject in the correct position. Formula works for hexes
         GameObject spaceView = Object.Instantiate(GameController.GetSpaceView(), 
                                                   new Vector2((float)spaceModel.Column * 0.6f, (0 - spaceModel.Row * 1.04f)), Quaternion.identity, MapContainer);
         // Gets the controller from the GameObject.
@@ -44,7 +44,7 @@ public class ModelLink
     // Same as above for a Space GameObject
     public void CreatePlayerView(PlayerModel playerName)
     {
-        // Creates the player GameObject in the correct position. TODO update this formula for hexes
+        // Creates the player GameObject in the correct position.
         GameObject playerView = Object.Instantiate(GameController.GetPlayerView(),
                                                    playerName.GetSpace().GetController().GetPosition(), Quaternion.identity);
         // Sets the camera following the player

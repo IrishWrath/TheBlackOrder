@@ -24,6 +24,7 @@ public class ShipController : MonoBehaviour
 
     // Moves the ship to a new location
     // TODO make smoother with the update function
+    // TODO, this controller should be renamed Pirate Controller, and do pirate things
     public void MoveShip(SpaceModel destination)
     {
         // GET PLAYER.CURRENTMOVEMENT
