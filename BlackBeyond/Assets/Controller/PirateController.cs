@@ -7,6 +7,7 @@ public class PirateController : MonoBehaviour
 {
     public bool engaged;
     private PirateModel pirateModel;
+    
 
     public void Engagement()
     {
@@ -19,9 +20,17 @@ public class PirateController : MonoBehaviour
                 //is target within detection range, if yes
                 //is target within attackRange, attack, reduce movment counter by 1
 
-                /*need to add player health, armor, shot damage to PlayerModel Class*/
-
-                //PlayerHealth = PlayerHealth - (PirateModel.frigate.shotDamage-playerArmor) 
+                int armor = PlayerModel.GetArmor();
+                int currentHealth = PlayerModel.GetHealth();
+                int shotDamage = pirateModel.GetDamage();
+                int adjDamage = armor - shotDamage;
+                if (adjDamage <=0)
+                {
+                    adjDamage = 0;
+                }
+                int remainingHP = currentHealth - adjDamage;
+                PlayerModel.UpdatePlayerHealth(remainingHP);
+               
                 
 
 
@@ -36,7 +45,7 @@ public class PirateController : MonoBehaviour
             }
         }
 
-
+        
     }
 
     public void SetShipView(GameObject pirateView)
@@ -49,13 +58,26 @@ public class PirateController : MonoBehaviour
         this.pirateModel = pirateModel;
     }
 
-
-/*END OF TURN METHOD(will be called at end of turn by the turn structure)
+    public void EndOfTurn()
+    {
+        /*END OF TURN METHOD(will be called at end of turn by the turn structure)
 
 In PatrolPath Model class
 CONSTRUCTOR
 gets the patrol path from pathfinding
 END OF TURN
+
+
 If the pirate is dead
 make a new one*/
+    int pirateHealth = PirateModel.GetHealth();
+    if (pirateHealth <= 0)
+        {
+            //call PirateModel.Create*****Pirate();
+        }
+
+    }
+
+
+
 }
