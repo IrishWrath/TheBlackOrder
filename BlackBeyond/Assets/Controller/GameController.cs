@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour
     public GameObject spaceView;
     // The Prefab for Player's ship
     public GameObject playership;
+    // The Prefab for Pirate ships
+    public GameObject pirateship;
     // The Nebula Terrain
     public GameObject nebulaTerrain;
 
@@ -48,6 +50,10 @@ public class GameController : MonoBehaviour
     public GameObject GetPlayerView()
     {
         return playership;
+    }
+    public GameObject GetPirateView()
+    {
+        return pirateship;
     }
     public GameObject GetNebula()
     {

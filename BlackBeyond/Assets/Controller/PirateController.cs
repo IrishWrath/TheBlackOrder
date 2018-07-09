@@ -1,13 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PirateController : MonoBehaviour
 {
     public bool engaged;
+    private PirateModel pirateModel;
+
     public void Engagement()
     {
-        while (PirateModel.frigate.GetCurrentMovement != 0)
+        // Oisín has changed this to get the movement of this pirate ship (fixing errors so unity could add code to components)
+        while (pirateModel.GetCurrentMovement() != 0)
         {
             if (engaged == true)
             {
@@ -34,12 +38,24 @@ public class PirateController : MonoBehaviour
 
 
     }
-    /*END OF TURN METHOD(will be called at end of turn by the turn structure)
 
-    In PatrolPath Model class
+    public void SetShipView(GameObject pirateView)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetModel(PirateModel pirateModel)
+    {
+        this.pirateModel = pirateModel;
+    }
+
+
+/*END OF TURN METHOD(will be called at end of turn by the turn structure)
+
+In PatrolPath Model class
 CONSTRUCTOR
-    gets the patrol path from pathfinding
+gets the patrol path from pathfinding
 END OF TURN
-    If the pirate is dead
-        make a new one*/
+If the pirate is dead
+make a new one*/
 }
