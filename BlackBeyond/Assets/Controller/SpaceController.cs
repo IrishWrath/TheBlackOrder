@@ -13,10 +13,14 @@ public class SpaceController : MonoBehaviour
     public Sprite defaultSprite;
     public Sprite selectedSprite;
     public Sprite nebulaSprite;
+    public Sprite mouseEnterSprite;
     public Sprite astroidSprite;
 
     // The model of this controller
     private SpaceModel space;
+
+    // Is this space selectable
+    private bool selectable;
 
     // Sets the model
     public void SetSpace(SpaceModel space)
@@ -43,13 +47,38 @@ public class SpaceController : MonoBehaviour
     }
 
     // Changes the sprite to match some event. TODO method
-    public void SetSelectable(int number)
+    public void SetSelectable(int cost)
     {
+        selectable = true;
         spaceView.GetComponent<SpriteRenderer>().sprite = selectedSprite;
+        spaceView.transform.GetChild(0).GetComponent<TextMesh>().text = cost.ToString();
     }
 
-    // Sets this space to a nebula
-    public void SetNebula()
+    public void Deselect()
+    {
+        selectable = false;
+        spaceView.GetComponent<SpriteRenderer>().sprite = defaultSprite;
+        spaceView.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+    }
+
+	private void OnMouseEnter()
+	{
+        if(selectable)
+        {
+            spaceView.GetComponent<SpriteRenderer>().sprite = mouseEnterSprite;
+        }
+	}
+
+    private void OnMouseExit()
+    {
+        if (selectable)
+        {
+            spaceView.GetComponent<SpriteRenderer>().sprite = selectedSprite;
+        }
+    }
+
+	// Sets this space to a nebula
+	public void SetNebula()
     {
         defaultSprite = nebulaSprite;
         spaceView.GetComponent<SpriteRenderer>().sprite = nebulaSprite;
