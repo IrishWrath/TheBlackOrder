@@ -89,4 +89,13 @@ public class GameController : MonoBehaviour
         //  in that method, callback.move()
         //      view (the gameobject) <- set position.
     }
+
+	private void OnGUI()
+	{
+        Event newEvent = Event.current;
+        if(newEvent.keyCode == KeyCode.Return)
+        {
+            EndTurn();
+        }
+	}
 }
