@@ -8,7 +8,7 @@ public class SpaceModel
         Row = row;
         Column = column;
         this.map = map;
-        occupingShip = null;
+        occupyingShip = null;
     }
 
     public int Row { get; private set; }
@@ -17,7 +17,7 @@ public class SpaceModel
     private readonly MapModel map;
     private SpaceModel[] adjacentSpaces;
     private SpaceController controller;
-    private ShipModel occupingShip;
+    private ShipModel occupyingShip;
     // This should be null most of the time. Possibly avoid, and use the nodes themselves.
     public PathfindingNode node;
 
@@ -34,24 +34,24 @@ public class SpaceModel
 
     public void WithinMovementRange(int cost)
     {
-        if(occupingShip == null)
+        if(occupyingShip == null)
         {
             controller.SetSelectable(cost);
         }
     }
     public void OccupySpace(ShipModel ship)
     {
-        occupingShip = ship;
+        occupyingShip = ship;
     }
     public void LeaveSpace()
     {
-        occupingShip = null;
+        occupyingShip = null;
     }
 
-    // Astroids damage the ship that moves through them
+    // Asteroids damage the ship that moves through them
     public virtual void GetMovementEffects(ShipModel shipModel)
     {
-        // Do nothing, not an astroid. In a astroid subclass, the ship will be dealt damage.
+        // Do nothing, not an asteroid. In a asteroid subclass, the ship will be dealt damage.
     }
 
     // For Pathfinding
