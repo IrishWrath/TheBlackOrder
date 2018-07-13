@@ -54,6 +54,10 @@ public class GameController : MonoBehaviour
         return nebulaTerrain;
     }
 
+    public void PlayerMoveButton()
+    {
+        //TODO Call playership.startmove() or similar
+    }
 
     // This function is called whe the player presses "end turn"
     public void EndTurn()
