@@ -48,9 +48,9 @@ TagManager:
   - name: Tiles
     uniqueID: 3349764137
     locked: 0
-  - name: Lasers
-    uniqueID: 3237408061
-    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Lasers
+    uniqueID: 3237408061
     locked: 0
