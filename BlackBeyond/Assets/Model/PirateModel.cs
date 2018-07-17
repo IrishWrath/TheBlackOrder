@@ -41,9 +41,14 @@ public class PirateModel : MonoBehaviour {
         return new PirateModel(4, 1, 4, 4, 0, 0);
     }
 
+    public static PirateModel CreateDestroyerPirate()
+    {
+        return new PirateModel(7, 3, 3, 3, 2, 2);
+    }
+
     public static PirateModel CreateDreadnaughtPirate()
     {
-        return new PirateModel(10, 4, 2, 1, 2, 2);
+        return new PirateModel(10, 4, 2, 3, 2, 2);
     }
 
     public int GetDamage()
