@@ -51,8 +51,6 @@ public class GameController : MonoBehaviour
         this.musicController = this.musicView.GetComponent<MusicController>();
         // Lets the Controller access the GameObject
         this.musicController.SetMusicView(this.musicView);
-		
-		this.musicController.MuteMusic();
 
     }
 

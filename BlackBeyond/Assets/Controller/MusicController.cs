@@ -12,18 +12,22 @@ public class MusicController : MonoBehaviour{
 	   
     }
 	
-	    // Sets the view
+	// Sets the view
     public void SetMusicView(GameObject musicView)
     {
         this.musicView = musicView;
     }
 	
+	//toggles mute.
 	public void MuteMusic(){
 		AudioSource audioData = this.musicView.GetComponent<AudioSource>();
-		audioData.mute=true;
+		audioData.mute = !audioData.mute;
 	}	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Update()
+    {
+		//Mute with M key
+        if (Input.GetKeyDown(KeyCode.M))
+            MuteMusic();
+    }
 }
