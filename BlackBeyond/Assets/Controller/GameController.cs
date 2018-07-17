@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public MapController MapController { get; private set; }
-	public MusicController musicController { get; private set; }
+	public SoundController soundController { get; private set; }
 
     // A model link.
     private ModelLink modelLink;
@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
     // The Nebula Terrain
     public GameObject nebulaTerrain;
 	// The Prefab for our music
-	public GameObject musicView;
+	public GameObject soundView;
 
     public Text playerMovementText;
 
@@ -49,12 +49,13 @@ public class GameController : MonoBehaviour
         // Create a player, and set up MVC connections
         this.playerModel = new PlayerModel(playerSpace);
 		modelLink.CreatePlayerView(playerModel, playerMovementText);
-		//Creates the music view and music controller.
-		this.musicView = UnityEngine.Object.Instantiate(this.musicView);
+		
+		//Creates the sound view and sound controller.
+		this.soundView = UnityEngine.Object.Instantiate(this.soundView);
 		// Gets the controller from the musicView GameObject.
-        this.musicController = this.musicView.GetComponent<MusicController>();
+        this.soundController = this.soundView.GetComponent<SoundController>();
         // Lets the Controller access the GameObject
-        this.musicController.SetMusicView(this.musicView);
+        this.soundController.SetSoundView(this.soundView);
 
     }
 
@@ -73,7 +74,7 @@ public class GameController : MonoBehaviour
     }
 	public GameObject GetMusicView()
 	{
-		return musicView;
+		return soundView;
 	}
 
     public void PlayerMoveButton()
@@ -88,6 +89,7 @@ public class GameController : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         playerModel.EndTurn();
+		soundController.PlayEndTurnSound();
 
         // End of turn Housekeeping
 
