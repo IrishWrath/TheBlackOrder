@@ -11,6 +11,8 @@ public class SpaceModel
         occupyingShip = null;
     }
 
+    private PlayerModel player;
+
     public int Row { get; private set; }
     public int Column { get; private set; }
 
@@ -90,8 +92,9 @@ public class SpaceModel
 
     // Pathfinding End
 
-    public void SetHighlighted(PathfindingNode node)
+    public void SetHighlighted(PathfindingNode node, PlayerModel player)
     {
+        this.player = player;
         this.GetController().SetSelectable(node.GetCost());
     }
 

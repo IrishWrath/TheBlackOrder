@@ -86,7 +86,7 @@ public class PlayerModel : ShipModel
 
         foreach (PathfindingNode node in validMovementSpaces)
         {
-            node.GetSpace().SetHighlighted(node);
+            node.GetSpace().SetHighlighted(node, this);
         }
     }
 
