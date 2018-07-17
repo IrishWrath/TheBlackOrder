@@ -9,14 +9,9 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public MapController MapController { get; private set; }
-<<<<<<< HEAD
-	
 	public MusicController musicController { get; private set; }
-    // A model link. TODO This class might be better as a static class
-=======
 
     // A model link.
->>>>>>> TurnStructure
     private ModelLink modelLink;
 
     // The Prefab for Spaces
@@ -25,14 +20,11 @@ public class GameController : MonoBehaviour
     public GameObject playership;
     // The Nebula Terrain
     public GameObject nebulaTerrain;
-<<<<<<< HEAD
 	// The Prefab for our music
 	public GameObject musicView;
-=======
 
     public Text playerMovementText;
 
->>>>>>> TurnStructure
     // Container for spaces
     public GameObject mapGameObject;
 	
@@ -56,9 +48,7 @@ public class GameController : MonoBehaviour
 
         // Create a player, and set up MVC connections
         this.playerModel = new PlayerModel(playerSpace);
-<<<<<<< HEAD
-        modelLink.CreatePlayerView(playerModel);
-		
+		modelLink.CreatePlayerView(playerModel, playerMovementText);
 		//Creates the music view and music controller.
 		this.musicView = UnityEngine.Object.Instantiate(this.musicView);
 		// Gets the controller from the musicView GameObject.
@@ -66,9 +56,6 @@ public class GameController : MonoBehaviour
         // Lets the Controller access the GameObject
         this.musicController.SetMusicView(this.musicView);
 
-=======
-        modelLink.CreatePlayerView(playerModel, playerMovementText);
->>>>>>> TurnStructure
     }
 
     // Returns the Prefabs

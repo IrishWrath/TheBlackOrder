@@ -27,7 +27,7 @@ public class MusicController : MonoBehaviour{
     void Update()
     {
 		//Mute with M key
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.N))
             MuteMusic();
     }
 }
