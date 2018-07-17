@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 // This class controls a single space
 public class SpaceController : MonoBehaviour
@@ -60,7 +61,15 @@ public class SpaceController : MonoBehaviour
         spaceView.transform.GetChild(0).GetComponent<TextMesh>().text = "";
     }
 
-	private void OnMouseEnter()
+    private void OnMouseDown()
+    {
+        if (Input.GetMouseButtonDown(0) && !(EventSystem.current.IsPointerOverGameObject()))
+        {
+            space.Clicked();
+        }
+    }
+
+    private void OnMouseEnter()
 	{
         if(selectable)
         {
