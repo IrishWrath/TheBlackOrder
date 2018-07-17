@@ -980,6 +980,7 @@ MonoBehaviour:
   playership: {fileID: 1010566008670778, guid: fffa1cf2a929d4254984e3764bdcfb18, type: 2}
   nebulaTerrain: {fileID: 1261053534705998, guid: eb2017eec4c4c43b6b7db01479417c3d,
     type: 2}
+  musicView: {fileID: 1096287472415392, guid: 11cd96ed06d3fba48988b500f6bd6ad7, type: 2}
   mapGameObject: {fileID: 90238576}
 --- !u!4 &2045183071
 Transform:

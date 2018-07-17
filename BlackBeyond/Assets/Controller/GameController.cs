@@ -7,7 +7,8 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public MapController MapController { get; private set; }
-
+	
+	public MusicController musicController { get; private set; }
     // A model link. TODO This class might be better as a static class
     private ModelLink modelLink;
 
@@ -17,16 +18,21 @@ public class GameController : MonoBehaviour
     public GameObject playership;
     // The Nebula Terrain
     public GameObject nebulaTerrain;
-
+	// The Prefab for our music
+	public GameObject musicView;
     // Container for spaces
     public GameObject mapGameObject;
-
+	
     // A reference to the player.
     private PlayerModel playerModel;
 
     // Use this for initialization. Starting method for our code.
     public void Start()
     {
+		        //Get the path of the Game data folder
+        string m_Path = Application.dataPath;
+
+        //Output the Game data path to the console
         this.modelLink = new ModelLink(this, mapGameObject);
 
         // Creates the map.
@@ -38,6 +44,16 @@ public class GameController : MonoBehaviour
         // Create a player, and set up MVC connections
         this.playerModel = new PlayerModel(playerSpace);
         modelLink.CreatePlayerView(playerModel);
+		
+		//Creates the music view and music controller.
+		this.musicView = UnityEngine.Object.Instantiate(this.musicView);
+		// Gets the controller from the musicView GameObject.
+        this.musicController = this.musicView.GetComponent<MusicController>();
+        // Lets the Controller access the GameObject
+        this.musicController.SetMusicView(this.musicView);
+		
+		this.musicController.MuteMusic();
+
     }
 
     // Returns the Prefabs
@@ -53,6 +69,10 @@ public class GameController : MonoBehaviour
     {
         return nebulaTerrain;
     }
+	public GameObject GetMusicView()
+	{
+		return musicView;
+	}
 
 
     // This function is called whe the player presses "end turn"
