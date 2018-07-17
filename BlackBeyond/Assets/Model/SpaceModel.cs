@@ -101,10 +101,14 @@ public class SpaceModel
     public void ClearHighlighted(PathfindingNode node)
     {
         this.GetController().Deselect();
+        player = null;
     }
 
     public void Clicked()
     {
-        player.FinishMove(this);
+        if (player != null)
+        {
+            player.FinishMove(this);
+        }
     }
 }

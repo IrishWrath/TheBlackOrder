@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 // This is the main class of this system. It is the starting point of our code.
 public class GameController : MonoBehaviour
@@ -17,6 +19,8 @@ public class GameController : MonoBehaviour
     public GameObject playership;
     // The Nebula Terrain
     public GameObject nebulaTerrain;
+
+    public Text playerMovementText;
 
     // Container for spaces
     public GameObject mapGameObject;
@@ -37,7 +41,7 @@ public class GameController : MonoBehaviour
 
         // Create a player, and set up MVC connections
         this.playerModel = new PlayerModel(playerSpace);
-        modelLink.CreatePlayerView(playerModel);
+        modelLink.CreatePlayerView(playerModel, playerMovementText);
     }
 
     // Returns the Prefabs
@@ -56,6 +60,7 @@ public class GameController : MonoBehaviour
 
     public void PlayerMoveButton()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         //TODO Call playership.startmove() or similar
         playerModel.StartMove();
     }
@@ -63,6 +68,7 @@ public class GameController : MonoBehaviour
     // This function is called whe the player presses "end turn"
     public void EndTurn()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         playerModel.EndTurn();
 
         // End of turn Housekeeping
@@ -79,6 +85,16 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Return))
+        {
+            EndTurn();
+        }
+        if (Input.GetKeyUp(KeyCode.M))
+        {
+            PlayerMoveButton();
+        }
+
+
         // Oisín: I think it would be best to call a move method in ShipController (Not my one though. That doesn't work yet.)
         //ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
 
@@ -95,12 +111,4 @@ public class GameController : MonoBehaviour
         //      view (the gameobject) <- set position.
     }
 
-	private void OnGUI()
-	{
-        Event newEvent = Event.current;
-        if(newEvent.keyCode == KeyCode.Return)
-        {
-            EndTurn();
-        }
-	}
 }

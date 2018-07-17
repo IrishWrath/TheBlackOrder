@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // This class is dedicated to creating links between the View, Controller and Model
 // TODO might be better as a static class with static methods
@@ -42,11 +43,11 @@ public class ModelLink
     }
 
     // Same as above for a Space GameObject
-    public void CreatePlayerView(PlayerModel playerName)
+    public void CreatePlayerView(PlayerModel playerModel, Text movementText)
     {
         // Creates the player GameObject in the correct position.
         GameObject playerView = Object.Instantiate(GameController.GetPlayerView(),
-                                                   playerName.GetSpace().GetController().GetPosition(), Quaternion.identity);
+                                                   playerModel.GetSpace().GetController().GetPosition(), Quaternion.identity);
         // Sets the camera following the player
         Camera.main.transform.parent = playerView.transform;
         Camera.main.transform.localPosition = new Vector3(0, 0, -10);
@@ -56,8 +57,10 @@ public class ModelLink
         // Lets the Controller access the GameObject
         playerController.SetShipView(playerView);
         // Lets the Controller access the Model
-        playerController.SetModel(playerName);
+        playerController.SetModel(playerModel);
         // Lets the Model access the Controller, as a callback
-        playerName.SetController(playerController);
+        playerModel.SetController(playerController);
+
+        playerController.SetMovementTextInterface(movementText);
     }
 }
