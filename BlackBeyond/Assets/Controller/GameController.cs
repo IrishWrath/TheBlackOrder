@@ -57,7 +57,7 @@ public class GameController : MonoBehaviour
     public void PlayerMoveButton()
     {
         //TODO Call playership.startmove() or similar
-        playerModel.StartTurn();
+        playerModel.StartMove();
     }
 
     // This function is called whe the player presses "end turn"

@@ -65,7 +65,7 @@ public class SpaceController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !(EventSystem.current.IsPointerOverGameObject()))
         {
-            SpaceModel.Clicked();
+            space.Clicked();
         }
     }
 

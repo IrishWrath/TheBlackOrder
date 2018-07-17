@@ -75,9 +75,10 @@ public class PlayerModel : ShipModel
 
         // reset this player
         currentPlayerMovement = maxPlayerMovement;
+    }
 
-        validMovementSpaces.Clear();
-
+    public void StartMove()
+    {
         // Get all spaces that are valid moves and return into list
         validMovementSpaces = DijkstrasPathfinding.GetSpacesForMovement(playerLocation, currentPlayerMovement);
 
@@ -116,6 +117,8 @@ public class PlayerModel : ShipModel
             {
                 node.GetSpace().ClearHighlighted(node);
             }
+
+            validMovementSpaces.Clear();
         }
     }
 }
