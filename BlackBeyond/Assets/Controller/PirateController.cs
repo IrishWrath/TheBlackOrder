@@ -65,19 +65,33 @@ public class PirateController : MonoBehaviour
 In PatrolPath Model class
 CONSTRUCTOR
 gets the patrol path from pathfinding
-END OF TURN
+END OF TURN */
 
 
-If the pirate is dead
-make a new one*/
+//If the pirate is dead check name and create a new one
     int pirateHealth = PirateModel.GetHealth();
     if (pirateHealth <= 0)
         {
-            //call PirateModel.Create*****Pirate();
+            String name = PirateModel.GetName();
+            if (name.Equals("Scout"))
+            {
+                PirateModel.CreateScoutPirate();
+            } else if (name.Equals("Frigate"))
+            {
+                PirateModel.CreateFrigatePirate();
+            }
+            else if (name.Equals("Platform"))
+            {
+                PirateModel.CreatePlatformPirate();
+            }
+            else if (name.Equals("Destroyer"))
+            {
+                PirateModel.CreateDestroyerPirate();
+            }
+            else 
+            {
+                PirateModel.CreateDreadnaughtPirate();
+            }
         }
-
     }
-
-
-
 }

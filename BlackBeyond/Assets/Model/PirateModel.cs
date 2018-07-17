@@ -5,9 +5,9 @@ using UnityEngine;
 public class PirateModel : MonoBehaviour {
         private PirateController pirateController;
         private SpaceModel pirateSpaceModel;
-       
+
     //ship combat stat variables
-       
+        private static string shipName;
         private static int shipHealth;
         private int shotDamage;
         private int detectRange;
@@ -16,8 +16,9 @@ public class PirateModel : MonoBehaviour {
         public int currentPirateMovement;
         
     //pirate ship builder template
-    public PirateModel(int health, int shotDamage, int detectRange, int attackRange , int maxPirateMovement, int currentPirateMovement)
+    public PirateModel(string name, int health, int shotDamage, int detectRange, int attackRange , int maxPirateMovement, int currentPirateMovement)
     {
+        shipName = name;
         shipHealth = health;
         this.shotDamage = shotDamage;
         this.detectRange = detectRange;
@@ -28,29 +29,33 @@ public class PirateModel : MonoBehaviour {
 
     public static PirateModel CreateScoutPirate()
     {
-        return new PirateModel(2, 1, 3, 1, 4, 4);
+        return new PirateModel("Scout", 2, 1, 3, 1, 4, 4);
     }
 
     public static PirateModel CreateFrigatePirate()
     {
-        return new PirateModel(4, 2, 3, 2, 3, 3);
+        return new PirateModel("Frigate", 4, 2, 3, 2, 3, 3);
     }
 
     public static PirateModel CreatePlatformPirate()
     {
-        return new PirateModel(4, 1, 4, 4, 0, 0);
+        return new PirateModel("Platform",4, 1, 4, 4, 0, 0);
     }
 
     public static PirateModel CreateDestroyerPirate()
     {
-        return new PirateModel(7, 3, 3, 3, 2, 2);
+        return new PirateModel("Destroyer", 7, 3, 3, 3, 2, 2);
     }
 
     public static PirateModel CreateDreadnaughtPirate()
     {
-        return new PirateModel(10, 4, 2, 3, 2, 2);
+        return new PirateModel("Dreadnaught", 10, 4, 2, 3, 2, 2);
     }
 
+    public static string GetName()
+    {
+        return shipName;
+    }
     public int GetDamage()
     {
         return shotDamage;
