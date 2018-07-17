@@ -67,14 +67,16 @@ public class PlayerModel : ShipModel
     public void EndTurn()
     {
         // Should block player actions until their turn TODO
-
-        if (validMovementSpaces.Count > 0)
+        if (validMovementSpaces != null)
         {
-            foreach (PathfindingNode node in validMovementSpaces)
+            if (validMovementSpaces.Count > 0)
             {
-                node.GetSpace().ClearHighlighted(node);
+                foreach (PathfindingNode node in validMovementSpaces)
+                {
+                    node.GetSpace().ClearHighlighted(node);
+                }
+                validMovementSpaces.Clear();
             }
-            validMovementSpaces.Clear();
         }
     }
 
