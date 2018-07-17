@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerModel : ShipModel
 {
+    List<PathfindingNode> validMovementSpaces;
+
     private PlayerController playerController;
     private SpaceModel playerSpaceModel;
 
@@ -11,6 +13,8 @@ public class PlayerModel : ShipModel
 
     public int maxPlayerMovement = 3;
     public int currentPlayerMovement = 3;
+
+    public bool playerCanMove = false;
 
     public PlayerModel(SpaceModel playerSpace)
     {
@@ -49,6 +53,16 @@ public class PlayerModel : ShipModel
         this.playerLocation = location;
     }
 
+    public bool GetPlayerCanMove()
+    {
+        return playerCanMove;
+    }
+
+    public void SetPlayerCanMove(bool canPlayerMove)
+    {
+        this.playerCanMove = canPlayerMove;
+    }
+
     // For turn structure
     public void EndTurn()
     {
@@ -61,5 +75,47 @@ public class PlayerModel : ShipModel
 
         // reset this player
         currentPlayerMovement = maxPlayerMovement;
+
+        validMovementSpaces.Clear();
+
+        // Get all spaces that are valid moves and return into list
+        validMovementSpaces = DijkstrasPathfinding.GetSpacesForMovement(playerLocation, currentPlayerMovement);
+
+        SetPlayerCanMove(true);
+
+        foreach (PathfindingNode node in validMovementSpaces)
+        {
+            node.GetSpace().SetHighlighted(node);
+        }
+    }
+
+    public void FinishMove(SpaceModel destination)
+    {
+        int moveCost = 0;
+        foreach (PathfindingNode node in validMovementSpaces)
+        {
+            SpaceModel space = node.GetSpace();
+
+            // find the node for the destination and assign cost of move
+            if (space == destination)
+                {
+                    moveCost = node.GetCost();
+                }
+            }
+
+        if ((currentPlayerMovement - moveCost) >= 0 && playerCanMove == true)
+        {
+            UpdatePlayerLocation(destination);
+            UpdateCurrentPlayerMovement(moveCost);
+
+            this.GetController().MoveShip(destination, moveCost);
+
+            SetPlayerCanMove(false);
+
+            foreach (PathfindingNode node in validMovementSpaces)
+            {
+                node.GetSpace().ClearHighlighted(node);
+            }
+        }
     }
 }

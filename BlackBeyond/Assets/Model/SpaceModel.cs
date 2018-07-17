@@ -89,4 +89,28 @@ public class SpaceModel
     }
 
     // Pathfinding End
+
+    public void SetHighlighted(PathfindingNode node)
+    {
+        this.GetController().SetSelectable(node.GetCost());
+    }
+
+    public void ClearHighlighted(PathfindingNode node)
+    {
+        this.GetController().Deselect();
+    }
+
+    public void Clicked()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if ((Physics.Raycast(ray, out hit)) && (hit.transform.tag == "SpaceHex"))
+        {
+            // Assign space location of SpaceHex to destination
+            SpaceModel destination = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();
+
+            PlayerModel.FinishMove(destination);
+        }
+    }
 }
