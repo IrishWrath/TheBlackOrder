@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Pathfinding class for players
-public static class DijkstrasPathfinding 
+public static class Pathfinding 
 {
     // this uses Dijkstra's Algorithm to get all the spaces a player can visit.
-    public static List<PathfindingNode> GetSpacesForMovement(SpaceModel startSpace, int maxCost)
+    public static List<PathfindingNode> GetSpacesForMovementDijkstras(SpaceModel startSpace, int maxCost)
     {
         List<PathfindingNode> allNodes = new List<PathfindingNode>();
         List<SpaceModel> shortestPath = new List<SpaceModel>

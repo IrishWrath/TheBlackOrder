@@ -94,7 +94,7 @@ public class PlayerModel : ShipModel
         if (validMovementSpaces == null || validMovementSpaces.Count == 0)
         {
             // Get all spaces that are valid moves and return into list
-            validMovementSpaces = DijkstrasPathfinding.GetSpacesForMovement(playerLocation, currentPlayerMovement);
+            validMovementSpaces = Pathfinding.GetSpacesForMovementDijkstras(playerLocation, currentPlayerMovement);
 
             SetPlayerCanMove(true);
 
