@@ -89,7 +89,7 @@ public class GameController : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         playerModel.EndTurn();
-		soundController.PlayEndTurnSound();
+		soundController.PlaySound(SoundController.SoundNum.endTurn);
 
         // End of turn Housekeeping
 
