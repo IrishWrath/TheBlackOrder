@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 // Model class for a Space
 public class SpaceModel 
@@ -110,5 +111,10 @@ public class SpaceModel
         {
             player.FinishMove(this);
         }
+    }
+
+    public virtual bool BlocksLOS()
+    {
+        return false;
     }
 }

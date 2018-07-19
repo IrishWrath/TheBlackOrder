@@ -14,6 +14,7 @@ public class SpaceController : MonoBehaviour
     public Sprite defaultSprite;
     public Sprite selectedSprite;
     public Sprite nebulaSprite;
+    public Sprite asteroidSprite;
     public Sprite mouseEnterSprite;
 
     // The model of this controller
@@ -90,5 +91,11 @@ public class SpaceController : MonoBehaviour
     {
         defaultSprite = nebulaSprite;
         spaceView.GetComponent<SpriteRenderer>().sprite = nebulaSprite;
+    }
+
+    public void SetAsteroid()
+    {
+        defaultSprite = asteroidSprite;
+        spaceView.GetComponent<SpriteRenderer>().sprite = asteroidSprite;
     }
 }

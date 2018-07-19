@@ -19,7 +19,7 @@ public class MapModel
         for (int row = 0; row < rows; row++)
         {
             map[row] = new SpaceModel[columns];
-            if(row%2==1)
+            if(row%2==0)
             {
                 for (int column = 0; column < columns; column += 2)
                 {
