@@ -65,48 +65,6 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        // If left mouse button pressed perform raycast
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            // If raycast collided with object with SpaceHex tag
-            if ((Physics.Raycast(ray, out hit)) && hit.transform.tag == "SpaceHex")
-            {
-                ////Testing A*
-                //foreach(SpaceModel space in AStarPathfinding.GetPathToDestination(playerModel.GetSpace(), hit.transform.gameObject.GetComponent<SpaceController>().GetSpace()))
-                //{
-                //    space.GetController().TestAstroids();
-                //}
-
-
-                //// Create required instance of ShipController class
-                //PlayerController playerController = playerModel.GetController();
-
-                //// Assign space location of SpaceHex to destination
-                //SpaceModel destination = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();
-
-                //// Call moveShip function in shipcontroller and pass destination space
-                //playerController.MoveShip(destination);       
-                
-
-
-                // Oisín: I think it would be best to call a move method in ShipController (Not my one though. That doesn't work yet.)
-                //ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
-
-//                 This is a test method
-//                 List<PathfindingNode> nodes =  new DijkstrasPathfinding(newSpace, 1).GetNodes();
-//                 foreach(PathfindingNode node in nodes)
-//                 {
-//                     node.GetSpace().GetCallback().SetSelectable(node.GetCost());
-//                 }
-
-                //Tell the model to move instead
-                //player.Move();
-                //  in that method, callback.move()
-                //      view (the gameobject) <- set position.
-            }
-        }
     }
 }

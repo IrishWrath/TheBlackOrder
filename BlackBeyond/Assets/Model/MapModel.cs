@@ -23,7 +23,7 @@ public class MapModel
             {
                 for (int column = 0; column < columns; column += 2)
                 {
-                    if(UnityEngine.Random.Range(1, 3) == 1)
+                    if(UnityEngine.Random.Range(1, 11) == 1)
                     {
                         tempSpace = new NebulaSpaceModel(row, column, this);
                         map[row][column] = tempSpace;

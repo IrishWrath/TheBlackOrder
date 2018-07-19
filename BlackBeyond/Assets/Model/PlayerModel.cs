@@ -7,6 +7,8 @@ public class PlayerModel
     private PlayerController playerController;
     private SpaceModel playerSpaceModel;
 
+    public SpaceModel playerLocation;
+
     public int maxPlayerMovement = 3;
     public int currentPlayerMovement = 3;
     public static int playerHealth = 10;
@@ -29,6 +31,8 @@ public class PlayerModel
     public PlayerModel(SpaceModel playerSpace)
     {
         this.playerSpaceModel = playerSpace;
+        this.playerLocation = playerSpace;
+        Debug.Log("Moves Available: " + this.currentPlayerMovement.ToString());
     }
 
     public PlayerController GetController()
@@ -53,6 +57,11 @@ public class PlayerModel
 
     public void UpdateCurrentPlayerMovement(int movementUsed)
     {
-        currentPlayerMovement = currentPlayerMovement - movementUsed;
+        this.currentPlayerMovement = currentPlayerMovement - movementUsed;
+    }
+
+    public void UpdatePlayerLocation(SpaceModel location)
+    {
+        this.playerLocation = location;
     }
 }
