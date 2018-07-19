@@ -1609,6 +1609,8 @@ MonoBehaviour:
   playership: {fileID: 1010566008670778, guid: fffa1cf2a929d4254984e3764bdcfb18, type: 2}
   nebulaTerrain: {fileID: 1261053534705998, guid: eb2017eec4c4c43b6b7db01479417c3d,
     type: 2}
+  asteroidTerrain: {fileID: 1943183502530018, guid: a399f1ea39485455883fcd0db8c86118,
+    type: 2}
   playerMovementText: {fileID: 1890571450}
   mapGameObject: {fileID: 90238576}
 --- !u!4 &2045183071

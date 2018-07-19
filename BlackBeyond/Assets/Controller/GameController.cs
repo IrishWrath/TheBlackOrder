@@ -20,6 +20,9 @@ public class GameController : MonoBehaviour
     // The Nebula Terrain
     public GameObject nebulaTerrain;
 
+    // The Asteroid Terrain
+    public GameObject asteroidTerrain;
+
     public Text playerMovementText;
 
     // Container for spaces
@@ -56,6 +59,10 @@ public class GameController : MonoBehaviour
     public GameObject GetNebula()
     {
         return nebulaTerrain;
+    }
+    public GameObject GetAsteroid()
+    {
+        return asteroidTerrain;
     }
 
     public void PlayerMoveButton()

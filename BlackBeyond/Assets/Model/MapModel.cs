@@ -23,11 +23,18 @@ public class MapModel
             {
                 for (int column = 0; column < columns; column += 2)
                 {
-                    if(UnityEngine.Random.Range(1, 11) == 1)
+                    int randomNumber = UnityEngine.Random.Range(1, 11);
+                    if(randomNumber <= 1)
                     {
                         tempSpace = new NebulaSpaceModel(row, column, this);
                         map[row][column] = tempSpace;
                         link.CreateNebulaSpace((NebulaSpaceModel)tempSpace);
+                    }
+                    else if (randomNumber <= 2)
+                    {
+                        tempSpace = new AsteroidSpaceModel(row, column, this);
+                        map[row][column] = tempSpace;
+                        link.CreateAsteroidSpace((AsteroidSpaceModel)tempSpace);
                     }
                     else
                     {
@@ -41,11 +48,18 @@ public class MapModel
             {
                 for (int column = 1; column < columns; column += 2)
                 {
-                    if (UnityEngine.Random.Range(1, 11) == 1)
+                    int randomNumber = UnityEngine.Random.Range(1, 11);
+                    if (randomNumber <= 1)
                     {
                         tempSpace = new NebulaSpaceModel(row, column, this);
                         map[row][column] = tempSpace;
                         link.CreateNebulaSpace((NebulaSpaceModel)tempSpace);
+                    }
+                    else if (randomNumber <= 2)
+                    {
+                        tempSpace = new AsteroidSpaceModel(row, column, this);
+                        map[row][column] = tempSpace;
+                        link.CreateAsteroidSpace((AsteroidSpaceModel)tempSpace);
                     }
                     else
                     {
