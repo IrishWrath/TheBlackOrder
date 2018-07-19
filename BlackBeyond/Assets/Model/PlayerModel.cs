@@ -10,7 +10,7 @@ public class PlayerModel
     public int maxPlayerMovement = 3;
     public int currentPlayerMovement = 3;
     public static int playerHealth = 10;
-    public static int playerArmor = 2;
+    public static int playerArmor = 1;
 
     public static int GetHealth()
     {
