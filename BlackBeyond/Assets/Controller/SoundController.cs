@@ -10,7 +10,7 @@ public class SoundController : MonoBehaviour{
 	//has all our music and sfx stored.
 	private AudioSource[] sounds;
     //gives each sound number a name.
-    public enum Sound { main, battle, trade, endTurn }
+    public enum Sound { main, battle, trade, endTurn, move, buttonPress }
 
     public SoundController()
     {

@@ -62,5 +62,6 @@ public class ModelLink
         playerModel.SetController(playerController);
 
         playerController.SetMovementTextInterface(movementText);
+		playerController.setSoundController(this.GameController.soundController);
     }
 }

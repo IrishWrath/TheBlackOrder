@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private Text movementText;
     private PlayerModel playerModel;
     private GameObject shipView;
+	private SoundController soundController;
 
     public void SetModel(PlayerModel model)
     {
@@ -37,6 +38,9 @@ public class PlayerController : MonoBehaviour
 
         // move playerShip gameobject to vector2 of destination from currentLocation
         shipView.gameObject.transform.position = Vector2.Lerp(currentLocation, currentDestination, 1);
+		
+		//play sound
+		this.soundController.PlaySound(SoundController.Sound.move);
     }
 
     public void SetCurrentMovement(int currentPlayerMovement, int maxPlayerMovement)
@@ -49,4 +53,8 @@ public class PlayerController : MonoBehaviour
     {
         this.shipView = shipView;
     }
+	// For getting the soundController that can be found in the GameController
+	public void setSoundController(SoundController soundController){
+		this.soundController = soundController;
+	}
 }

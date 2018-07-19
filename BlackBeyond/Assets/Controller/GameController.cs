@@ -37,6 +37,13 @@ public class GameController : MonoBehaviour
 		        //Get the path of the Game data folder
         string m_Path = Application.dataPath;
 
+		//Creates the sound view and sound controller.
+		this.soundView = UnityEngine.Object.Instantiate(this.soundView);
+		// Gets the controller from the musicView GameObject.
+        this.soundController = this.soundView.GetComponent<SoundController>();
+        // Lets the Controller access the GameObject
+        this.soundController.SetSoundView(this.soundView);
+		
         //Output the Game data path to the console
         this.modelLink = new ModelLink(this, mapGameObject);
 
@@ -49,13 +56,6 @@ public class GameController : MonoBehaviour
         // Create a player, and set up MVC connections
         this.playerModel = new PlayerModel(playerSpace);
 		modelLink.CreatePlayerView(playerModel, playerMovementText);
-		
-		//Creates the sound view and sound controller.
-		this.soundView = UnityEngine.Object.Instantiate(this.soundView);
-		// Gets the controller from the musicView GameObject.
-        this.soundController = this.soundView.GetComponent<SoundController>();
-        // Lets the Controller access the GameObject
-        this.soundController.SetSoundView(this.soundView);
 
     }
 
@@ -82,6 +82,8 @@ public class GameController : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         //TODO Call playership.startmove() or similar
         playerModel.StartMove();
+		//play button sound
+		soundController.PlaySound(SoundController.Sound.buttonPress);
     }
 
     // This function is called whe the player presses "end turn"
