@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4607670363716884}
   - component: {fileID: 114497639147526512}
   - component: {fileID: 212307045675603308}
+  - component: {fileID: 65662910944349904}
   m_Layer: 0
   m_Name: SpaceHex
   m_TagString: Untagged
@@ -107,6 +108,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &65662910944349904
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1356207321167702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.1471136, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!102 &102623600964096738
 TextMesh:
   serializedVersion: 3
