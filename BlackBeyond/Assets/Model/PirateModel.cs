@@ -92,10 +92,7 @@ public class PirateModel
 
 
 
-    public PirateModel(SpaceModel pirateSpace)
-        {
-            pirateSpaceModel = pirateSpace;
-        }
+
 
     public static int GetDetectRange()
     {
@@ -104,28 +101,33 @@ public class PirateModel
 
 
 
-        public PirateController GetController()
-        {
-            return pirateController;
-        }
-
-        public void SetController(PirateController controller)
-        {
-            this.pirateController = controller;
-        }
-
-        public static SpaceModel GetSpace()
-        {
-            return pirateSpaceModel;
-        }
-
-        public int GetCurrentMovement()
-        {
-            return currentPirateMovement;
-        }
-
-        public void UpdateCurrentMovement(int movementUsed)
-        {
-            currentPirateMovement = currentPirateMovement - movementUsed;
-        }
+    public PirateController GetController()
+    {
+        return pirateController;
     }
+
+    public void SetController(PirateController controller)
+    {
+        this.pirateController = controller;
+    }
+
+    public PirateModel(SpaceModel pirateSpace)
+    {
+        pirateSpaceModel = SpaceController.GetSpace();
+    }
+
+    public static SpaceModel GetSpace()
+    {
+        return pirateSpaceModel;
+    }
+
+    public int GetCurrentMovement()
+    {
+        return currentPirateMovement;
+    }
+
+    public void UpdateCurrentMovement(int movementUsed)
+    {
+        currentPirateMovement = currentPirateMovement - movementUsed;
+    }
+}
