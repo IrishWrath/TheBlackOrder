@@ -7,7 +7,7 @@ public class PlayerModel : ShipModel
     List<PathfindingNode> validMovementSpaces;
 
     private PlayerController playerController;
-    private SpaceModel playerSpaceModel;
+    //private SpaceModel playerSpaceModel;
 
     public SpaceModel playerLocation;
 
@@ -34,7 +34,7 @@ public class PlayerModel : ShipModel
 
     public PlayerModel(SpaceModel playerSpace)
     {
-        this.playerSpaceModel = playerSpace;
+        //this.playerSpaceModel = playerSpace;
         this.playerLocation = playerSpace;
         Debug.Log("Moves Available: " + this.currentPlayerMovement.ToString());
     }
@@ -51,7 +51,7 @@ public class PlayerModel : ShipModel
 
     public SpaceModel GetSpace()
     {
-        return playerSpaceModel;
+        return playerLocation;
     }
 
     public int GetCurrentPlayerMovement()
@@ -66,7 +66,9 @@ public class PlayerModel : ShipModel
 
     public void UpdatePlayerLocation(SpaceModel location)
     {
+        playerLocation.LeaveSpace();
         this.playerLocation = location;
+        location.OccupySpace(this);
     }
 
     public bool GetPlayerCanMove()
