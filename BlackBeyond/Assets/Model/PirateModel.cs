@@ -2,18 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PirateModel : MonoBehaviour {
-        private PirateController pirateController;
-        private SpaceModel pirateSpaceModel;
+public class PirateModel 
+{
+    public enum PirateType
+    {
+        Platform, Scout, Frigate, Destroyer, Dreadnought
+    }
+
+    private PirateController pirateController;
+    private SpaceModel pirateSpaceModel;
 
     //ship combat stat variables
-        private static string shipName;
-        private static int shipHealth;
-        private int shotDamage;
-        private int detectRange;
-        private int attackRange;
-        public int maxPirateMovement;
-        public int currentPirateMovement;
+    private static string shipName;
+    private static int shipHealth;
+    private int shotDamage;
+    private int detectRange;
+    private int attackRange;
+    public int maxPirateMovement;
+    public int currentPirateMovement;
         
     //pirate ship builder template
     public PirateModel(string name, int health, int shotDamage, int detectRange, int attackRange , int maxPirateMovement, int currentPirateMovement)
