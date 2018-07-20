@@ -10,13 +10,13 @@ public class PirateModel
     }
 
     private PirateController pirateController;
-    private SpaceModel pirateSpaceModel;
+    private static SpaceModel pirateSpaceModel;
 
     //ship combat stat variables
     private static string shipName;
     private static int shipHealth;
     private int shotDamage;
-    private int detectRange;
+    private static int playerDetectRange;
     private int attackRange;
     public int maxPirateMovement;
     public int currentPirateMovement;
@@ -27,7 +27,7 @@ public class PirateModel
         shipName = name;
         shipHealth = health;
         this.shotDamage = shotDamage;
-        this.detectRange = detectRange;
+        playerDetectRange = detectRange;
         this.attackRange = attackRange;
         this.maxPirateMovement = maxPirateMovement;
         this.currentPirateMovement = currentPirateMovement;
@@ -71,12 +71,38 @@ public class PirateModel
     {
         return shipHealth;
     }
+    public static void SetHealth(int newHealth)
+    {
+        shipHealth = newHealth;
+    }
+
+    public static void Shoot()
+    {
+        int armor = PlayerModel.GetArmor();
+        int currentHealth = PlayerModel.GetHealth();
+        int shotDamage = this.shotDamage;
+        int adjDamage = armor - shotDamage;
+        if (adjDamage <= 0)
+        {
+            adjDamage = 0;
+        }
+        int remainingHP = currentHealth - adjDamage;
+        PlayerModel.UpdatePlayerHealth(remainingHP);
+    }
+
+
 
     public PirateModel(SpaceModel pirateSpace)
         {
-            this.pirateSpaceModel = pirateSpace;
+            pirateSpaceModel = pirateSpace;
         }
-        
+
+    public static int GetDetectRange()
+    {
+        return playerDetectRange;
+    }
+
+
 
         public PirateController GetController()
         {
@@ -88,7 +114,7 @@ public class PirateModel
             this.pirateController = controller;
         }
 
-        public SpaceModel GetSpace()
+        public static SpaceModel GetSpace()
         {
             return pirateSpaceModel;
         }
