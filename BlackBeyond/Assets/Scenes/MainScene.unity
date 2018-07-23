@@ -1605,7 +1605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8cd6cf6544948f9ad010fbd3978b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spaceView: {fileID: 1590571068747506, guid: f6fddf2c853e943f6916152b077b9d9d, type: 2}
+  spaceView: {fileID: 1096247770409850, guid: f6fddf2c853e943f6916152b077b9d9d, type: 2}
   playership: {fileID: 1010566008670778, guid: fffa1cf2a929d4254984e3764bdcfb18, type: 2}
   pirateship: {fileID: 1197585251534778, guid: f2d473af2fb1b4484b2353f043061d71, type: 2}
   nebulaTerrain: {fileID: 1261053534705998, guid: eb2017eec4c4c43b6b7db01479417c3d,
