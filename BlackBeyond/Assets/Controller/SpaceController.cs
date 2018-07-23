@@ -16,7 +16,6 @@ public class SpaceController : MonoBehaviour
     public Sprite nebulaSprite;
     public Sprite asteroidSprite;
     public Sprite mouseEnterSprite;
-    public Sprite astroidSprite;
 
     // The model of this controller
     private SpaceModel space;

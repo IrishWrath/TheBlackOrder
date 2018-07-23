@@ -12,7 +12,10 @@ public class SpaceModel
         occupyingShip = null;
     }
 
+    // don't use player, use occupyingShip
     private PlayerModel player;
+    private ShipModel occupyingShip;
+
 
     public int Row { get; private set; }
     public int Column { get; private set; }
@@ -21,9 +24,11 @@ public class SpaceModel
     private SpaceModel[] adjacentSpaces;
 
     private SpaceController controller;
-    private ShipModel occupyingShip;
-    // This should be null most of the time. Possibly avoid, and use the nodes themselves.
+
+    // This should be null most of the time. Avoid, outside of pathfinding, these will be null
     public PathfindingNode node;
+    // For movement method
+    private PathfindingNode moveFunctionNode;
 
     public SpaceController GetController()
     {
@@ -98,24 +103,36 @@ public class SpaceModel
     {
         this.player = player;
         this.GetController().SetSelectable(node.GetCost());
+        this.moveFunctionNode = node;
     }
 
-    public void ClearHighlighted(PathfindingNode node)
+
+    public void ClearHighlighted()
     {
         this.GetController().Deselect();
         player = null;
+        moveFunctionNode = null;
     }
 
     public void Clicked()
     {
         if (player != null)
         {
-            player.FinishMove(this);
+            player.FinishMove(moveFunctionNode);
         }
     }
 
     public virtual bool BlocksLOS()
     {
         return false;
+    }
+
+    public PlayerModel GetPlayer()
+    {
+        if(occupyingShip.GetType() == typeof(PlayerModel))
+        {
+            return (PlayerModel)occupyingShip;
+        }
+        return null;
     }
 }
