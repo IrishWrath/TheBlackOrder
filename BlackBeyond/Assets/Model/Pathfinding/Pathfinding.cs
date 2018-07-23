@@ -10,11 +10,12 @@ public static class Pathfinding
     public static List<PathfindingNode> Dijkstras(SpaceModel startSpace, int maxCost, bool ignoreTerrain)
     {
         List<PathfindingNode> allNodes = new List<PathfindingNode>();
-        List<SpaceModel> shortestPath = new List<SpaceModel>
-        {
-            startSpace
-        };
-        PathfindingNode currentnode = new PathfindingNode(startSpace, true, shortestPath, 0);
+        //List<SpaceModel> shortestPath = new List<SpaceModel>
+        //{
+        //    startSpace
+        //};
+        PathfindingNode currentnode = new PathfindingNode(startSpace, null, 0, true, null);
+
         allNodes.Add(currentnode);
 
         bool done = false;
@@ -33,11 +34,11 @@ public static class Pathfinding
                             // Next node hasn't been visited yet
                             if (ignoreTerrain)
                             {
-                                nextNode.Update(currentnode.GetCost() + 1, shortestPath);
+                                nextNode.Update(currentnode.GetCost() + 1, currentnode);
                             }
                             else
                             {
-                                nextNode.Update(currentnode.GetCost() + adjacentSpace.GetMovementCost(), shortestPath);
+                                nextNode.Update(currentnode.GetCost() + adjacentSpace.GetMovementCost(), currentnode);
                             }
                         }
                     }
@@ -57,11 +58,7 @@ public static class Pathfinding
 
                         if (newNodeCost <= maxCost)
                         {
-                            List<SpaceModel> newNodePath = new List<SpaceModel>(shortestPath)
-                        {
-                            adjacentSpace
-                        };
-                            PathfindingNode newNode = new PathfindingNode(adjacentSpace, false, newNodePath, newNodeCost);
+                            PathfindingNode newNode = new PathfindingNode(adjacentSpace, currentnode, newNodeCost, false, null);
                             allNodes.Add(newNode);
                             adjacentSpace.SetNode(newNode);
                         }
@@ -93,8 +90,9 @@ public static class Pathfinding
             else
             {
                 lowestNode.Seen();
-                shortestPath.Add(lowestNode.GetSpace());
+                //shortestPath.Add(lowestNode.GetSpace());
                 currentnode = lowestNode;
+
             }
         }
         foreach (PathfindingNode node in allNodes)

@@ -28,6 +28,8 @@ public class SpaceModel
 
     // This should be null most of the time. Avoid, outside of pathfinding, these will be null
     public PathfindingNode node;
+    // For movement method
+    private PathfindingNode moveFunctionNode;
 
     public SpaceController GetController()
     {
@@ -102,19 +104,21 @@ public class SpaceModel
     {
         this.player = player;
         this.GetController().SetSelectable(node.GetCost());
+        this.moveFunctionNode = node;
     }
 
-    public void ClearHighlighted(PathfindingNode node)
+    public void ClearHighlighted()
     {
         this.GetController().Deselect();
         player = null;
+        moveFunctionNode = null;
     }
 
     public void Clicked()
     {
         if (player != null)
         {
-            player.FinishMove(this);
+            player.FinishMove(moveFunctionNode);
         }
     }
 

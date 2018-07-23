@@ -16,16 +16,16 @@ public class PlayerModel : ShipModel
     public static int playerHealth = 10;
     public static int playerArmor = 1;
 
-    public static int GetHealth()
+    public int GetHealth()
     {
         return playerHealth;
     }
-    public static void UpdatePlayerHealth(int health)
+    public void UpdatePlayerHealth(int health)
     {
         playerHealth = health;
     }
 
-    public static int GetArmor()
+    public int GetArmor()
     {
         return playerArmor;
     }
@@ -91,7 +91,7 @@ public class PlayerModel : ShipModel
             {
                 foreach (PathfindingNode node in validMovementSpaces)
                 {
-                    node.GetSpace().ClearHighlighted(node);
+                    node.GetSpace().ClearHighlighted();
                 }
                 validMovementSpaces.Clear();
             }
@@ -125,33 +125,21 @@ public class PlayerModel : ShipModel
         {
             foreach (PathfindingNode node in validMovementSpaces)
             {
-                node.GetSpace().ClearHighlighted(node);
+                node.GetSpace().ClearHighlighted();
             }
 
             validMovementSpaces.Clear();
         }
     }
 
-    public void FinishMove(SpaceModel destination)
+    public void FinishMove(PathfindingNode destination)
     {
-        int moveCost = 0;
-        foreach (PathfindingNode node in validMovementSpaces)
+        if ((currentPlayerMovement - destination.GetCost()) >= 0 && playerCanMove == true)
         {
-            SpaceModel space = node.GetSpace();
+            UpdatePlayerLocation(destination.GetSpace());
+            UpdateCurrentPlayerMovement(destination.GetCost());
 
-            // find the node for the destination and assign cost of move
-            if (space == destination)
-            {
-                moveCost = node.GetCost();
-            }
-        }
-
-        if ((currentPlayerMovement - moveCost) >= 0 && playerCanMove == true)
-        {
-            UpdatePlayerLocation(destination);
-            UpdateCurrentPlayerMovement(moveCost);
-
-            this.GetController().MoveShip(destination);
+            this.GetController().MoveShip(destination.GetPath(true).ToArray());
             playerController.SetCurrentMovement(currentPlayerMovement, maxPlayerMovement);
 
 
@@ -159,7 +147,7 @@ public class PlayerModel : ShipModel
 
             foreach (PathfindingNode node in validMovementSpaces)
             {
-                node.GetSpace().ClearHighlighted(node);
+                node.GetSpace().ClearHighlighted();
             }
 
             validMovementSpaces.Clear();

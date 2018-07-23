@@ -10,13 +10,13 @@ public class PirateModel
     }
 
     private PirateController pirateController;
-    private static SpaceModel pirateSpaceModel;
+    private SpaceModel pirateSpaceModel;
 
     //ship combat stat variables
-    private static string shipName;
-    private static int shipHealth;
+    private string shipName;
+    private int shipHealth;
     private int shotDamage;
-    private static int playerDetectRange;
+    private int playerDetectRange;
     private int attackRange;
     public int maxPirateMovement;
     public int currentPirateMovement;
@@ -58,7 +58,7 @@ public class PirateModel
         return new PirateModel("Dreadnaught", 10, 5, 2, 3, 2, 2);
     }
 
-    public static string GetName()
+    public string GetName()
     {
         return shipName;
     }
@@ -67,34 +67,29 @@ public class PirateModel
         return shotDamage;
     }
 
-    public static int GetHealth()
+    public int GetHealth()
     {
         return shipHealth;
     }
-    public static void SetHealth(int newHealth)
+    public void SetHealth(int newHealth)
     {
         shipHealth = newHealth;
     }
 
-    public static void Shoot()
+    public void Shoot(PlayerModel player)
     {
-        int armor = PlayerModel.GetArmor();
-        int currentHealth = PlayerModel.GetHealth();
-        int shotDamage = this.shotDamage;
+        int armor = player.GetArmor();
+        int currentHealth = player.GetHealth();
         int adjDamage = armor - shotDamage;
         if (adjDamage <= 0)
         {
             adjDamage = 0;
         }
         int remainingHP = currentHealth - adjDamage;
-        PlayerModel.UpdatePlayerHealth(remainingHP);
+        player.UpdatePlayerHealth(remainingHP);
     }
 
-
-
-
-
-    public static int GetDetectRange()
+    public int GetDetectRange()
     {
         return playerDetectRange;
     }
@@ -113,10 +108,10 @@ public class PirateModel
 
     public PirateModel(SpaceModel pirateSpace)
     {
-        pirateSpaceModel = SpaceController.GetSpace();
+        pirateSpaceModel = pirateSpace;
     }
 
-    public static SpaceModel GetSpace()
+    public SpaceModel GetSpace()
     {
         return pirateSpaceModel;
     }

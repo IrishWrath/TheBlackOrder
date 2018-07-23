@@ -12,10 +12,11 @@ public class PlatformAi : PirateAiModel
 
     public override void EndTurn()
     {
+        base.EndOfTurn();
         PlayerModel player = base.GetPlayer();
         if (player != null)
         {
-            PirateModel.Shoot();
+            base.pirateModel.Shoot(player);
         }
     }
  
