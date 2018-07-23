@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 // Model class for a Space
 public class SpaceModel 
@@ -8,8 +9,10 @@ public class SpaceModel
         Row = row;
         Column = column;
         this.map = map;
-        occupied = false;
+        occupyingShip = null;
     }
+
+    private PlayerModel player;
 
     public int Row { get; private set; }
     public int Column { get; private set; }
@@ -18,9 +21,8 @@ public class SpaceModel
     private SpaceModel[] adjacentSpaces;
 
     private SpaceController controller;
-    private bool occupied;
-
-    // This should be null most of the time. Avoid, outside of pathfinding, these will be null
+    private ShipModel occupyingShip;
+    // This should be null most of the time. Possibly avoid, and use the nodes themselves.
     public PathfindingNode node;
 
     public SpaceController GetController()
@@ -36,18 +38,24 @@ public class SpaceModel
 
     public void WithinMovementRange(int cost)
     {
-        if(!occupied)
+        if(occupyingShip == null)
         {
             controller.SetSelectable(cost);
         }
     }
-    public void OccupySpace()
+    public void OccupySpace(ShipModel ship)
     {
-        occupied = true;
+        occupyingShip = ship;
     }
     public void LeaveSpace()
     {
-        occupied = false;
+        occupyingShip = null;
+    }
+
+    // Asteroids damage the ship that moves through them
+    public virtual void GetMovementEffects(ShipModel shipModel)
+    {
+        // Do nothing, not an asteroid. In a asteroid subclass, the ship will be dealt damage.
     }
 
     // For Pathfinding
@@ -85,4 +93,29 @@ public class SpaceModel
     }
 
     // Pathfinding End
+
+    public void SetHighlighted(PathfindingNode node, PlayerModel player)
+    {
+        this.player = player;
+        this.GetController().SetSelectable(node.GetCost());
+    }
+
+    public void ClearHighlighted(PathfindingNode node)
+    {
+        this.GetController().Deselect();
+        player = null;
+    }
+
+    public void Clicked()
+    {
+        if (player != null)
+        {
+            player.FinishMove(this);
+        }
+    }
+
+    public virtual bool BlocksLOS()
+    {
+        return false;
+    }
 }

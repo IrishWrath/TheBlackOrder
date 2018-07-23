@@ -12,4 +12,9 @@ public class NebulaSpaceModel: SpaceModel
     {
         return 2;
     }
+
+    public override bool BlocksLOS()
+    {
+        return true;
+    }
 }
