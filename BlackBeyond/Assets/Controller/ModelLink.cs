@@ -42,6 +42,15 @@ public class ModelLink
         nebulaSpaceModel.GetController().SetNebula();
     }
 
+    // Creates an asteriod space.
+    public void CreateAsteroidSpace(AsteroidSpaceModel asteroidSpaceModel)
+    {
+        CreateSpaceView(asteroidSpaceModel);
+        Object.Instantiate(GameController.GetAsteroid(),
+                           asteroidSpaceModel.GetController().GetPosition(), Quaternion.identity, MapContainer);
+        asteroidSpaceModel.GetController().SetAsteroid();
+    }
+
     // Same as above for a Space GameObject
     public void CreatePlayerView(PlayerModel playerModel, Text movementText)
     {

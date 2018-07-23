@@ -14,6 +14,7 @@ public class SpaceController : MonoBehaviour
     public Sprite defaultSprite;
     public Sprite selectedSprite;
     public Sprite nebulaSprite;
+    public Sprite asteroidSprite;
     public Sprite mouseEnterSprite;
     public Sprite astroidSprite;
 
@@ -93,9 +94,9 @@ public class SpaceController : MonoBehaviour
         spaceView.GetComponent<SpriteRenderer>().sprite = nebulaSprite;
     }
 
-    // If you need to turn a space into astroids, it can be done. Pathfinding path tester function.
-    //internal void TestAstroids()
-    //{
-    //    spaceView.GetComponent<SpriteRenderer>().sprite = astroidSprite;
-    //}
+    public void SetAsteroid()
+    {
+        defaultSprite = asteroidSprite;
+        spaceView.GetComponent<SpriteRenderer>().sprite = asteroidSprite;
+    }
 }

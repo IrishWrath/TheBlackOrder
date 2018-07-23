@@ -23,6 +23,9 @@ public class GameController : MonoBehaviour
 	// The Prefab for our music
 	public GameObject soundView;
 
+    // The Asteroid Terrain
+    public GameObject asteroidTerrain;
+
     public Text playerMovementText;
 
     // Container for spaces
@@ -51,7 +54,7 @@ public class GameController : MonoBehaviour
         this.MapController = new MapController(125, 250, modelLink);
 
         // Gets a starting space for the player, based on coordinates. Moving away from coordinates, but they are fine for setup
-        SpaceModel playerSpace = MapController.Map.GetSpace(62, 125);
+        SpaceModel playerSpace = MapController.Map.GetSpace(63, 125);
 
         // Create a player, and set up MVC connections
         this.playerModel = new PlayerModel(playerSpace);
@@ -72,6 +75,11 @@ public class GameController : MonoBehaviour
     {
         return nebulaTerrain;
     }
+    public GameObject GetAsteroid()
+    {
+        return asteroidTerrain;
+    }
+
 	public GameObject GetMusicView()
 	{
 		return soundView;

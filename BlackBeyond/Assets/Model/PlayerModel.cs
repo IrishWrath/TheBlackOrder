@@ -67,14 +67,16 @@ public class PlayerModel : ShipModel
     public void EndTurn()
     {
         // Should block player actions until their turn TODO
-
-        if (validMovementSpaces.Count > 0)
+        if (validMovementSpaces != null)
         {
-            foreach (PathfindingNode node in validMovementSpaces)
+            if (validMovementSpaces.Count > 0)
             {
-                node.GetSpace().ClearHighlighted(node);
+                foreach (PathfindingNode node in validMovementSpaces)
+                {
+                    node.GetSpace().ClearHighlighted(node);
+                }
+                validMovementSpaces.Clear();
             }
-            validMovementSpaces.Clear();
         }
     }
 
@@ -92,7 +94,7 @@ public class PlayerModel : ShipModel
         if (validMovementSpaces == null || validMovementSpaces.Count == 0)
         {
             // Get all spaces that are valid moves and return into list
-            validMovementSpaces = DijkstrasPathfinding.GetSpacesForMovement(playerLocation, currentPlayerMovement);
+            validMovementSpaces = Pathfinding.GetSpacesForMovementDijkstras(playerLocation, currentPlayerMovement);
 
             SetPlayerCanMove(true);
 
