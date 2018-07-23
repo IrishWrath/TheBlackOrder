@@ -18,6 +18,8 @@ public class GameController : MonoBehaviour
     public GameObject spaceView;
     // The Prefab for Player's ship
     public GameObject playership;
+    // The Prefab for Pirate ships
+    public GameObject pirateship;
     // The Nebula Terrain
     public GameObject nebulaTerrain;
 	// The Prefab for our music
@@ -58,8 +60,7 @@ public class GameController : MonoBehaviour
 
         // Create a player, and set up MVC connections
         this.playerModel = new PlayerModel(playerSpace);
-		modelLink.CreatePlayerView(playerModel, playerMovementText);
-
+        modelLink.CreatePlayerView(playerModel, playerMovementText);
     }
 
     // Returns the Prefabs
@@ -70,6 +71,10 @@ public class GameController : MonoBehaviour
     public GameObject GetPlayerView()
     {
         return playership;
+    }
+    public GameObject GetPirateView()
+    {
+        return pirateship;
     }
     public GameObject GetNebula()
     {
@@ -128,5 +133,4 @@ public class GameController : MonoBehaviour
         // Oisín: I think it would be best to call a move method in ShipController (Not my one though. That doesn't work yet.)
         //ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
     }
-
 }

@@ -73,4 +73,21 @@ public class ModelLink
         playerController.SetMovementTextInterface(movementText);
 		playerController.setSoundController(this.GameController.soundController);
     }
+
+    // Same as above for a Space GameObject
+    public void CreatePirateView(PirateModel pirateModel)
+    {
+        // Creates the player GameObject in the correct position. TODO update this formula for hexes
+        GameObject pirateView = Object.Instantiate(GameController.GetPirateView(),
+                                                   pirateModel.GetSpace().GetController().GetPosition(), Quaternion.identity, MapContainer);
+
+        // Gets the controller from the GameObject.
+        PirateController pirateController = pirateView.GetComponent<PirateController>();
+        // Lets the Controller access the GameObject
+        pirateController.SetShipView(pirateView);
+        // Lets the Controller access the Model
+        pirateController.SetModel(pirateModel);
+        // Lets the Model access the Controller, as a callback
+        pirateModel.SetController(pirateController);
+    }
 }

@@ -7,18 +7,34 @@ public class PlayerModel : ShipModel
     List<PathfindingNode> validMovementSpaces;
 
     private PlayerController playerController;
-    private SpaceModel playerSpaceModel;
+    //private SpaceModel playerSpaceModel;
 
     public SpaceModel playerLocation;
 
     public int maxPlayerMovement = 3;
     public int currentPlayerMovement = 3;
+    public static int playerHealth = 10;
+    public static int playerArmor = 1;
+
+    public int GetHealth()
+    {
+        return playerHealth;
+    }
+    public void UpdatePlayerHealth(int health)
+    {
+        playerHealth = health;
+    }
+
+    public int GetArmor()
+    {
+        return playerArmor;
+    }
 
     public bool playerCanMove = false;
 
     public PlayerModel(SpaceModel playerSpace)
     {
-        this.playerSpaceModel = playerSpace;
+        //this.playerSpaceModel = playerSpace;
         this.playerLocation = playerSpace;
         Debug.Log("Moves Available: " + this.currentPlayerMovement.ToString());
     }
@@ -35,7 +51,7 @@ public class PlayerModel : ShipModel
 
     public SpaceModel GetSpace()
     {
-        return playerSpaceModel;
+        return playerLocation;
     }
 
     public int GetCurrentPlayerMovement()
@@ -50,7 +66,9 @@ public class PlayerModel : ShipModel
 
     public void UpdatePlayerLocation(SpaceModel location)
     {
+        playerLocation.LeaveSpace();
         this.playerLocation = location;
+        location.OccupySpace(this);
     }
 
     public bool GetPlayerCanMove()
@@ -73,7 +91,7 @@ public class PlayerModel : ShipModel
             {
                 foreach (PathfindingNode node in validMovementSpaces)
                 {
-                    node.GetSpace().ClearHighlighted(node);
+                    node.GetSpace().ClearHighlighted();
                 }
                 validMovementSpaces.Clear();
             }
@@ -107,33 +125,21 @@ public class PlayerModel : ShipModel
         {
             foreach (PathfindingNode node in validMovementSpaces)
             {
-                node.GetSpace().ClearHighlighted(node);
+                node.GetSpace().ClearHighlighted();
             }
 
             validMovementSpaces.Clear();
         }
     }
 
-    public void FinishMove(SpaceModel destination)
+    public void FinishMove(PathfindingNode destination)
     {
-        int moveCost = 0;
-        foreach (PathfindingNode node in validMovementSpaces)
+        if ((currentPlayerMovement - destination.GetCost()) >= 0 && playerCanMove == true)
         {
-            SpaceModel space = node.GetSpace();
+            UpdatePlayerLocation(destination.GetSpace());
+            UpdateCurrentPlayerMovement(destination.GetCost());
 
-            // find the node for the destination and assign cost of move
-            if (space == destination)
-            {
-                moveCost = node.GetCost();
-            }
-        }
-
-        if ((currentPlayerMovement - moveCost) >= 0 && playerCanMove == true)
-        {
-            UpdatePlayerLocation(destination);
-            UpdateCurrentPlayerMovement(moveCost);
-
-            this.GetController().MoveShip(destination);
+            this.GetController().MoveShip(destination.GetPath(true).ToArray());
             playerController.SetCurrentMovement(currentPlayerMovement, maxPlayerMovement);
 
 
@@ -141,7 +147,7 @@ public class PlayerModel : ShipModel
 
             foreach (PathfindingNode node in validMovementSpaces)
             {
-                node.GetSpace().ClearHighlighted(node);
+                node.GetSpace().ClearHighlighted();
             }
 
             validMovementSpaces.Clear();

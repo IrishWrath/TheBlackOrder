@@ -9,16 +9,16 @@ public class ShipController : MonoBehaviour
     public SpaceModel CurrentSpaceModel { get; private set; }
 
     // shipview is the ships gameobject
-    private GameObject shipView;
+    protected GameObject shipView;
 
     // is this ship moving
     private bool moving = false;
 
     //destinations
-    private SpaceModel[] destinations;
+    private PathfindingNode[] destinations;
 
     private float distanceMoved = 0f;
-    private float speed = 0.2f;
+    private float speed = 1.5f;
 
     Vector2 currentLocation, currentDestination;
     private int destinationIndex;
@@ -37,50 +37,44 @@ public class ShipController : MonoBehaviour
     }
 
     // Moves the ship to a new location
-    // TODO make smoother with the update function
-    // TODO, this controller should be renamed Pirate Controller, and do pirate things
-    public void MoveShip(SpaceModel[] destinations)
+    // made smoother with the update function
+    public void MoveShip(PathfindingNode[] destinations)
     {
 
         moving = true;
         this.destinations = destinations;
 
         distanceMoved = 0;
-        destinationIndex = 0;
+        destinationIndex = 1;
 
         currentLocation = shipView.transform.position;
-        currentDestination = destinations[destinationIndex].GetController().GetPosition();
-
+        currentDestination = destinations[destinationIndex].GetSpace().GetController().GetPosition();
     }
 
 	private void Update()
 	{
 		if (moving)
         {
-
             // add some distance
             distanceMoved += speed * Time.deltaTime;
 
             //move along according to speed;
-            currentLocation = Vector2.Lerp(currentLocation, currentDestination, distanceMoved);
-
-            //set our transform to the new position
-            shipView.transform.position = currentLocation;
+            shipView.transform.position = Vector2.Lerp(currentLocation, currentDestination, distanceMoved);
 
             //check if we've reached the goal point
             if (distanceMoved >= 1)
             {
                 distanceMoved = 0;
                 destinationIndex += 1;
-
-                currentLocation = currentDestination;
-                currentDestination = destinations[destinationIndex].GetController().GetPosition();
-
                 // check if we're done moving
                 if (destinationIndex >= destinations.Length)
                 {
                     moving = false;
-
+                }
+                else
+                {
+                    currentLocation = currentDestination;
+                    currentDestination = destinations[destinationIndex].GetSpace().GetController().GetPosition();
                 }
             }
         }
