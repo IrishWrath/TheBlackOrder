@@ -3,7 +3,14 @@ guid: db8cd6cf6544948f9ad010fbd3978b2a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - spaceView: {instanceID: 0}
+  - playership: {instanceID: 0}
+  - nebulaTerrain: {instanceID: 0}
+  - soundView: {fileID: 1096287472415392, guid: 11cd96ed06d3fba48988b500f6bd6ad7,
+      type: 2}
+  - playerMovementText: {instanceID: 0}
+  - mapGameObject: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

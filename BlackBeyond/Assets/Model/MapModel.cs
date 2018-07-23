@@ -69,7 +69,7 @@ public class MapModel
         }
     }
 
-    // Gets spaces by cooridinates. Avoid this method
+    // Gets spaces by coordinate. Avoid this method
     public SpaceModel GetSpace(int row, int column)
     {
         return map[row][column];

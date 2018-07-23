@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -7,72 +8,44 @@ using UnityEngine.EventSystems;
 // Class for Player only methods. 
 public class PlayerController : MonoBehaviour
 {
+    private Text movementText;
     private PlayerModel playerModel;
     private GameObject shipView;
+	private SoundController soundController;
 
     public void SetModel(PlayerModel model)
     {
         this.playerModel = model;
     }
 
-    public void Update()
+    public void SetMovementTextInterface(Text movementText)
     {
-        // If left mouse button pressed and mouse not over the UI
-        if (Input.GetMouseButtonDown(0) && !(EventSystem.current.IsPointerOverGameObject()))
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            
-            // If raycast collided with object with SpaceHex tag
-            if ((Physics.Raycast(ray, out hit)) && (hit.transform.tag == "SpaceHex"))
-            {
-                // Assign space location of SpaceHex to destination
-                SpaceModel destination = hit.transform.gameObject.GetComponent<SpaceController>().GetSpace();
-
-                GetValidSpaces(destination);
-            }
-        }
+        this.movementText = movementText;
     }
 
-    // UNDER CONSTRUCTION! 
-    public void GetValidSpaces(SpaceModel destination)
+    public void Update()
     {
-        // Get all spaces that are valid moves and return into list
-        List<PathfindingNode> validMovementSpaces = DijkstrasPathfinding.GetSpacesForMovement(playerModel.playerLocation, playerModel.currentPlayerMovement);
 
-        // go through each node in pathfinding list and get the space location
-        foreach (PathfindingNode node in validMovementSpaces)
-        {
-            SpaceModel space = node.GetSpace();
-
-            // if destination is one of the node space locations
-            if (space == destination)
-            {
-                MoveShip(destination, node.GetCost());
-            }                
-        }
     }
 
     // Moves the ship to a new location
     // TODO make smoother with the update function
-    public void MoveShip(SpaceModel destination, int movementCost)
+    public void MoveShip(SpaceModel destination)
     {
-        if((playerModel.GetCurrentPlayerMovement() - movementCost) >= 0)
-        {
-            // get vector2 of playerShip and assign to currentLocation
-            Vector2 currentLocation = shipView.transform.position;
-            Vector2 currentDestination = destination.GetController().GetPosition();
+        // get vector2 of playerShip and assign to currentLocation
+        Vector2 currentLocation = shipView.transform.position;
+        Vector2 currentDestination = destination.GetController().GetPosition();
 
-            // move playerShip gameobject to vector2 of destination from currentLocation
-            shipView.gameObject.transform.position = Vector2.Lerp(currentLocation, currentDestination, 1);
+        // move playerShip gameobject to vector2 of destination from currentLocation
+        shipView.gameObject.transform.position = Vector2.Lerp(currentLocation, currentDestination, 1);
+		
+		//play sound
+		this.soundController.PlaySound(SoundController.Sound.move);
+    }
 
-            // update location to model after move
-            playerModel.UpdatePlayerLocation(destination);
-            
-            // pass cost of movement to playerModel
-            playerModel.UpdateCurrentPlayerMovement(movementCost);
-            Debug.Log("Moves Available: " + playerModel.currentPlayerMovement.ToString());
-        }        
+    public void SetCurrentMovement(int currentPlayerMovement, int maxPlayerMovement)
+    {
+        movementText.text = currentPlayerMovement + "/" + maxPlayerMovement;
     }
 
     // For the Model link, lets this access the GameObject.
@@ -80,4 +53,8 @@ public class PlayerController : MonoBehaviour
     {
         this.shipView = shipView;
     }
+	// For getting the soundController that can be found in the GameController
+	public void setSoundController(SoundController soundController){
+		this.soundController = soundController;
+	}
 }
