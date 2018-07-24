@@ -7,35 +7,20 @@ public class PlayerModel : ShipModel
     List<PathfindingNode> validMovementSpaces;
 
     private PlayerController playerController;
-    //private SpaceModel playerSpaceModel;
-
-    public SpaceModel playerLocation;
-
-    public int maxPlayerMovement = 3;
-    public int currentPlayerMovement = 3;
-    public static int playerHealth = 10;
-    public static int playerArmor = 1;
-
-    public int GetHealth()
-    {
-        return playerHealth;
-    }
-    public void UpdatePlayerHealth(int health)
-    {
-        playerHealth = health;
-    }
-
-    public int GetArmor()
-    {
-        return playerArmor;
-    }
 
     public bool playerCanMove = false;
 
-    public PlayerModel(SpaceModel playerSpace)
+    public PlayerModel(SpaceModel currentSpace)
     {
-        //this.playerSpaceModel = playerSpace;
-        this.playerLocation = playerSpace;
+        base.currentSpace = currentSpace;
+
+        // Player stats, TODO
+        base.shipArmor = 1;
+        base.currentMovement = 3;
+        base.maxMovement = 3;
+        base.attackRange = 2;
+        base.shotDamage = 2;
+        base.shipHealth = 10;
     }
 
     public PlayerController GetController()
@@ -46,27 +31,23 @@ public class PlayerModel : ShipModel
     public void SetController(PlayerController controller)
     {
         this.playerController = controller;
-    }
-
-    public SpaceModel GetSpace()
-    {
-        return playerLocation;
+        base.SetController(controller);
     }
 
     public int GetCurrentPlayerMovement()
     {
-        return currentPlayerMovement;
+        return base.currentMovement;
     }
 
     public void UpdateCurrentPlayerMovement(int movementUsed)
     {
-        this.currentPlayerMovement = currentPlayerMovement - movementUsed;
+        base.currentMovement = base.currentMovement - movementUsed;
     }
 
     public void UpdatePlayerLocation(SpaceModel location)
     {
-        playerLocation.LeaveSpace();
-        this.playerLocation = location;
+        base.currentSpace.LeaveSpace();
+        base.currentSpace = location;
         location.OccupySpace(this);
     }
 
@@ -102,8 +83,8 @@ public class PlayerModel : ShipModel
         // Unblock player actions TODO
 
         // reset this player
-        currentPlayerMovement = maxPlayerMovement;
-        playerController.SetCurrentMovement(currentPlayerMovement, maxPlayerMovement);
+        base.currentMovement = base.maxMovement;
+        playerController.SetCurrentMovement(base.currentMovement, base.maxMovement);
     }
 
     public void StartMove()
@@ -113,7 +94,7 @@ public class PlayerModel : ShipModel
             if (validMovementSpaces == null || validMovementSpaces.Count == 0)
             {
                 // Get all spaces that are valid moves and return into list
-                validMovementSpaces = Pathfinding.GetSpacesForMovementDijkstras(playerLocation, currentPlayerMovement);
+                validMovementSpaces = Pathfinding.GetSpacesForMovementDijkstras(base.currentSpace, base.currentMovement);
 
                 SetPlayerCanMove(true);
 
@@ -128,7 +109,6 @@ public class PlayerModel : ShipModel
                 {
                     node.GetSpace().ClearHighlighted();
                 }
-
                 validMovementSpaces.Clear();
             }
         }
@@ -136,13 +116,13 @@ public class PlayerModel : ShipModel
 
     public void FinishMove(PathfindingNode destination)
     {
-        if ((currentPlayerMovement - destination.GetCost()) >= 0 && playerCanMove == true)
+        if ((base.currentMovement - destination.GetCost()) >= 0 && playerCanMove == true)
         {
             UpdatePlayerLocation(destination.GetSpace());
             UpdateCurrentPlayerMovement(destination.GetCost());
 
             this.GetController().MoveShip(destination.GetPath(true).ToArray());
-            playerController.SetCurrentMovement(currentPlayerMovement, maxPlayerMovement);
+            playerController.SetCurrentMovement(base.currentMovement, base.maxMovement);
 
 
             SetPlayerCanMove(false);

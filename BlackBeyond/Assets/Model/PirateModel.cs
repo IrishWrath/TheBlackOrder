@@ -2,101 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PirateModel 
+public class PirateModel : ShipModel
 {
+    // This is like the name being used previously, but an enum is generally easier to use
     public enum PirateType
     {
         Platform, Scout, Frigate, Destroyer, Dreadnought
     }
 
-    private PirateController pirateController;
-    private SpaceModel pirateSpaceModel;
-
-    //ship combat stat variables
-    private string shipName;
-    private int shipHealth;
-    private int shotDamage;
+    // Most of the stats have been moved up to the ShipModel, the superclass
     private int playerDetectRange;
-    private int attackRange;
-    public int maxPirateMovement;
-    public int currentPirateMovement;
-        
+    private PirateType type;
+
+    private PirateController pirateController;
+
+
     //pirate ship builder template
-    public PirateModel(SpaceModel location, string name, int health, int shotDamage, int detectRange, int attackRange , int maxPirateMovement, int currentPirateMovement)
+    public PirateModel(SpaceModel location, PirateType type, int health, int shotDamage, int detectRange, int attackRange , int maxPirateMovement)
     {
-        this.pirateSpaceModel = location;
-        shipName = name;
-        shipHealth = health;
-        this.shotDamage = shotDamage;
-        playerDetectRange = detectRange;
-        this.attackRange = attackRange;
-        this.maxPirateMovement = maxPirateMovement;
-        this.currentPirateMovement = currentPirateMovement;
-    }
-
-    public static PirateModel CreateScoutPirate(SpaceModel location)
-    {
-        return new PirateModel(location, "Scout", 2, 2, 3, 1, 4, 4);
-    }
-
-    public static PirateModel CreateFrigatePirate(SpaceModel location)
-    {
-        return new PirateModel(location, "Frigate", 4, 3, 3, 2, 3, 3);
-    }
-
-    public static PirateModel CreatePlatformPirate(SpaceModel location)
-    {
-        return new PirateModel(location, "Platform",4, 2, 5, 5, 0, 0);
-    }
-
-    public static PirateModel CreateDestroyerPirate(SpaceModel location)
-    {
-        return new PirateModel(location, "Destroyer", 7, 4, 3, 3, 2, 2);
-    }
-
-    public static PirateModel CreateDreadnaughtPirate(SpaceModel location)
-    {
-        return new PirateModel(location, "Dreadnaught", 10, 5, 2, 3, 2, 2);
-    }
-
-    public string GetName()
-    {
-        return shipName;
-    }
-    public int GetDamage()
-    {
-        return shotDamage;
-    }
-
-    public int GetHealth()
-    {
-        return shipHealth;
-    }
-    public void SetHealth(int newHealth)
-    {
-        shipHealth = newHealth;
-    }
-
-    public void Shoot(PlayerModel player)
-    {
-        int armor = player.GetArmor();
-        int currentHealth = player.GetHealth();
-        int adjDamage = armor - shotDamage;
-        if (adjDamage <= 0)
-        {
-            adjDamage = 0;
-        }
-        int remainingHP = currentHealth - adjDamage;
-        player.UpdatePlayerHealth(remainingHP);
-        pirateController.CreateLaser(pirateSpaceModel, player.playerLocation);
+        // The "base" for these are unnecessary, but it helps keep them seperate. Base gets the superclass
+        base.currentSpace = location;
+        this.type = type;
+        base.shipHealth = health;
+        base.shotDamage = shotDamage;
+        this.playerDetectRange = detectRange;
+        base.attackRange = attackRange;
+        base.maxMovement = maxPirateMovement;
+        base.currentMovement = maxPirateMovement;
     }
 
     public int GetDetectRange()
     {
         return playerDetectRange;
     }
-
-
 
     public PirateController GetController()
     {
@@ -106,25 +44,30 @@ public class PirateModel
     public void SetController(PirateController controller)
     {
         this.pirateController = controller;
+        base.SetController(controller);
     }
 
-    //public PirateModel(SpaceModel pirateSpace)
-    //{
-    //    pirateSpaceModel = pirateSpace;
-    //}
 
-    public SpaceModel GetSpace()
+    // Static methods for creating pirates
+    public static PirateModel CreateScoutPirate(SpaceModel location)
     {
-        return pirateSpaceModel;
+        return new PirateModel(location, PirateType.Scout, 2, 2, 3, 1, 4);
     }
-
-    public int GetCurrentMovement()
+    public static PirateModel CreateFrigatePirate(SpaceModel location)
     {
-        return currentPirateMovement;
+        return new PirateModel(location, PirateType.Frigate, 4, 3, 3, 2, 3);
     }
-
-    public void UpdateCurrentMovement(int movementUsed)
+    public static PirateModel CreatePlatformPirate(SpaceModel location)
     {
-        currentPirateMovement = currentPirateMovement - movementUsed;
+        return new PirateModel(location, PirateType.Platform, 4, 2, 5, 5, 0);
     }
+    public static PirateModel CreateDestroyerPirate(SpaceModel location)
+    {
+        return new PirateModel(location, PirateType.Destroyer, 7, 4, 3, 3, 2);
+    }
+    public static PirateModel CreateDreadnaughtPirate(SpaceModel location)
+    {
+        return new PirateModel(location, PirateType.Dreadnought, 10, 5, 2, 3, 2);
+    }
+    // End pirate creation methods
 }

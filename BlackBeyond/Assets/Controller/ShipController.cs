@@ -88,7 +88,6 @@ public class ShipController : MonoBehaviour
         }
 	}
 
-
     public void CreateLaser(SpaceModel start, SpaceModel end)
     {
         var laser = Object.Instantiate(laserPrefab) as GameObject;

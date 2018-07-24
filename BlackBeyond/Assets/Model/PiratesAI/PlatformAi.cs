@@ -12,10 +12,14 @@ public class PlatformAi : PirateAiModel
 
     public override void EndTurn()
     {
-        base.EndOfTurn(location);
+        // only spawns pirate if it is dead
+        base.SpawnPirate(location);
+
         PlayerModel player = base.GetPlayer();
         if (player != null)
         {
+            // gets the model from the superclass, and calls its shoot method.
+            // Shoot is a ShipModel method
             base.pirateModel.Shoot(player);
         }
     }

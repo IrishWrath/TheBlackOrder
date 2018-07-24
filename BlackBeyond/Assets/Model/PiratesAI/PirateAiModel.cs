@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Could be any AI. Holds common methods to AIs
 public abstract class PirateAiModel
 {
     private PirateModel.PirateType pirateType;
@@ -37,18 +38,9 @@ public abstract class PirateAiModel
         return map;
     }
 
-    public void EndOfTurn(SpaceModel spawnPoint)
+    public void SpawnPirate(SpaceModel spawnPoint)
     {
-        /*END OF TURN METHOD(will be called at end of turn by the turn structure)
-
-In PatrolPath Model class
-CONSTRUCTOR
-gets the patrol path from pathfinding
-END OF TURN */
-
-
-        //If the pirate is dead check name and create a new one
-        //int pirateHealth = pirateModel.GetHealth();
+        //If the pirate is dead check type and create a new one
         if (pirateModel == null)
         {
             switch (pirateType)
@@ -71,27 +63,6 @@ END OF TURN */
             }
 
             modelLink.CreatePirateView(pirateModel);
-
-            //if (pirateName.Equals("Scout"))
-            //{
-            //    PirateModel.CreateScoutPirate();
-            //}
-            //else if (pirateName.Equals("Frigate"))
-            //{
-            //    PirateModel.CreateFrigatePirate();
-            //}
-            //else if (pirateName.Equals("Platform"))
-            //{
-            //    PirateModel.CreatePlatformPirate();
-            //}
-            //else if (pirateName.Equals("Destroyer"))
-            //{
-            //    PirateModel.CreateDestroyerPirate();
-            //}
-            //else
-            //{
-            //    PirateModel.CreateDreadnaughtPirate();
-            //}
         }
     }
 }
