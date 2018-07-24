@@ -19,13 +19,15 @@ public class Laser : MonoBehaviour {
 
     private float distanceTravelled = 0f;
 
+    private float lengthOfLine;
+
 	public void SetLine(Vector2 start, Vector2 end)
     {
         startPoint = start;
         currentStartPoint = startPoint;
         goalPoint = end;
         direction = (goalPoint - startPoint).normalized;
-
+        lengthOfLine = (goalPoint - startPoint).magnitude;
         setLine();
     }
 
@@ -34,6 +36,13 @@ public class Laser : MonoBehaviour {
         lineRenderer.enabled = false;
         lineRenderer.SetPosition(0, currentStartPoint);
         lineRenderer.SetPosition(1, currentStartPoint + direction * length);
+
+
+
+        if (length + (distanceTravelled * lengthOfLine) >= lengthOfLine)
+        {
+            lineRenderer.SetPosition(1, goalPoint);
+        }
         lineRenderer.enabled = true;
     }
 	
