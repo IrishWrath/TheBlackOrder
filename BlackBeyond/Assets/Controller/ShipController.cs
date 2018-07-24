@@ -8,6 +8,8 @@ public class ShipController : MonoBehaviour
     // The space the user is in. TODO should be model only.
     //public SpaceModel CurrentSpaceModel { get; private set; }
 
+    public GameObject laserPrefab;
+
     // shipview is the ships gameobject
     protected GameObject shipView;
     protected ShipModel shipModel;
@@ -85,4 +87,11 @@ public class ShipController : MonoBehaviour
             }
         }
 	}
+
+
+    public void CreateLaser(SpaceModel start, SpaceModel end)
+    {
+        var laser = Object.Instantiate(laserPrefab) as GameObject;
+        laser.GetComponent<Laser>().SetLine(start.GetController().GetPosition(), end.GetController().GetPosition());
+    }
 }

@@ -88,6 +88,7 @@ public class PirateModel
         }
         int remainingHP = currentHealth - adjDamage;
         player.UpdatePlayerHealth(remainingHP);
+        pirateController.CreateLaser(pirateSpaceModel, player.playerLocation);
     }
 
     public int GetDetectRange()
