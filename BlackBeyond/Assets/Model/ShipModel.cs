@@ -13,6 +13,10 @@ public class ShipModel
     // TODO, sort out how combat works
     protected int shipArmor = 1;
 
+    // Cargo hold stats
+    protected int maxCargoSpace;
+    protected int availableCargoSpace;
+
     // This ship's space
     protected SpaceModel currentSpace;
     private ShipController shipController;
@@ -32,6 +36,21 @@ public class ShipModel
     public int GetArmor()
     {
         return shipArmor;
+    }
+
+    public int GetMaxCargoSpace()
+    {
+        return maxCargoSpace;
+    }
+
+    public int GetAvailableCargoSpace()
+    {
+        return availableCargoSpace;
+    }
+
+    public void SetAvailableCargoSpace(int currentCargoSpace)
+    {
+        availableCargoSpace = currentCargoSpace;
     }
 
     public void Shoot(ShipModel enemy)
