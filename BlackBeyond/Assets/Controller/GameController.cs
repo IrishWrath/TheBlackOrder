@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
     public GameObject playership;
     // The Prefab for Pirate ships
     public GameObject pirateship;
+    // The Prefab for stations
+    public GameObject stationView;
     // The Nebula Terrain
     public GameObject nebulaTerrain;
 
