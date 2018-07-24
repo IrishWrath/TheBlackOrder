@@ -89,4 +89,21 @@ public class ModelLink
         // Lets the Model access the Controller, as a callback
         pirateModel.SetController(pirateController);
     }
+
+    // Same as above for a Space GameObject
+    public void CreateStationView(StationModel stationModel)
+    {
+        // Creates the player GameObject in the correct position. TODO update this formula for hexes
+        GameObject stationView = Object.Instantiate(GameController.GetStationView(),
+                                                   stationModel.GetSpace().GetController().GetPosition(), Quaternion.identity, MapContainer);
+
+        // Gets the controller from the GameObject.
+        StationController stationController = stationView.GetComponent<StationController>();
+        // Lets the Controller access the GameObject
+        stationController.SetStationView(stationView);
+        // Lets the Controller access the Model
+        stationController.SetModel(stationModel);
+        // Lets the Model access the Controller, as a callback
+        stationModel.SetController(stationController);
+    }
 }

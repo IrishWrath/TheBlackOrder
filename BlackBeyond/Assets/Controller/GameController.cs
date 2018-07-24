@@ -62,6 +62,12 @@ public class GameController : MonoBehaviour
     {
         return pirateship;
     }
+
+    public GameObject GetStationView()
+    {
+        return stationView;
+    }
+
     public GameObject GetNebula()
     {
         return nebulaTerrain;

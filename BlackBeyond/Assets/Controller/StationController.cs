@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class StationController : MonoBehaviour
@@ -8,6 +9,11 @@ public class StationController : MonoBehaviour
     public void SetModel(StationModel stationModel)
     {
         this.stationModel = stationModel;
+    }
+
+    public void SetStationView(GameObject stationView)
+    {
+        throw new NotImplementedException();
     }
 
     // Update is called once per frame

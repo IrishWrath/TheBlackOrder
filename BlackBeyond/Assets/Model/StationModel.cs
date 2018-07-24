@@ -1,19 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StationModel : MonoBehaviour
+public class StationModel
 {
     private StationController stationController;
+    private SpaceModel stationSpaceModel;
 
-    // Use this for initialization
-    void Start()
+    public StationModel(SpaceModel stationSpace)
     {
-        
+        this.stationSpaceModel = stationSpace;
     }
 
-    // Update is called once per frame
-    void Update()
+    public SpaceModel GetSpace()
     {
-
+        return stationSpaceModel;
     }
+
+    public void SetController(StationController controller)
+    {
+        this.stationController = controller;
+    }
+
 }
