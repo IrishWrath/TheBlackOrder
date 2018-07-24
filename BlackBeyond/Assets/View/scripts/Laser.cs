@@ -21,6 +21,8 @@ public class Laser : MonoBehaviour {
 
     private float lengthOfLine;
 
+    public GameObject explosionPrefab;
+
 	public void SetLine(Vector2 start, Vector2 end)
     {
         startPoint = start;
@@ -56,6 +58,8 @@ public class Laser : MonoBehaviour {
         if (distanceTravelled >= 1)
         {
             // TODO: create an explosion
+            Instantiate(explosionPrefab, goalPoint, Quaternion.identity);
+
             Destroy(this.gameObject);
         }
 
