@@ -12,39 +12,43 @@ public class Laser : MonoBehaviour {
     public LineRenderer lineRenderer;
 
     //some values
-    public float speed = 2f;
+    public float speed = 0.2f;
     public float length = 0.5f;
 
-    //some position variables
-    private Vector2 lineStart, lineEnd, direction, goalPoint;
+    private Vector2 startPoint, goalPoint, direction, currentStartPoint;
+
+    private float distanceTravelled = 0f;
 
 	public void SetLine(Vector2 start, Vector2 end)
     {
-        SetStartPoint(start);
-
+        startPoint = start;
+        currentStartPoint = startPoint;
         goalPoint = end;
-        direction = (goalPoint - lineStart).normalized;
+        direction = (goalPoint - startPoint).normalized;
+
+        setLine();
     }
 
-	private void SetStartPoint(Vector2 start)
+	private void setLine()
     {
-        lineStart = start;
-        lineRenderer.SetPosition(0, lineStart);
-    }
-
-    // this is used to set the end point of the line.
-    private void SetEndPoint(Vector2 end)
-    {
-        lineEnd = end;
-        //TODO: Need to clamp to goal point.
-        lineRenderer.SetPosition(1, lineEnd);
+        lineRenderer.enabled = false;
+        lineRenderer.SetPosition(0, currentStartPoint);
+        lineRenderer.SetPosition(1, currentStartPoint + direction * length);
+        lineRenderer.enabled = true;
     }
 	
 	void Update () {
-        // move the points along the line (direction)
-        SetStartPoint(lineStart + (direction * speed * Time.deltaTime));
-        SetEndPoint(lineStart + direction * length);
 
-        //TODO: Create an explosion when reached goal point
-	}
+        distanceTravelled += speed * Time.deltaTime;
+        currentStartPoint = Vector2.Lerp(startPoint, goalPoint, distanceTravelled);
+
+        setLine();
+
+        if (distanceTravelled >= 1)
+        {
+            // TODO: create an explosion
+            Destroy(this.gameObject);
+        }
+
+    }
 }
