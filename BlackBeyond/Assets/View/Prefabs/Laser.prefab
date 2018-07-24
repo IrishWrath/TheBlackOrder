@@ -55,6 +55,8 @@ MonoBehaviour:
   lineRenderer: {fileID: 120098379474366546}
   speed: 2
   length: 0.5
+  explosionPrefab: {fileID: 1593338817593002, guid: 46fa70180c6c341c093ff62f34ec577f,
+    type: 2}
 --- !u!120 &120098379474366546
 LineRenderer:
   m_ObjectHideFlags: 1
