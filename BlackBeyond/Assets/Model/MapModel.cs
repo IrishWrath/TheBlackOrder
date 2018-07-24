@@ -9,6 +9,8 @@ public class MapModel
     private int rows;
     private int columns;
 
+    private List<PirateAiModel> pirates = new List<PirateAiModel>();
+
     // Create a map. TODO nothing in this map yet.
     public MapModel(int rows, int columns, ModelLink link)
     {
@@ -42,6 +44,10 @@ public class MapModel
                         map[row][column] = tempSpace;
                         link.CreateSpaceView(tempSpace);
                     }
+                    if(UnityEngine.Random.Range(1,101) == 1)
+                    {
+                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
+                    }
                 }
             }
             else
@@ -67,6 +73,10 @@ public class MapModel
                         map[row][column] = tempSpace;
                         link.CreateSpaceView(tempSpace);
                     }
+                    if (UnityEngine.Random.Range(1, 101) == 1)
+                    {
+                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
+                    }
                 }
             }
         }
@@ -83,10 +93,25 @@ public class MapModel
         }
     }
 
+    public void EndTurn()
+    {
+        foreach(PirateAiModel pirate in pirates)
+        {
+            pirate.EndTurn();
+        }
+    }
+
     // Gets spaces by coordinate. Avoid this method
     public SpaceModel GetSpace(int row, int column)
     {
-        return map[row][column];
+        try
+        {
+            return map[row][column];
+        }
+        catch(IndexOutOfRangeException e)
+        {
+            return null;
+        }
     }
 
     // Gives the map. Avoid this method

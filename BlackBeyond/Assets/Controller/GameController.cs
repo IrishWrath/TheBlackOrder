@@ -113,6 +113,8 @@ public class GameController : MonoBehaviour
         //      pirate.DoTurn();
         // Or something...
 
+        this.MapController.Map.EndTurn();
+
         playerModel.StartTurn();
     }
 

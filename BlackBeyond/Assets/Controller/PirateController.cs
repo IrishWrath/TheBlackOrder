@@ -7,7 +7,8 @@ public class PirateController : MonoBehaviour
 {
     public bool engaged;
     private PirateModel pirateModel;
-    
+    private GameObject pirateView;
+
     // Don't need AI logic here
     //public void Engagement()
     //{
@@ -30,8 +31,8 @@ public class PirateController : MonoBehaviour
     //            }
     //            int remainingHP = currentHealth - adjDamage;
     //            PlayerModel.UpdatePlayerHealth(remainingHP);
-               
-                
+
+
 
 
     //        }
@@ -41,16 +42,16 @@ public class PirateController : MonoBehaviour
     //            //follow patrol route for 1 movement
     //            //pirateShip scans spaces inside detection range
     //            //if target found engaged = true
-                
+
     //        }
     //    }
 
-        
+
     //}
 
     public void SetShipView(GameObject pirateView)
     {
-        throw new NotImplementedException();
+        this.pirateView = pirateView;
     }
 
     public void SetModel(PirateModel pirateModel)

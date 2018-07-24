@@ -6,11 +6,11 @@ using UnityEngine;
 public class ShipController : MonoBehaviour
 {
     // The space the user is in. TODO should be model only.
-    public SpaceModel CurrentSpaceModel { get; private set; }
+    //public SpaceModel CurrentSpaceModel { get; private set; }
 
     // shipview is the ships gameobject
     protected GameObject shipView;
-
+    protected ShipModel shipModel;
     // is this ship moving
     private bool moving = false;
 
@@ -18,11 +18,16 @@ public class ShipController : MonoBehaviour
     private PathfindingNode[] destinations;
 
     private float distanceMoved = 0f;
-    private float speed = 1.5f;
+    private float speed = 2f;
 
     Vector2 currentLocation, currentDestination;
     private int destinationIndex;
 
+
+    public void SetModel(ShipModel shipModel)
+    {
+        this.shipModel = shipModel;
+    }
 
     // Gives the GameObject
     public GameObject GetShipView()
@@ -70,6 +75,7 @@ public class ShipController : MonoBehaviour
                 if (destinationIndex >= destinations.Length)
                 {
                     moving = false;
+                    shipModel.FinishedAnimatingMovement();
                 }
                 else
                 {

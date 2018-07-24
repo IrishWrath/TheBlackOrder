@@ -129,9 +129,12 @@ public class SpaceModel
 
     public PlayerModel GetPlayer()
     {
-        if(occupyingShip.GetType() == typeof(PlayerModel))
+        if (occupyingShip != null)
         {
-            return (PlayerModel)occupyingShip;
+            if (occupyingShip.GetType() == typeof(PlayerModel))
+            {
+                return (PlayerModel)occupyingShip;
+            }
         }
         return null;
     }

@@ -6,20 +6,21 @@ public abstract class PirateAiModel
 {
     private PirateModel.PirateType pirateType;
     private MapModel map;
-    private SpaceModel location;
+    private ModelLink modelLink;
     protected PirateModel pirateModel;
 
-    protected PirateAiModel(PirateModel.PirateType pirateType, MapModel map)
+    protected PirateAiModel(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink)
     {
         this.pirateType = pirateType;
         this.map = map;
+        this.modelLink = modelLink;
     }
 
     public abstract void EndTurn();
 
     public PlayerModel GetPlayer()
     {
-        List <PathfindingNode> fov = Pathfinding.GetFieldOfView(location, pirateModel.GetDetectRange(), map);
+        List <PathfindingNode> fov = Pathfinding.GetFieldOfView(pirateModel.GetSpace(), pirateModel.GetDetectRange(), map);
         foreach (PathfindingNode node in fov)
         {
             if (node.GetSpace().GetPlayer() != null)
@@ -36,7 +37,7 @@ public abstract class PirateAiModel
         return map;
     }
 
-    public void EndOfTurn()
+    public void EndOfTurn(SpaceModel spawnPoint)
     {
         /*END OF TURN METHOD(will be called at end of turn by the turn structure)
 
@@ -53,21 +54,24 @@ END OF TURN */
             switch (pirateType)
             {
                 case PirateModel.PirateType.Scout:
-                    pirateModel = PirateModel.CreateScoutPirate();
+                    pirateModel = PirateModel.CreateScoutPirate(spawnPoint);
                     break;
                 case PirateModel.PirateType.Frigate:
-                    pirateModel = PirateModel.CreateFrigatePirate();
+                    pirateModel = PirateModel.CreateFrigatePirate(spawnPoint);
                     break;
                 case PirateModel.PirateType.Platform:
-                    pirateModel = PirateModel.CreatePlatformPirate();
+                    pirateModel = PirateModel.CreatePlatformPirate(spawnPoint);
                     break;
                 case PirateModel.PirateType.Dreadnought:
-                    pirateModel = PirateModel.CreateDreadnaughtPirate();
+                    pirateModel = PirateModel.CreateDreadnaughtPirate(spawnPoint);
                     break;
                 case PirateModel.PirateType.Destroyer:
-                    pirateModel = PirateModel.CreateDestroyerPirate();
+                    pirateModel = PirateModel.CreateDestroyerPirate(spawnPoint);
                     break;
             }
+
+            modelLink.CreatePirateView(pirateModel);
+
             //if (pirateName.Equals("Scout"))
             //{
             //    PirateModel.CreateScoutPirate();

@@ -36,7 +36,6 @@ public class PlayerModel : ShipModel
     {
         //this.playerSpaceModel = playerSpace;
         this.playerLocation = playerSpace;
-        Debug.Log("Moves Available: " + this.currentPlayerMovement.ToString());
     }
 
     public PlayerController GetController()
@@ -109,26 +108,29 @@ public class PlayerModel : ShipModel
 
     public void StartMove()
     {
-        if (validMovementSpaces == null || validMovementSpaces.Count == 0)
+        if (!base.animatingMovement)
         {
-            // Get all spaces that are valid moves and return into list
-            validMovementSpaces = Pathfinding.GetSpacesForMovementDijkstras(playerLocation, currentPlayerMovement);
-
-            SetPlayerCanMove(true);
-
-            foreach (PathfindingNode node in validMovementSpaces)
+            if (validMovementSpaces == null || validMovementSpaces.Count == 0)
             {
-                node.GetSpace().SetHighlighted(node, this);
-            }
-        }
-        else
-        {
-            foreach (PathfindingNode node in validMovementSpaces)
-            {
-                node.GetSpace().ClearHighlighted();
-            }
+                // Get all spaces that are valid moves and return into list
+                validMovementSpaces = Pathfinding.GetSpacesForMovementDijkstras(playerLocation, currentPlayerMovement);
 
-            validMovementSpaces.Clear();
+                SetPlayerCanMove(true);
+
+                foreach (PathfindingNode node in validMovementSpaces)
+                {
+                    node.GetSpace().SetHighlighted(node, this);
+                }
+            }
+            else
+            {
+                foreach (PathfindingNode node in validMovementSpaces)
+                {
+                    node.GetSpace().ClearHighlighted();
+                }
+
+                validMovementSpaces.Clear();
+            }
         }
     }
 
@@ -144,6 +146,8 @@ public class PlayerModel : ShipModel
 
 
             SetPlayerCanMove(false);
+            animatingMovement = true;
+
 
             foreach (PathfindingNode node in validMovementSpaces)
             {

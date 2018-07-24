@@ -197,7 +197,10 @@ public static class Pathfinding
                 DoubledCoord normalCoord = CubeCoordsToCoordinates(coord);
                 SpaceModel newSpace;
                 newSpace = map.GetSpace(normalCoord.Row, normalCoord.Column);
-                results.Add(newSpace);
+                if (newSpace != null)
+                {
+                    results.Add(newSpace);
+                }
             }
         }
         return results;

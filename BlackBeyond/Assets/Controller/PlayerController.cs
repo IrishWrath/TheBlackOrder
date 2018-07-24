@@ -9,13 +9,13 @@ using UnityEngine.EventSystems;
 public class PlayerController : ShipController
 {
     private Text movementText;
-    private PlayerModel playerModel;
+    //private PlayerModel playerModel;
     private SoundController soundController;
 
-    public void SetModel(PlayerModel model)
-    {
-        this.playerModel = model;
-    }
+    //public void SetModel(PlayerModel model)
+    //{
+    //    this.playerModel = model;
+    //}
 
     public void SetMovementTextInterface(Text movementText)
     {
@@ -28,7 +28,10 @@ public class PlayerController : ShipController
     }
 
 	// For getting the soundController that can be found in the GameController
-	public void setSoundController(SoundController soundController){
+	public void SetSoundController(SoundController soundController)
+    {
 		this.soundController = soundController;
 	}
+
+
 }

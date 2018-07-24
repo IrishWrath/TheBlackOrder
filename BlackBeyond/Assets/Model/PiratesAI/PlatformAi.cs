@@ -5,14 +5,14 @@ public class PlatformAi : PirateAiModel
 {
     private SpaceModel location;
 
-    protected PlatformAi(PirateModel.PirateType pirateType, MapModel map, SpaceModel location) : base(pirateType, map)
+    public PlatformAi(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, SpaceModel location) : base(pirateType, map, modelLink)
     {
         this.location = location;
     }
 
     public override void EndTurn()
     {
-        base.EndOfTurn();
+        base.EndOfTurn(location);
         PlayerModel player = base.GetPlayer();
         if (player != null)
         {

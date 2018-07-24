@@ -22,8 +22,9 @@ public class PirateModel
     public int currentPirateMovement;
         
     //pirate ship builder template
-    public PirateModel(string name, int health, int shotDamage, int detectRange, int attackRange , int maxPirateMovement, int currentPirateMovement)
+    public PirateModel(SpaceModel location, string name, int health, int shotDamage, int detectRange, int attackRange , int maxPirateMovement, int currentPirateMovement)
     {
+        this.pirateSpaceModel = location;
         shipName = name;
         shipHealth = health;
         this.shotDamage = shotDamage;
@@ -33,29 +34,29 @@ public class PirateModel
         this.currentPirateMovement = currentPirateMovement;
     }
 
-    public static PirateModel CreateScoutPirate()
+    public static PirateModel CreateScoutPirate(SpaceModel location)
     {
-        return new PirateModel("Scout", 2, 2, 3, 1, 4, 4);
+        return new PirateModel(location, "Scout", 2, 2, 3, 1, 4, 4);
     }
 
-    public static PirateModel CreateFrigatePirate()
+    public static PirateModel CreateFrigatePirate(SpaceModel location)
     {
-        return new PirateModel("Frigate", 4, 3, 3, 2, 3, 3);
+        return new PirateModel(location, "Frigate", 4, 3, 3, 2, 3, 3);
     }
 
-    public static PirateModel CreatePlatformPirate()
+    public static PirateModel CreatePlatformPirate(SpaceModel location)
     {
-        return new PirateModel("Platform",4, 2, 5, 5, 0, 0);
+        return new PirateModel(location, "Platform",4, 2, 5, 5, 0, 0);
     }
 
-    public static PirateModel CreateDestroyerPirate()
+    public static PirateModel CreateDestroyerPirate(SpaceModel location)
     {
-        return new PirateModel("Destroyer", 7, 4, 3, 3, 2, 2);
+        return new PirateModel(location, "Destroyer", 7, 4, 3, 3, 2, 2);
     }
 
-    public static PirateModel CreateDreadnaughtPirate()
+    public static PirateModel CreateDreadnaughtPirate(SpaceModel location)
     {
-        return new PirateModel("Dreadnaught", 10, 5, 2, 3, 2, 2);
+        return new PirateModel(location, "Dreadnaught", 10, 5, 2, 3, 2, 2);
     }
 
     public string GetName()
@@ -106,10 +107,10 @@ public class PirateModel
         this.pirateController = controller;
     }
 
-    public PirateModel(SpaceModel pirateSpace)
-    {
-        pirateSpaceModel = pirateSpace;
-    }
+    //public PirateModel(SpaceModel pirateSpace)
+    //{
+    //    pirateSpaceModel = pirateSpace;
+    //}
 
     public SpaceModel GetSpace()
     {
