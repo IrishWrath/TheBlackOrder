@@ -64,4 +64,19 @@ public class Laser : MonoBehaviour {
         }
 
     }
+
+    // does not work
+    public static void makeLasers (Vector2 start, Vector2 end)
+    {
+        //creates 3-5 lasers going between the points
+        float tileSize = 1f;
+
+        int numberOfLasers = Random.Range(3, 5);
+
+        for (int i = 0; i < numberOfLasers; i++)
+        {
+            // create a laser
+        }
+  
+    }
 }
