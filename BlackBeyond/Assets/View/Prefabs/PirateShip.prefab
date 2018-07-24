@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4087996792385834}
   - component: {fileID: 212455914403243388}
   m_Layer: 8
-  m_Name: NebulaMini
+  m_Name: PirateMini
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
