@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 // This is the main class of this system. It is the starting point of our code.
@@ -138,9 +139,10 @@ public class GameController : MonoBehaviour
         {
             PlayerMoveButton();
         }
+    }
 
-
-        // Oisín: I think it would be best to call a move method in ShipController (Not my one though. That doesn't work yet.)
-        //ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }
