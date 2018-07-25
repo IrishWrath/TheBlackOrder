@@ -11,6 +11,9 @@ public class MapModel
 
     private List<PirateAiModel> pirates = new List<PirateAiModel>();
 
+    public static readonly int NEBULA_RATE = 1, ASTEROID_RATE = NEBULA_RATE + 1, PLATFORM_RATE = 2;
+
+
     // Create a map. TODO nothing in this map yet.
     public MapModel(int rows, int columns, ModelLink link)
     {
@@ -26,13 +29,13 @@ public class MapModel
                 for (int column = 0; column < columns; column += 2)
                 {
                     int randomNumber = UnityEngine.Random.Range(1, 11);
-                    if(randomNumber <= 1)
+                    if(randomNumber <= NEBULA_RATE)
                     {
                         tempSpace = new NebulaSpaceModel(row, column, this);
                         map[row][column] = tempSpace;
                         link.CreateNebulaSpace((NebulaSpaceModel)tempSpace);
                     }
-                    else if (randomNumber <= 2)
+                    else if (randomNumber <= ASTEROID_RATE)
                     {
                         tempSpace = new AsteroidSpaceModel(row, column, this);
                         map[row][column] = tempSpace;
@@ -44,7 +47,7 @@ public class MapModel
                         map[row][column] = tempSpace;
                         link.CreateSpaceView(tempSpace);
                     }
-                    if(UnityEngine.Random.Range(1,101) == 1)
+                    if(UnityEngine.Random.Range(1,101) < PLATFORM_RATE)
                     {
                         pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
                     }
@@ -55,13 +58,13 @@ public class MapModel
                 for (int column = 1; column < columns; column += 2)
                 {
                     int randomNumber = UnityEngine.Random.Range(1, 11);
-                    if (randomNumber <= 1)
+                    if (randomNumber <= NEBULA_RATE)
                     {
                         tempSpace = new NebulaSpaceModel(row, column, this);
                         map[row][column] = tempSpace;
                         link.CreateNebulaSpace((NebulaSpaceModel)tempSpace);
                     }
-                    else if (randomNumber <= 2)
+                    else if (randomNumber <= ASTEROID_RATE)
                     {
                         tempSpace = new AsteroidSpaceModel(row, column, this);
                         map[row][column] = tempSpace;
@@ -73,7 +76,7 @@ public class MapModel
                         map[row][column] = tempSpace;
                         link.CreateSpaceView(tempSpace);
                     }
-                    if (UnityEngine.Random.Range(1, 101) == 1)
+                    if (UnityEngine.Random.Range(1, 101) < PLATFORM_RATE)
                     {
                         pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
                     }

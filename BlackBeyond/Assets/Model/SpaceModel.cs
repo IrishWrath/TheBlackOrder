@@ -40,14 +40,6 @@ public class SpaceModel
         this.controller = controller;
     }
 
-
-    public void WithinMovementRange(int cost)
-    {
-        if(occupyingShip == null)
-        {
-            controller.SetSelectable(cost);
-        }
-    }
     public void OccupySpace(ShipModel ship)
     {
         occupyingShip = ship;
@@ -93,17 +85,26 @@ public class SpaceModel
 
     public virtual int GetMovementCost()
     {
-        // TODO update movement costs
-        return 1;
+        if(occupyingShip == null)
+        {
+            return 1;
+        }
+        else
+        {
+            return 100;
+        }
     }
 
     // Pathfinding End
 
     public void SetHighlighted(PathfindingNode node, PlayerModel player)
     {
-        this.player = player;
-        this.GetController().SetSelectable(node.GetCost());
-        this.moveFunctionNode = node;
+        if (occupyingShip == null)
+        {
+            this.player = player;
+            this.GetController().SetSelectable(node.GetCost());
+            this.moveFunctionNode = node;
+        }
     }
 
 
