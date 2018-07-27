@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class PatrolAI : PirateAiModel
 {
-    public bool engaged;
-    private MapModel map;
 
     // Oisín Notes: Don't need a start space, we can get one from the patrol.
     // SpaceModel startSpace = ShipModel.GetSpace();
@@ -16,6 +14,8 @@ public class PatrolAI : PirateAiModel
     private int currentSpaceOnPath;
 
     public bool engaged;
+    private MapModel map;
+
     protected PatrolAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, List<SpaceModel> patrolPoints) : base(pirateType, map, modelLink)
     {
         // Oisín Notes: This constructor takes in a list of patrol points, which we can use to set up the patrol
@@ -30,8 +30,9 @@ public class PatrolAI : PirateAiModel
         patrolPath.AddRange(AStarPathfinding.GetPathToDestination(patrolPoints[2], patrolPoints[0]));
 
         // patrolPath should now be one continuous line of spaces. If AStar has bugs, it might break around the edges
-        currentSpaceOnPath = 0;
 
+        // What space of the path we're on.
+        currentSpaceOnPath = 0;
 
         ////**Oisin is this on the right track?**
         //SpaceModel[] position = new SpaceModel[2];
@@ -45,12 +46,15 @@ public class PatrolAI : PirateAiModel
 
     public override void EndTurn()
     {
+        // Oisín notes: probably call "base.SpawnPirate(patrolPath[0])" around here, so that the pirate appears and respawns
         while (pirateModel.GetCurrentMovement() != 0)
         {
             if (engaged == true)
             {
                 PlayerModel target;
                 {
+                    // Oisín Notes: This class inherits from PirateAiModel, so you could call base.GetPlayer(), 
+                    // which returns null if there is no player, or the player if he is there
                     List<PathfindingNode> fov = Pathfinding.GetFieldOfView(pirateModel.GetSpace(), pirateModel.GetDetectRange() * 3, map);
                     foreach (PathfindingNode node in fov)
                     {
@@ -65,7 +69,20 @@ public class PatrolAI : PirateAiModel
                     // Return to original patrol path
                 }
             }
+            else
+            {
+                // Oisín notes: I would do a for loop (i = 0, i > base.pirateModel.GetMaxMovement(), i++)
+                // inside, check for a player, then move base.pirateModel to the next space on the path with currentSpaceOnPath
+                // also check if we're at the end of the path (currentSpaceOnPath == patrolPath.Count) 
+                // or (currentSpaceOnPath == patrolPath.Count - 1), depending on how you do it.
+
+                // We don't need the engaged functionality for now, it might be easier to build and perfect 
+                // it in the Hunter Killer AI, then copy it in here.
+            }
         }
+
+
+        // Oisín notes: Old method?
         //if (engaged == true)
         //{
         //    // Pursue
@@ -75,14 +92,6 @@ public class PatrolAI : PirateAiModel
         //else
         //{
         //    // Patrol
-        //    // Oisín notes: I would do a for loop (i = 0, i > base.pirateModel.GetMaxMovement(), i++)
-        //    // inside, check for a player, then move base.pirateModel to the next space on the path with currentSpaceOnPath
-        //    // also check if we're at the end of the path (currentSpaceOnPath == patrolPath.Count) 
-        //    // or (currentSpaceOnPath == patrolPath.Count - 1), depending on how you do it.
-
-        //    // We don't need the engaged functionality for now, it might be easier to build and perfect 
-        //    // it in the Hunter Killer AI, then copy it in here.
-
         //}
     }
 }
