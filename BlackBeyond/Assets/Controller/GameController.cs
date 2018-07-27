@@ -114,13 +114,7 @@ public class GameController : MonoBehaviour
         playerModel.EndTurn();
 		soundController.PlaySound(SoundController.Sound.endTurn);
 
-        // End of turn Housekeeping
-
-        // Pirates move
-        // Foreach pirate in map.GetPirates()
-        //      pirate.DoTurn();
-        // Or something...
-
+        // MapModel will handle the pirates
         this.MapController.Map.EndTurn();
 
         playerModel.StartTurn();
@@ -138,9 +132,5 @@ public class GameController : MonoBehaviour
         {
             PlayerMoveButton();
         }
-
-
-        // Oisín: I think it would be best to call a move method in ShipController (Not my one though. That doesn't work yet.)
-        //ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
     }
 }
