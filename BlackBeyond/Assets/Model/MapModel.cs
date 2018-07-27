@@ -5,14 +5,19 @@ using UnityEngine;
 
 public class MapModel 
 {
-    private readonly SpaceModel[][] map;
-    private int rows;
-    private int columns;
+    //protected readonly SpaceModel[][] map;
+    
+    protected SpaceModel[][] map;
+    protected int rows;
+    protected int columns;
 
-    private List<PirateAiModel> pirates = new List<PirateAiModel>();
+    protected List<PirateAiModel> pirates = new List<PirateAiModel>();
 
     public static readonly int NEBULA_RATE = 1, ASTEROID_RATE = NEBULA_RATE + 1, PLATFORM_RATE = 2;
 
+    protected MapModel(){
+        return;
+    }
 
     // Create a map. TODO nothing in this map yet.
     public MapModel(int rows, int columns, ModelLink link)
