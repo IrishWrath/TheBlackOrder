@@ -10,6 +10,7 @@ public class ShipModel
     protected int attackRange;
     protected int maxMovement;
     protected int currentMovement;
+    protected int shotCounter;
     // TODO, sort out how combat works
     protected int shipArmor = 1;
 

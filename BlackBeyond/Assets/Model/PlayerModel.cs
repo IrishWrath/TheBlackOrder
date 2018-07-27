@@ -20,6 +20,7 @@ public class PlayerModel : ShipModel
         base.maxMovement = 3;
         base.attackRange = 2;
         base.shotDamage = 2;
+        base.shotCounter = 1;
         base.shipHealth = 10;
     }
 

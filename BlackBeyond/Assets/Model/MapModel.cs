@@ -80,6 +80,9 @@ public class MapModel
                 }
             }
         }
+
+        // TODO, Oisín says: This is where I think the patrol points should be set up. 
+
         // Setting each space's adjacent spaces. Must be done after the map is generated
         for (int row = 0; row < rows; row++)
         {
@@ -93,6 +96,7 @@ public class MapModel
         }
     }
 
+    // At the end of the turn, pirates will move
     public void EndTurn()
     {
         foreach(PirateAiModel pirate in pirates)
@@ -101,7 +105,7 @@ public class MapModel
         }
     }
 
-    // Gets spaces by coordinate. Avoid this method
+    // Gets spaces by coordinate. Avoid this method, if possible
     public SpaceModel GetSpace(int row, int column)
     {
         try
@@ -114,11 +118,7 @@ public class MapModel
         }
     }
 
-    // Gives the map. Avoid this method
-    public SpaceModel[][] getMap()
-    {
-        return map;
-    }
+
 
     // Movement Methods. Only used in Space generation.
     public SpaceModel GetNE(SpaceModel startSpace)
