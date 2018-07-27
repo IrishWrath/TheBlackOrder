@@ -29,6 +29,9 @@ public class GameController : MonoBehaviour
     public GameObject asteroidTerrain;
 
     public Text playerMovementText;
+	
+	public Slider musicSlider;
+	public Slider sfxSlider;
 
     // Container for spaces
     public GameObject mapGameObject;
@@ -48,6 +51,7 @@ public class GameController : MonoBehaviour
         this.soundController = this.soundView.GetComponent<SoundController>();
         // Lets the Controller access the GameObject
         this.soundController.SetSoundView(this.soundView);
+		this.soundController.SetSliders(this.musicSlider, this.sfxSlider);
 		
         //Output the Game data path to the console
         this.modelLink = new ModelLink(this, mapGameObject);
