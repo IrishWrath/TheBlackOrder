@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class PlayerModel : ShipModel
 {
+    // Player trade info
+    public int playerCurrency = 0;
+    public int metalResource = 0;
+    public int organicResource = 0;
+    public int fuelResource = 0;
+    public int gasResource = 0;
+    public int waterResource = 0;
+
     List<PathfindingNode> validMovementSpaces;
 
     private PlayerController playerController;
@@ -21,6 +29,7 @@ public class PlayerModel : ShipModel
         base.attackRange = 2;
         base.shotDamage = 2;
         base.shipHealth = 10;
+        base.maxCargoSpace = 50;
     }
 
     public PlayerController GetController()
