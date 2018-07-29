@@ -101,10 +101,22 @@ public class GameController : MonoBehaviour
     public void PlayerMoveButton()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        //TODO Call playership.startmove() or similar
+        // Tells the player to start moving
         playerModel.StartMove();
 		//play button sound
 		soundController.PlaySound(SoundController.Sound.buttonPress);
+    }
+
+    public void PlayerShootButton()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        // player.StartShoot
+    }
+
+    public void PlayerTradeButton()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        // player.OpenTrade
     }
 
     // This function is called whe the player presses "end turn"
