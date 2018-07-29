@@ -9,7 +9,7 @@ public class MapController
     // Creates Map 
     public MapController(int rows, int columns, ModelLink link)
     {
-        this.Map = new MapModel(rows, columns, link);
+        this.Map = new ProceduralMapModel(rows, columns, link);
     }
 
     // The Map Model
