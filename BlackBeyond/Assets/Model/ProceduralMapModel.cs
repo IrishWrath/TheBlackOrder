@@ -28,7 +28,7 @@ public class ProceduralMapModel : MapModel
          * 0. Nebula Field
          * 1. Asteroid Field
          * 2. Colonized
-         * 3. Empty (1/20 chance of both)
+         * 3. Empty
          */
 
         sectors = new int[rows/SECTOR_SIZE, columns/SECTOR_SIZE/2];
@@ -54,9 +54,9 @@ public class ProceduralMapModel : MapModel
                 {
                     int sectorType = sectors[row / SECTOR_SIZE, column/SECTOR_SIZE / 2];
 
-                    //rates (out of 100)
-                    int nebulaRate = 10;
-                    int asteroidRate = 10;
+                    //rates (out of 625)
+                    int nebulaRate = 100;
+                    int asteroidRate = 100;
                     int platformRate = 1;
                     //empty space makes up the rest
                     //TODO add planet rate
@@ -65,30 +65,30 @@ public class ProceduralMapModel : MapModel
                     {
                         case 0:
                             //Nebula Field
-                            nebulaRate = 30;
-                            asteroidRate = 10;
+                            nebulaRate = 150;
+                            asteroidRate = 50;
                             platformRate = 1;
 
                             break;
                         case 1:
                             //Asteroid Field
-                            nebulaRate = 10;
-                            asteroidRate = 20;
+                            nebulaRate = 50;
+                            asteroidRate = 150;
                             platformRate = 1;
 
                             break;
                         case 2:
                             // Empty
-                            nebulaRate = 3;
-                            asteroidRate = 3;
+                            nebulaRate = 30;
+                            asteroidRate = 30;
                             platformRate = 2;
 
                             break;
                         case 3:
                             //colonised
-                            nebulaRate = 5;
-                            asteroidRate = 5;
-                            platformRate = 0;
+                            nebulaRate = 50;
+                            asteroidRate = 50;
+                            platformRate = 1;
 
                             break;
 
@@ -96,7 +96,7 @@ public class ProceduralMapModel : MapModel
                             break;
                     }
 
-                    int randomNumber = UnityEngine.Random.Range(1, 100);
+                    int randomNumber = UnityEngine.Random.Range(1, 625);
                     if(randomNumber <= nebulaRate)
                     {
                         tempSpace = new NebulaSpaceModel(row, column, this);
@@ -131,9 +131,9 @@ public class ProceduralMapModel : MapModel
                 {
                     int sectorType = sectors[row / SECTOR_SIZE, column / SECTOR_SIZE / 2];
 
-                    //rates (out of 100)
-                    int nebulaRate = 10;
-                    int asteroidRate = 10;
+                    //rates (out of 625)
+                    int nebulaRate = 100;
+                    int asteroidRate = 100;
                     int platformRate = 1;
                     //empty space makes up the rest
                     //TODO add planet rate
@@ -142,30 +142,30 @@ public class ProceduralMapModel : MapModel
                     {
                         case 0:
                             //Nebula Field
-                            nebulaRate = 30;
-                            asteroidRate = 10;
+                            nebulaRate = 150;
+                            asteroidRate = 50;
                             platformRate = 1;
 
                             break;
                         case 1:
                             //Asteroid Field
-                            nebulaRate = 10;
-                            asteroidRate = 20;
+                            nebulaRate = 50;
+                            asteroidRate = 150;
                             platformRate = 1;
 
                             break;
                         case 2:
                             // Empty
-                            nebulaRate = 3;
-                            asteroidRate = 3;
+                            nebulaRate = 30;
+                            asteroidRate = 30;
                             platformRate = 2;
 
                             break;
                         case 3:
                             //colonised
-                            nebulaRate = 5;
-                            asteroidRate = 5;
-                            platformRate = 0;
+                            nebulaRate = 50;
+                            asteroidRate = 50;
+                            platformRate = 1;
 
                             break;
 
@@ -173,7 +173,7 @@ public class ProceduralMapModel : MapModel
                             break;
                     }
 
-                    int randomNumber = UnityEngine.Random.Range(1, 100);
+                    int randomNumber = UnityEngine.Random.Range(1, 625);
                     if (randomNumber <= nebulaRate)
                     {
                         tempSpace = new NebulaSpaceModel(row, column, this);
