@@ -29,6 +29,7 @@ public class ProceduralMapModel : MapModel
          * 1. Asteroid Field
          * 2. Colonized
          * 3. Empty
+         * 4. Pirate base
          */
 
         sectors = new int[rows/SECTOR_SIZE, columns/SECTOR_SIZE/2];
@@ -44,6 +45,21 @@ public class ProceduralMapModel : MapModel
         //make the middle spot a colonized area.
         sectors[2, 2] = 3;
 
+        int randomAxis = UnityEngine.Random.Range(0, 2);
+        int randomSide = UnityEngine.Random.Range(0, 2);
+        int position = UnityEngine.Random.Range(0, 5);
+        if (randomAxis == 0)
+        {
+            // pirate base is on top or bottom
+            sectors[position, randomSide * 4] = 4;
+        } 
+        else
+        {
+            // pirate base is on left or right
+            sectors[randomSide * 4, position] = 4;
+        }
+        Debug.Log(randomSide + " : " + randomAxis);
+            
 
         for (int row = 0; row < rows; row++)
         {
@@ -91,6 +107,13 @@ public class ProceduralMapModel : MapModel
                             platformRate = 1;
 
                             break;
+                        case 4:
+                            //pirate base
+                            nebulaRate = 100;
+                            asteroidRate = 100;
+                            platformRate = 50;
+
+                            break;
 
                         default:
                             break;
@@ -109,18 +132,19 @@ public class ProceduralMapModel : MapModel
                         map[row][column] = tempSpace;
                         link.CreateAsteroidSpace((AsteroidSpaceModel)tempSpace);
                     }
-                    else if (randomNumber <= nebulaRate + asteroidRate + platformRate)
-                    {
-                        tempSpace = new SpaceModel(row, column, this);
-                        map[row][column] = tempSpace;
-                        link.CreateSpaceView(tempSpace);
-                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
-                    }
                     else 
                     {
                         tempSpace = new SpaceModel(row, column, this);
                         map[row][column] = tempSpace;
                         link.CreateSpaceView(tempSpace);
+                    }
+
+                    //see if there are pirates
+                    randomNumber = UnityEngine.Random.Range(1, 625);
+
+                    if (randomNumber <= platformRate)
+                    {
+                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
                     }
 
                 }
@@ -168,6 +192,13 @@ public class ProceduralMapModel : MapModel
                             platformRate = 1;
 
                             break;
+                        case 4:
+                            //pirate base
+                            nebulaRate = 100;
+                            asteroidRate = 100;
+                            platformRate = 50;
+
+                            break;
 
                         default:
                             break;
@@ -186,19 +217,21 @@ public class ProceduralMapModel : MapModel
                         map[row][column] = tempSpace;
                         link.CreateAsteroidSpace((AsteroidSpaceModel)tempSpace);
                     }
-                    else if (randomNumber <= nebulaRate + asteroidRate + platformRate)
-                    {
-                        tempSpace = new SpaceModel(row, column, this);
-                        map[row][column] = tempSpace;
-                        link.CreateSpaceView(tempSpace);
-                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
-                    }
                     else
                     {
                         tempSpace = new SpaceModel(row, column, this);
                         map[row][column] = tempSpace;
                         link.CreateSpaceView(tempSpace);
                     }
+
+                    //see if there are pirates
+                    randomNumber = UnityEngine.Random.Range(1, 625);
+
+                    if (randomNumber <= platformRate)
+                    {
+                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
+                    }
+
                 }
             }
         }
