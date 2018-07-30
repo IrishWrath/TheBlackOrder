@@ -32,6 +32,19 @@ public abstract class PirateAiModel
         // Outside for loop, no players found
         return null;
     }
+    public PlayerModel GetPlayerChasing()
+    {
+        List<PathfindingNode> fov = Pathfinding.GetFieldOfView(pirateModel.GetSpace(), pirateModel.GetDetectRange()*3, map);
+        foreach (PathfindingNode node in fov)
+        {
+            if (node.GetSpace().GetPlayer() != null)
+            {
+                return node.GetSpace().GetPlayer();
+            }
+        }
+        // Outside for loop, no players found
+        return null;
+    }
 
     protected MapModel GetMap()
     {

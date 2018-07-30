@@ -35,6 +35,17 @@ public class PirateModel : ShipModel
     {
         return playerDetectRange;
     }
+    public int GetMaxMovement()
+    {
+        return maxMovement;
+    }
+
+    public void UpdatePirateLocation(SpaceModel location)
+    {
+        base.currentSpace.LeaveSpace();
+        base.currentSpace = location;
+        location.OccupySpace(this);
+    }
 
     public PirateController GetController()
     {
