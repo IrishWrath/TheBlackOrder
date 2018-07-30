@@ -622,7 +622,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3800,10 +3800,22 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 82713211710984704, guid: 11cd96ed06d3fba48988b500f6bd6ad7,
+          type: 2}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 0
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1590318177
@@ -4918,6 +4930,8 @@ MonoBehaviour:
   asteroidTerrain: {fileID: 1943183502530018, guid: a399f1ea39485455883fcd0db8c86118,
     type: 2}
   playerMovementText: {fileID: 1890571450}
+  musicSlider: {fileID: 1588954249}
+  sfxSlider: {fileID: 424863878}
   mapGameObject: {fileID: 90238576}
 --- !u!4 &2045183071
 Transform:

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading;
+using UnityEngine.UI;
 
 public class SoundController : MonoBehaviour{
 
@@ -10,7 +10,10 @@ public class SoundController : MonoBehaviour{
 	//has all our music and sfx stored.
 	private AudioSource[] sounds;
     //gives each sound number a name.
-    public enum Sound { main, battle, trade, endTurn, move, buttonPress }
+    public enum Sound { main, battle, trade, endTurn, move, buttonPress, shoot, buy, destroy, damage }
+	
+	private Slider musicSlider;
+	private Slider sfxSlider;
 
     public SoundController()
     {
@@ -35,6 +38,27 @@ public class SoundController : MonoBehaviour{
 
     }
 
+	//makes the volume for our sounds match the sliders in the menu.
+	public void ChangeVolume(){
+		//for music
+        for (int i = 0; i < 3; i++)
+        {
+            sounds[i].volume = musicSlider.value;
+        }
+	
+		//for sfx
+		for (int i = 3; i < sounds.Length; i++)
+        {
+            sounds[i].volume = sfxSlider.value;
+        }
+
+	}
+	
+	public void SetSliders(Slider musicSlider, Slider sfxSlider){
+		this.musicSlider = musicSlider;
+		this.sfxSlider = sfxSlider;
+	}
+	
     //toggles mute of sounds.
     public void MuteSounds(){
 	    foreach (AudioSource sound in sounds){
@@ -48,10 +72,6 @@ public class SoundController : MonoBehaviour{
 	// Update is called once per frame
     void Update()
     {
-		//Mute with M key
-        if (Input.GetKeyDown(KeyCode.N)){
-            MuteSounds();
-		}
         //Test press B to switch to battle music. Later have it switch by natural causes
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -69,5 +89,8 @@ public class SoundController : MonoBehaviour{
         {
             SwitchMusic(SoundController.Sound.main);
         }
+		
+		ChangeVolume();
+		
     }
 }
