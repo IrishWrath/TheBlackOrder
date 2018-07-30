@@ -4,18 +4,37 @@ using System.Collections;
 
 public class StationController : MonoBehaviour
 {
+    private GameObject stationView;
+
+    //private GameObject dockUI;
     private StationModel stationModel;
     private PlayerModel playerModel;
     private ShipModel shipModel;
+
+    public Sprite defaultSprite;
+    public Sprite stationSprite;
 
     public void SetModel(StationModel stationModel)
     {
         this.stationModel = stationModel;
     }
 
+    // Sets the view
     public void SetStationView(GameObject stationView)
     {
-        throw new NotImplementedException();
+        this.stationView = stationView;
+    }
+
+    // Returns the view's position
+    public Vector2 GetPosition()
+    {
+        return stationView.transform.position;
+    }
+
+    public void SetStation()
+    {
+        defaultSprite = stationSprite;
+        stationView.GetComponent<SpriteRenderer>().sprite = stationSprite;
     }
 
     public bool ConfirmCargoSpaceAvailable(int purchaseQuantity)

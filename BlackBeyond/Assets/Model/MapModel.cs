@@ -48,6 +48,13 @@ public class MapModel
                     {
                         pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
                     }
+
+                    if (UnityEngine.Random.Range(1, 101) == 1)
+                    {
+                        tempSpace = new SpaceModel(row, column, this);
+                        map[row][column] = tempSpace;
+                        link.CreateStationView((StationModel)tempSpace);
+                    }
                 }
             }
             else
@@ -76,6 +83,13 @@ public class MapModel
                     if (UnityEngine.Random.Range(1, 101) == 1)
                     {
                         pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
+                    }
+
+                    if (UnityEngine.Random.Range(1, 101) == 1)
+                    {
+                        tempSpace = new SpaceModel(row, column, this);
+                        map[row][column] = tempSpace;
+                        link.CreateStationView((StationModel)tempSpace);
                     }
                 }
             }

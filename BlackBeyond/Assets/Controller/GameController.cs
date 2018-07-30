@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour
 
     // Container for spaces
     public GameObject mapGameObject;
+    public GameObject dockUI;
 	
     // A reference to the player.
     private PlayerModel playerModel;

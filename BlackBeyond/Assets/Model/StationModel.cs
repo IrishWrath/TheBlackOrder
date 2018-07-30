@@ -154,6 +154,11 @@ public class StationModel
         return stationSpaceModel;
     }
 
+    public StationController GetController()
+    {
+        return stationController;
+    }
+
     public void SetController(StationController controller)
     {
         this.stationController = controller;

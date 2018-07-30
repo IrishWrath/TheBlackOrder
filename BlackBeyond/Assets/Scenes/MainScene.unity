@@ -4889,7 +4889,8 @@ MonoBehaviour:
   spaceView: {fileID: 1096247770409850, guid: f6fddf2c853e943f6916152b077b9d9d, type: 2}
   playership: {fileID: 1010566008670778, guid: fffa1cf2a929d4254984e3764bdcfb18, type: 2}
   pirateship: {fileID: 1197585251534778, guid: f2d473af2fb1b4484b2353f043061d71, type: 2}
-  stationView: {fileID: 0}
+  stationView: {fileID: 1769214156359686, guid: ce0acd39160d3af43a5b18d76fe35d05,
+    type: 2}
   nebulaTerrain: {fileID: 1261053534705998, guid: eb2017eec4c4c43b6b7db01479417c3d,
     type: 2}
   soundView: {fileID: 1096287472415392, guid: 11cd96ed06d3fba48988b500f6bd6ad7, type: 2}
@@ -4897,6 +4898,7 @@ MonoBehaviour:
     type: 2}
   playerMovementText: {fileID: 1890571450}
   mapGameObject: {fileID: 90238576}
+  dockUI: {fileID: 1465701136}
 --- !u!4 &2045183071
 Transform:
   m_ObjectHideFlags: 0
