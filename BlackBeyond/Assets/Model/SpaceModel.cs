@@ -4,6 +4,11 @@ using UnityEngine;
 // Model class for a Space
 public class SpaceModel 
 {
+    public enum ClickType
+    {
+        Move, Shoot, None
+    }
+
     public SpaceModel(int row, int column, MapModel map)
     {
         Row = row;
@@ -12,10 +17,11 @@ public class SpaceModel
         occupyingShip = null;
     }
 
-    // don't use player, use occupyingShip
+    // don't use player, use occupyingShip. player is for movement and shooting, will be null
     private PlayerModel player;
     private ShipModel occupyingShip;
 
+    public ClickType clickType = ClickType.None;
 
     public int Row { get; private set; }
     public int Column { get; private set; }
@@ -99,27 +105,43 @@ public class SpaceModel
 
     public void SetHighlighted(PathfindingNode node, PlayerModel player)
     {
+        
         if (occupyingShip == null)
         {
             this.player = player;
             this.GetController().SetSelectable(node.GetCost());
             this.moveFunctionNode = node;
+            this.clickType = ClickType.Move;
         }
     }
 
+    public void SetShootHighlighted(PathfindingNode node, PlayerModel playerModel)
+    {
+        this.player = playerModel;
+        this.GetController().SetShootable(occupyingShip != null);
+        this.clickType = ClickType.Shoot;
+    }
 
     public void ClearHighlighted()
     {
         this.GetController().Deselect();
         player = null;
         moveFunctionNode = null;
+        this.clickType = ClickType.None;
     }
 
     public void Clicked()
     {
-        if (player != null)
+        switch(clickType)
         {
-            player.FinishMove(moveFunctionNode);
+            case ClickType.Move:
+                player.FinishMove(moveFunctionNode);
+                break;
+            case ClickType.Shoot:
+                player.FinishShoot(occupyingShip);
+                break;
+            case ClickType.None:
+                break;
         }
     }
 

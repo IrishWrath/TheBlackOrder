@@ -9,7 +9,7 @@ using UnityEngine.UI;
 // This is the main class of this system. It is the starting point of our code.
 public class GameController : MonoBehaviour
 {
-    public MapController MapController { get; private set; }
+    public MapController MapControllerField { get; private set; }
 	public SoundController soundController { get; private set; }
 
     // A model link.
@@ -56,13 +56,13 @@ public class GameController : MonoBehaviour
         this.modelLink = new ModelLink(this, mapGameObject);
 
         // Creates the map.
-        this.MapController = new MapController(125, 250, modelLink);
+        this.MapControllerField = new MapController(125, 250, modelLink);
 
         // Gets a starting space for the player, based on coordinates. Moving away from coordinates, but they are fine for setup
-        SpaceModel playerSpace = MapController.Map.GetSpace(63, 125);
+        SpaceModel playerSpace = MapControllerField.Map.GetSpace(63, 125);
 
         // Create a player, and set up MVC connections
-        this.playerModel = new PlayerModel(playerSpace);
+        this.playerModel = new PlayerModel(playerSpace, MapControllerField.Map);
         modelLink.CreatePlayerView(playerModel, playerMovementText);
     }
 
@@ -99,6 +99,7 @@ public class GameController : MonoBehaviour
 		return soundView;
 	}
 
+    // called when the player presses the move button
     public void PlayerMoveButton()
     {
         EventSystem.current.SetSelectedGameObject(null);
@@ -108,12 +109,14 @@ public class GameController : MonoBehaviour
 		soundController.PlaySound(SoundController.Sound.buttonPress);
     }
 
+    // called when the player presses the shoot button
     public void PlayerShootButton()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        // player.StartShoot
+        playerModel.StartShoot();
     }
 
+    // called when the player presses the trade button, should be disabled if there is nothing to trade with
     public void PlayerTradeButton()
     {
         EventSystem.current.SetSelectedGameObject(null);
@@ -134,7 +137,7 @@ public class GameController : MonoBehaviour
         //      pirate.DoTurn();
         // Or something...
 
-        this.MapController.Map.EndTurn();
+        this.MapControllerField.Map.EndTurn();
 
         playerModel.StartTurn();
     }
@@ -150,6 +153,10 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.M))
         {
             PlayerMoveButton();
+        }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            PlayerShootButton();
         }
     }
 
