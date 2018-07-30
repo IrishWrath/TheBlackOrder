@@ -51,9 +51,11 @@ public class MapModel
 
                     if (UnityEngine.Random.Range(1, 101) == 1)
                     {
-                        tempSpace = new SpaceModel(row, column, this);
-                        map[row][column] = tempSpace;
-                        link.CreateStationView((StationModel)tempSpace);
+                        //tempSpace = new SpaceModel(row, column, this);
+                        //map[row][column] = tempSpace;
+                        //link.CreateStationView((StationModel)tempSpace);
+                        StationModel station = new StationModel(tempSpace);
+                        link.CreateStationView(station);
                     }
                 }
             }
@@ -87,9 +89,11 @@ public class MapModel
 
                     if (UnityEngine.Random.Range(1, 101) == 1)
                     {
-                        tempSpace = new SpaceModel(row, column, this);
-                        map[row][column] = tempSpace;
-                        link.CreateStationView((StationModel)tempSpace);
+                        //tempSpace = new SpaceModel(row, column, this);
+                        //map[row][column] = tempSpace;
+                        //link.CreateStationView((StationModel)tempSpace);
+                        StationModel station = new StationModel(tempSpace);
+                        link.CreateStationView(station);
                     }
                 }
             }
