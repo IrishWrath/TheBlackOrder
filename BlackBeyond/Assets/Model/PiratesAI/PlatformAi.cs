@@ -15,7 +15,7 @@ public class PlatformAi : PirateAiModel
         // only spawns pirate if it is dead
         base.SpawnPirate(location);
 
-        PlayerModel player = base.GetPlayer();
+        PlayerModel player = base.GetPlayerChasing();
         if (player != null)
         {
             // gets the model from the superclass, and calls its shoot method.

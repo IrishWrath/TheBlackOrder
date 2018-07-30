@@ -41,15 +41,18 @@ public class PatrolAI : PirateAiModel
     public override void EndTurn()
     {
         // Oisín notes: probably call "base.SpawnPirate(patrolPath[0])" around here, so that the pirate appears and respawns
-        for (int i = 0; i < (base.pirateModel.GetMaxMovement()); i++) ;
+        for (int i = 0; i < (base.pirateModel.GetMaxMovement()); i++) 
         {
-            base.GetPlayer();
+            base.GetPlayerChasing();
+            // this method, UpdatePirateLocation, should call a move function
+            // in PirateController, so that the ships move to their new locations
             base.pirateModel.UpdatePirateLocation(patrolPath[currentSpaceOnPath]);
             currentSpaceOnPath++;
                     // Oisín notes: I would do a for loop (i = 0, i > base.pirateModel.GetMaxMovement(), i++)
                     // inside, check for a player, then move base.pirateModel to the next space on the path with currentSpaceOnPath
                     // also check if we're at the end of the path (currentSpaceOnPath == patrolPath.Count) 
                     // or (currentSpaceOnPath == patrolPath.Count - 1), depending on how you do it.
+                    // If we are at the end, go back to the start
 
             // We don't need the engaged functionality for now, it might be easier to build and perfect 
             // it in the Hunter Killer AI, then copy it in here.

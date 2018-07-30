@@ -45,6 +45,8 @@ public class PirateModel : ShipModel
         base.currentSpace.LeaveSpace();
         base.currentSpace = location;
         location.OccupySpace(this);
+
+        // Oisín Notes: Call some kind of move method here.
     }
 
     public PirateController GetController()
