@@ -10,17 +10,16 @@ public class HunterKillerAI :PirateAiModel
     public bool engaged;
     private MapModel map;
 
-    protected HunterKillerAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink) : base(pirateType, map, modelLink)
+    private PlayerModel player;
+
+    protected HunterKillerAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, PlayerModel player) : base(pirateType, map, modelLink)
     {
-        this.target = PlayerModel.
+        this.player = player;
     }
 
     public override void EndTurn()
-    {   //Joe question: How do I set this method up to get the current location of the player 
-        //without an error asking for an object reference?
-        // Oisín Answer: Default pirates don't need players, but this type of pirate always does. 
-        // I'd say take in a player in the constructor, and seta field in this class.
-        
+    {
+        target = player.GetSpace();
 
         // Oisín Notes: Add a for loop here, and checks for if the player is in range?
         for (int i = 0; i < (base.pirateModel.GetMaxMovement()); i++)

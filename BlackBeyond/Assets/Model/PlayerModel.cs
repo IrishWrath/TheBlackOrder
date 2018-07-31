@@ -52,11 +52,11 @@ public class PlayerModel : ShipModel
         location.OccupySpace(this);
     }
 
-    public SpaceModel GetCurrentSpace()
-    {
-        SpaceModel currentSpace = new SpaceModel (base.GetSpace());
-        return currentSpace;
-    }
+    //public SpaceModel GetCurrentSpace()
+    //{
+    //    SpaceModel currentSpace = new SpaceModel (base.GetSpace());
+    //    return currentSpace;
+    //}
 
     public bool GetPlayerCanMove()
     {
