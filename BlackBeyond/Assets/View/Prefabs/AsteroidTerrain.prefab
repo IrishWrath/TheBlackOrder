@@ -36,6 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4839774139948320}
   - component: {fileID: 212442294764436218}
+  - component: {fileID: 95625553899394540}
   m_Layer: 0
   m_Name: AsteroidTerrain
   m_TagString: Untagged
@@ -51,7 +52,7 @@ Transform:
   m_GameObject: {fileID: 1280742017076010}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 0.3236632, y: 0.3236632, z: 0.3236632}
   m_Children: []
   m_Father: {fileID: 4839774139948320}
   m_RootOrder: 0
@@ -63,13 +64,31 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943183502530018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.4467304, y: 0.053363625, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -4.299745, y: 0.79882836, z: 0}
+  m_LocalScale: {x: 0.78978133, y: 0.78978133, z: 0.78978133}
   m_Children:
   - {fileID: 4569962673110472}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &95625553899394540
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1943183502530018}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 24d70797cf0744a6e9a8039284297e32, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &212442294764436218
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -104,13 +123,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -571312761
   m_SortingLayer: -2
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2e7716ea36b544013b096a397446efeb, type: 3}
+  m_SortingOrder: -8
+  m_Sprite: {fileID: 21300000, guid: 5054a26cd8c2f4c339aa7fe9e9ec5177, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 0.74613684}
+  m_Size: {x: 1.42, y: 0.98}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

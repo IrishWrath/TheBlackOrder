@@ -10,7 +10,7 @@ public class NebulaSpaceModel: SpaceModel
     // Nebula movement is 2
     public override int GetMovementCost()
     {
-        return 2;
+        return base.GetMovementCost() + 1;
     }
 
     public override bool BlocksLOS()

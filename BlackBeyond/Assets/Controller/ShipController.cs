@@ -93,4 +93,9 @@ public class ShipController : MonoBehaviour
         var laser = Object.Instantiate(laserPrefab) as GameObject;
         laser.GetComponent<Laser>().SetLine(start.GetController().GetPosition(), end.GetController().GetPosition());
     }
+
+    public void FlipShip()
+    {
+        shipView.transform.localScale -= shipView.transform.localScale * 2;
+    }
 }

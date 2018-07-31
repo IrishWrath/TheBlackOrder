@@ -77,6 +77,7 @@ public abstract class PirateAiModel
             }
 
             modelLink.CreatePirateView(pirateModel);
+            spawnPoint.OccupySpace(pirateModel);
         }
     }
 }

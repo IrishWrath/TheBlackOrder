@@ -13,6 +13,7 @@ public class SpaceController : MonoBehaviour
     // TODO put a selected sprite in here.
     public Sprite defaultSprite;
     public Sprite selectedSprite;
+    public Sprite shootableSprite;
     public Sprite nebulaSprite;
     public Sprite asteroidSprite;
     public Sprite mouseEnterSprite;
@@ -53,6 +54,15 @@ public class SpaceController : MonoBehaviour
         selectable = true;
         spaceView.GetComponent<SpriteRenderer>().sprite = selectedSprite;
         spaceView.transform.GetChild(0).GetComponent<TextMesh>().text = cost.ToString();
+    }
+
+    public void SetShootable(bool target)
+    {
+        spaceView.GetComponent<SpriteRenderer>().sprite = shootableSprite;
+        if(target)
+        {
+            selectable = true;
+        }
     }
 
     public void Deselect()

@@ -1,16 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerModel : ShipModel
 {
+    // Player trade info
+    public int playerCurrency = 0;
+    public int metalResource = 0;
+    public int organicResource = 0;
+    public int fuelResource = 0;
+    public int gasResource = 0;
+    public int waterResource = 0;
+
     List<PathfindingNode> validMovementSpaces;
+    List<PathfindingNode> validShootingSpaces;
 
     private PlayerController playerController;
 
     public bool playerCanMove = false;
+    private MapModel mapModel;
 
-    public PlayerModel(SpaceModel currentSpace)
+    public PlayerModel(SpaceModel currentSpace, MapModel mapModel)
     {
         base.currentSpace = currentSpace;
 
@@ -22,6 +33,8 @@ public class PlayerModel : ShipModel
         base.shotDamage = 2;
         base.shotCounter = 1;
         base.shipHealth = 10;
+        base.maxCargoSpace = 50;
+        this.mapModel = mapModel;
     }
 
     public PlayerController GetController()
@@ -83,6 +96,18 @@ public class PlayerModel : ShipModel
                 validMovementSpaces.Clear();
             }
         }
+        if (validShootingSpaces != null)
+        {
+            if (validShootingSpaces.Count > 0)
+            {
+                foreach (PathfindingNode node in validShootingSpaces)
+                {
+                    node.GetSpace().ClearHighlighted();
+                }
+
+                validShootingSpaces.Clear();
+            }
+        }
     }
 
     public void StartTurn()
@@ -94,8 +119,56 @@ public class PlayerModel : ShipModel
         playerController.SetCurrentMovement(base.currentMovement, base.maxMovement);
     }
 
+    public void StartShoot()
+    {
+        if (validMovementSpaces != null)
+        {
+            if (validMovementSpaces.Count > 0)
+            {
+                foreach (PathfindingNode node in validMovementSpaces)
+                {
+                    node.GetSpace().ClearHighlighted();
+                }
+                validMovementSpaces.Clear();
+            }
+        }
+        if (validShootingSpaces == null || validShootingSpaces.Count == 0)
+        {
+            // Get all spaces that are valid moves and return into list
+            validShootingSpaces = Pathfinding.GetFieldOfView(base.currentSpace, base.attackRange, mapModel);
+
+            SetPlayerCanMove(true);
+
+            foreach (PathfindingNode node in validShootingSpaces)
+            {
+                node.GetSpace().SetShootHighlighted(node, this);
+            }
+            base.currentSpace.ClearHighlighted();
+        }
+        else
+        {
+            foreach (PathfindingNode node in validShootingSpaces)
+            {
+                node.GetSpace().ClearHighlighted();
+            }
+            validShootingSpaces.Clear();
+        }
+    }
+
     public void StartMove()
     {
+        if (validShootingSpaces != null)
+        {
+            if (validShootingSpaces.Count > 0)
+            {
+                foreach (PathfindingNode node in validShootingSpaces)
+                {
+                    node.GetSpace().ClearHighlighted();
+                }
+
+                validShootingSpaces.Clear();
+            }
+        }
         if (!base.animatingMovement)
         {
             if (validMovementSpaces == null || validMovementSpaces.Count == 0)
@@ -119,6 +192,17 @@ public class PlayerModel : ShipModel
                 validMovementSpaces.Clear();
             }
         }
+    }
+
+    public void FinishShoot(ShipModel occupyingShip)
+    {
+        base.Shoot(occupyingShip);
+        foreach (PathfindingNode node in validShootingSpaces)
+        {
+            node.GetSpace().ClearHighlighted();
+        }
+
+        validShootingSpaces.Clear();
     }
 
     public void FinishMove(PathfindingNode destination)

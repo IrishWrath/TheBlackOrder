@@ -9,4 +9,9 @@
         //TODO Implement this after damage
         //shipModel.Damage();
 	}
+
+    public override bool IsHazardous()
+    {
+        return true;
+    }
 }
