@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
 {
     public MapController MapController { get; private set; }
 	public SoundController soundController { get; private set; }
+    public StationController stationController { get; private set; }
 
     // A model link.
     private ModelLink modelLink;
@@ -99,6 +100,11 @@ public class GameController : MonoBehaviour
 		return soundView;
 	}
 
+    public GameObject GetDockUI()
+    {
+        return dockUI;
+    }
+
     public void PlayerMoveButton()
     {
         EventSystem.current.SetSelectedGameObject(null);
@@ -118,6 +124,9 @@ public class GameController : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         // player.OpenTrade
+        stationController.ShowDockUI();
+        //play button sound
+        soundController.PlaySound(SoundController.Sound.buttonPress);
     }
 
     // This function is called whe the player presses "end turn"

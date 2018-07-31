@@ -5,8 +5,8 @@ using System.Collections;
 public class StationController : MonoBehaviour
 {
     private GameObject stationView;
+    private GameObject dockUI;
 
-    //private GameObject dockUI;
     private StationModel stationModel;
     private PlayerModel playerModel;
     private ShipModel shipModel;
@@ -17,6 +17,11 @@ public class StationController : MonoBehaviour
     public void SetModel(StationModel stationModel)
     {
         this.stationModel = stationModel;
+    }
+
+    public void SetDockUI(GameObject dockUI)
+    {
+        this.dockUI = dockUI;
     }
 
     // Sets the view
@@ -44,6 +49,16 @@ public class StationController : MonoBehaviour
 
         else
             return false;
+    }
+
+    public void ShowDockUI()
+    {
+        dockUI.SetActive(true);
+    }
+
+    public void HideDockUI()
+    {
+        dockUI.SetActive(false);
     }
 
     // Update is called once per frame

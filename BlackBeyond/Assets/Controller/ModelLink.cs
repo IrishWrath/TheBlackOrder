@@ -106,5 +106,7 @@ public class ModelLink
         stationController.SetModel(stationModel);
         // Lets the Model access the Controller, as a callback
         stationModel.SetController(stationController);
+        // Pass the dockui from gamecontroller to the stationcontroller
+        stationController.SetDockUI(GameController.GetDockUI());
     }
 }
