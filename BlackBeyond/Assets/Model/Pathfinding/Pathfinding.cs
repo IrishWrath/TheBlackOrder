@@ -40,9 +40,9 @@ public static class Pathfinding
                             {
                                 int adjacentSpaceCost = currentnode.GetCost() + adjacentSpace.GetMovementCost();
                                 double adjacentSpacePathfindingCost = adjacentSpaceCost;
-                                if(adjacentSpace.GetType() == typeof(AsteroidSpaceModel))
+                                if(adjacentSpace.IsHazardous())
                                 {
-                                    adjacentSpacePathfindingCost += 0.01;
+                                    adjacentSpacePathfindingCost += 0.001;
                                 }
                                 nextNode.Update(adjacentSpaceCost, adjacentSpacePathfindingCost, currentnode);
                             }
@@ -63,9 +63,9 @@ public static class Pathfinding
                         {
                             newNodeCost = currentnode.GetCost() + adjacentSpace.GetMovementCost();
                             pathfindingCost = newNodeCost;
-                            if (adjacentSpace.GetType() == typeof(AsteroidSpaceModel))
+                            if (adjacentSpace.IsHazardous())
                             {
-                                pathfindingCost = newNodeCost + 0.01;
+                                pathfindingCost = newNodeCost + 0.001;
                             }
                         }
 

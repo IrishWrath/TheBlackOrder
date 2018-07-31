@@ -41,7 +41,7 @@ public class SpaceModel
         return controller;
     }
 
-    public void SetController(SpaceController controller)
+	public void SetController(SpaceController controller)
     {
         this.controller = controller;
     }
@@ -53,12 +53,6 @@ public class SpaceModel
     public void LeaveSpace()
     {
         occupyingShip = null;
-    }
-
-    // Asteroids damage the ship that moves through them
-    public virtual void GetMovementEffects(ShipModel shipModel)
-    {
-        // Do nothing, not an asteroid. In a asteroid subclass, the ship will be dealt damage.
     }
 
     // For Pathfinding
@@ -89,6 +83,12 @@ public class SpaceModel
         return adjacentSpaces;
     }
 
+    // Asteroids damage the ship that moves through them
+    public virtual void GetMovementEffects(ShipModel shipModel)
+    {
+        // Do nothing, not an asteroid. In a asteroid subclass, the ship will be dealt damage.
+    }
+
     public virtual int GetMovementCost()
     {
         if(occupyingShip == null)
@@ -97,8 +97,14 @@ public class SpaceModel
         }
         else
         {
+            // impassable
             return 100;
         }
+    }
+
+    public virtual bool IsHazardous()
+    {
+        return false;
     }
 
     // Pathfinding End
