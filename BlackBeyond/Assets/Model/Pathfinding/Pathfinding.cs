@@ -38,8 +38,13 @@ public static class Pathfinding
                             }
                             else
                             {
-                                ad
-                                nextNode.Update(currentnode.GetCost() + adjacentSpace.GetMovementCost(), currentnode);
+                                int adjacentSpaceCost = currentnode.GetCost() + adjacentSpace.GetMovementCost();
+                                double adjacentSpacePathfindingCost = adjacentSpaceCost;
+                                if(adjacentSpace.GetType() == typeof(AsteroidSpaceModel))
+                                {
+                                    adjacentSpacePathfindingCost += 0.01;
+                                }
+                                nextNode.Update(adjacentSpaceCost, adjacentSpacePathfindingCost, currentnode);
                             }
                         }
                     }
@@ -84,7 +89,7 @@ public static class Pathfinding
                     }
                     else
                     {
-                        if(node.GetCost()<lowestNode.GetCost())
+                        if(node.GetPathfindingCost()<lowestNode.GetPathfindingCost())
                         {
                             lowestNode = node;
                         }
