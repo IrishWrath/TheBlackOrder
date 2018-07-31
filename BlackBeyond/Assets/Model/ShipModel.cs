@@ -37,18 +37,22 @@ public class ShipModel
 
     public void Shoot(ShipModel enemy)
     {
-        int armor = enemy.GetArmor();
-        int currentHealth = enemy.GetHealth();
-        int adjDamage = armor - shotDamage;
-        if (adjDamage <= 0)
+        if (shotCounter > 0)
         {
-            // Always does at least one damage?
-            adjDamage = 1;
+            int armor = enemy.GetArmor();
+            int currentHealth = enemy.GetHealth();
+            int adjDamage = armor - shotDamage;
+            if (adjDamage <= 0)
+            {
+                // Always does at least one damage?
+                adjDamage = 1;
+            }
+            int remainingHP = currentHealth - adjDamage;
+            enemy.SetHealth(remainingHP);
+            shotCounter -= 1;
+            // Creates a laser. Finn's animation
+            shipController.CreateLaser(currentSpace, enemy.GetSpace());
         }
-        int remainingHP = currentHealth - adjDamage;
-        enemy.SetHealth(remainingHP);
-        // Creates a laser. Finn's animation
-        shipController.CreateLaser(currentSpace, enemy.GetSpace());
     }
 
     public void FinishedAnimatingMovement()
@@ -76,3 +80,5 @@ public class ShipModel
         this.shipController = controller;
     }
 }
+
+

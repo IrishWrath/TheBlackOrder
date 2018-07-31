@@ -18,7 +18,7 @@ public class PirateModel : ShipModel
 
 
     //pirate ship builder template
-    public PirateModel(SpaceModel location, PirateType type, int health, int shotDamage, int detectRange, int attackRange , int maxPirateMovement)
+    public PirateModel(SpaceModel location, PirateType type, int health, int shotDamage, int detectRange, int attackRange , int maxPirateMovement , int shotCounter)
     {
         // The "base" for these are unnecessary, but it helps keep them seperate. Base gets the superclass
         base.currentSpace = location;
@@ -29,6 +29,7 @@ public class PirateModel : ShipModel
         base.attackRange = attackRange;
         base.maxMovement = maxPirateMovement;
         base.currentMovement = maxPirateMovement;
+        base.shotCounter = shotCounter;
     }
 
     public int GetDetectRange()
@@ -64,23 +65,23 @@ public class PirateModel : ShipModel
     // Static methods for creating pirates
     public static PirateModel CreateScoutPirate(SpaceModel location)
     {
-        return new PirateModel(location, PirateType.Scout, 2, 2, 3, 1, 4);
+        return new PirateModel(location, PirateType.Scout, 2, 2, 3, 1, 4, 2);
     }
     public static PirateModel CreateFrigatePirate(SpaceModel location)
     {
-        return new PirateModel(location, PirateType.Frigate, 4, 3, 3, 2, 3);
+        return new PirateModel(location, PirateType.Frigate, 4, 3, 3, 2, 3, 1);
     }
     public static PirateModel CreatePlatformPirate(SpaceModel location)
     {
-        return new PirateModel(location, PirateType.Platform, 4, 2, 5, 5, 0);
+        return new PirateModel(location, PirateType.Platform, 4, 2, 5, 5, 0, 2);
     }
     public static PirateModel CreateDestroyerPirate(SpaceModel location)
     {
-        return new PirateModel(location, PirateType.Destroyer, 7, 4, 3, 3, 2);
+        return new PirateModel(location, PirateType.Destroyer, 7, 4, 3, 3, 2, 1);
     }
     public static PirateModel CreateDreadnaughtPirate(SpaceModel location)
     {
-        return new PirateModel(location, PirateType.Dreadnought, 10, 5, 2, 3, 2);
+        return new PirateModel(location, PirateType.Dreadnought, 10, 5, 2, 3, 2, 1);
     }
     // End pirate creation methods
 }

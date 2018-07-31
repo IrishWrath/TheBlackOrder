@@ -52,8 +52,9 @@ public class PlayerModel : ShipModel
         location.OccupySpace(this);
     }
 
-    public SpaceModel GetCurrentLocation()
+    public SpaceModel GetCurrentSpace()
     {
+        SpaceModel currentSpace = new SpaceModel (base.GetSpace());
         return currentSpace;
     }
 

@@ -21,7 +21,9 @@ public class PlatformAi : PirateAiModel
             // gets the model from the superclass, and calls its shoot method.
             // Shoot is a ShipModel method
             base.pirateModel.Shoot(player);
+            }
         }
+
     }
  
   
