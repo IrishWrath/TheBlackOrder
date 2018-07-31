@@ -14,7 +14,7 @@ public static class Pathfinding
         //{
         //    startSpace
         //};
-        PathfindingNode currentnode = new PathfindingNode(startSpace, null, 0, true, null);
+        PathfindingNode currentnode = new PathfindingNode(startSpace, null, 0, 0, true, null);
 
         allNodes.Add(currentnode);
 
@@ -34,10 +34,11 @@ public static class Pathfinding
                             // Next node hasn't been visited yet
                             if (ignoreTerrain)
                             {
-                                nextNode.Update(currentnode.GetCost() + 1, currentnode);
+                                nextNode.Update(currentnode.GetCost() + 1, currentnode.GetCost() + 1, currentnode);
                             }
                             else
                             {
+                                ad
                                 nextNode.Update(currentnode.GetCost() + adjacentSpace.GetMovementCost(), currentnode);
                             }
                         }
@@ -45,20 +46,27 @@ public static class Pathfinding
                     else
                     {
                         // Is null, need new node
-                        int newNodeCost; 
+                        int newNodeCost;
+                        double pathfindingCost;
 
                         if (ignoreTerrain)
                         {
                             newNodeCost = currentnode.GetCost() + 1;
+                            pathfindingCost = newNodeCost;
                         }
                         else
                         {
                             newNodeCost = currentnode.GetCost() + adjacentSpace.GetMovementCost();
+                            pathfindingCost = newNodeCost;
+                            if (adjacentSpace.GetType() == typeof(AsteroidSpaceModel))
+                            {
+                                pathfindingCost = newNodeCost + 0.01;
+                            }
                         }
 
                         if (newNodeCost <= maxCost)
                         {
-                            PathfindingNode newNode = new PathfindingNode(adjacentSpace, currentnode, newNodeCost, false, null);
+                            PathfindingNode newNode = new PathfindingNode(adjacentSpace, currentnode, newNodeCost, pathfindingCost, false, null);
                             allNodes.Add(newNode);
                             adjacentSpace.SetNode(newNode);
                         }

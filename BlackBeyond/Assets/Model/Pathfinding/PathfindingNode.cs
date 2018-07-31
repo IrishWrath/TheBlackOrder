@@ -7,6 +7,7 @@ using UnityEngine;
 public class PathfindingNode
 {
     private int cost;
+    private double pathfindingCost;
     private bool seen;
     private SpaceModel thisSpace;
 
@@ -15,12 +16,13 @@ public class PathfindingNode
     private PathfindingNode parent;
 
     // Create a node on a space. Special constructor for A* nodes, includes guess of remaining distance
-    public PathfindingNode(SpaceModel space, PathfindingNode parent, int cost, bool seen, SpaceModel destination)
+    public PathfindingNode(SpaceModel space, PathfindingNode parent, int cost, double pathfindingCost, bool seen, SpaceModel destination)
     {
         thisSpace = space;
         this.cost = cost;
         this.parent = parent;
         this.seen = seen;
+        this.pathfindingCost = pathfindingCost;
 
         if (destination != null)
         {
@@ -34,9 +36,9 @@ public class PathfindingNode
     }
 
     // A* needs a guess of how far this space is from the destination
-    public int GetASCost()
+    public double GetASCost()
     {
-        return cost + ASRemaining;
+        return pathfindingCost + ASRemaining;
     }
     public PathfindingNode GetParent()
     {
@@ -67,6 +69,12 @@ public class PathfindingNode
         return cost;
     }
 
+    public double GetPathfindingCost()
+    {
+        return pathfindingCost;
+    }
+
+    // recursive function
     public List<PathfindingNode> GetPath(bool endPoint)
     {
         if(parent == null)
@@ -90,11 +98,12 @@ public class PathfindingNode
 
     // Is this new path better than the current one? If yes, replace the current one.
 
-    internal void Update(int newCost, PathfindingNode newParent)
+    internal void Update(int newCost, double newPathfindingCost, PathfindingNode newParent)
     {
-        if (newCost < cost)
+        if (newPathfindingCost < pathfindingCost)
         {
             cost = newCost;
+            pathfindingCost = newPathfindingCost;
             parent = newParent;
         }
     }
