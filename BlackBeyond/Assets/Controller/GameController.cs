@@ -124,6 +124,9 @@ public class GameController : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         // player.OpenTrade
+        StationModel station = new StationModel(MapController.Map.GetSpace(61,125));
+        modelLink.CreateStationView(station);
+        stationController = station.GetController();
         stationController.ShowDockUI();
         //play button sound
         soundController.PlaySound(SoundController.Sound.buttonPress);
