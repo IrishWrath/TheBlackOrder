@@ -8,7 +8,7 @@ public static class AStarPathfinding
     {
         List<PathfindingNode> allNodes = new List<PathfindingNode>();
 
-        PathfindingNode currentnode = new PathfindingNode(startSpace, null, 0, true, destSpace);
+        PathfindingNode currentnode = new PathfindingNode(startSpace, null, 0 , 0, true, destSpace);
         allNodes.Add(currentnode);
         bool done = false;
         while (!done)
@@ -22,7 +22,7 @@ public static class AStarPathfinding
                         // Is null, need new node
                         int newNodeCost = currentnode.GetCost() + adjacentSpace.GetMovementCost();
 
-                        PathfindingNode newNode = new PathfindingNode(adjacentSpace, currentnode, newNodeCost, false, destSpace);
+                        PathfindingNode newNode = new PathfindingNode(adjacentSpace, currentnode, newNodeCost, newNodeCost, false, destSpace);
                         allNodes.Add(newNode);
                         adjacentSpace.SetNode(newNode);
                     }
@@ -33,7 +33,7 @@ public static class AStarPathfinding
                         if (!nextNode.BeenSeen())
                         {
                             // Next node hasn't been visited yet
-                            nextNode.Update(currentnode.GetCost() + adjacentSpace.GetMovementCost(), currentnode);
+                            nextNode.Update(currentnode.GetCost() + adjacentSpace.GetMovementCost(), currentnode.GetCost() + adjacentSpace.GetMovementCost(), currentnode);
                         }
                     }
                 }
