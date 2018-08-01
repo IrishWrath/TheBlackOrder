@@ -229,7 +229,7 @@ public class ProceduralMapModel : MapModel
 
                     if (randomNumber <= platformRate)
                     {
-                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
+                        //pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
                     }
 
                 }
@@ -247,12 +247,36 @@ public class ProceduralMapModel : MapModel
             }
         }
 
-        pirates.Add(new PatrolAI(PirateModel.PirateType.Scout, this, link, new List<SpaceModel>()
+
+        for (int i = 0; i < 100; i++)
         {
-            GetSpace(61, 121),
-             GetSpace(65, 121),
-             GetSpace(63, 129)
-        }));
+            List<SpaceModel> patrolPoints = new List<SpaceModel>();
+            for (int j = 0; j < 3; j++)
+            {
+                int row = UnityEngine.Random.Range(0, rows);
+                int column = UnityEngine.Random.Range(0, columns);
+                if ((row % 2 == 0 && column % 2 != 0) || (row % 2 != 0 && column % 2 == 0))
+                {
+                    if (column == 0)
+                    {
+                        row = Math.Max(0, row - 1);
+                    }
+                    else
+                    {
+                        column = Math.Max(0, column - 1);
+                    }
+
+                }
+                patrolPoints.Add(GetSpace(row, column));
+                //Debug.Log(GetSpace(row, column));
+                if(GetSpace(row, column) == null)
+                {
+                    Debug.Log(row + " : " + column);
+                }
+            }
+
+            pirates.Add(new PatrolAI(PirateModel.PirateType.Scout, this, link, patrolPoints));
+        }
 
     }
 }
