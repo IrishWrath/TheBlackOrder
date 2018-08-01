@@ -14,4 +14,9 @@
     {
         return true;
     }
+
+    public override bool BlocksLOS()
+    {
+        return true;
+    }
 }
