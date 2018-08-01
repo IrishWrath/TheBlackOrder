@@ -149,12 +149,12 @@ public class ShipController : MonoBehaviour
         if (turnRight)
         {
 
-            newScale.x = 1;
+            newScale.x = Mathf.Abs(newScale.x);
 
         } 
         else
         {
-            newScale.x = -1;
+            newScale.x = -Mathf.Abs(newScale.x);
         }
         shipView.transform.localScale = newScale;
     }
