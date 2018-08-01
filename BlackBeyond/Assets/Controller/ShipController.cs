@@ -133,8 +133,19 @@ public class ShipController : MonoBehaviour
         laser.GetComponent<Laser>().SetLine(start.GetController().GetPosition(), end.GetController().GetPosition());
     }
 
-    public void FlipShip()
+    public void FlipShip(bool turnRight)
     {
-        shipView.transform.localScale -= shipView.transform.localScale * 2;
+        Vector3 newScale = shipView.transform.localScale;
+        if (turnRight)
+        {
+
+            newScale.x = 1;
+
+        } 
+        else
+        {
+            newScale.x = -1;
+        }
+        shipView.transform.localScale = newScale;
     }
 }
