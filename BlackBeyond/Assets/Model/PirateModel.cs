@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +31,7 @@ public class PirateModel : ShipModel
         base.maxMovement = maxPirateMovement;
         base.currentMovement = maxPirateMovement;
         base.shotCounter = shotCounter;
+        base.currentShotCounter = shotCounter;
     }
 
     public int GetDetectRange()
@@ -46,8 +48,6 @@ public class PirateModel : ShipModel
         base.currentSpace.LeaveSpace();
         base.currentSpace = location;
         location.OccupySpace(this);
-
-        // Oisín Notes: Call some kind of move method here.
     }
 
     public PirateController GetController()

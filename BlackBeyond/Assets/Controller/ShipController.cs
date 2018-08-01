@@ -17,8 +17,9 @@ public class ShipController : MonoBehaviour
     private bool moving = false;
 
     //destinations
-    private PathfindingNode[] destinations;
-
+    private List<SpaceModel> destinations;
+    private PirateModel pirateToShoot;
+    private PlayerModel playerToShootOnFinish;
     private float distanceMoved = 0f;
     private float speed = 2f;
 
@@ -47,9 +48,12 @@ public class ShipController : MonoBehaviour
     // made smoother with the update function
     public void MoveShip(PathfindingNode[] destinations)
     {
-
         moving = true;
-        this.destinations = destinations;
+        this.destinations = new List<SpaceModel>();
+        foreach(PathfindingNode node in destinations)
+        {
+            this.destinations.Add(node.GetSpace());
+        }
 
         distanceMoved = 0;
         destinationIndex = 1;
@@ -58,9 +62,29 @@ public class ShipController : MonoBehaviour
         currentDestination = destinations[destinationIndex].GetSpace().GetController().GetPosition();
     }
 
+    public void MoveShip(List<SpaceModel> destinations, PirateModel pirateToShoot, PlayerModel playerToShootOnFinish)
+    {
+        moving = true;
+        this.destinations = destinations;
+        this.pirateToShoot = pirateToShoot;
+        this.playerToShootOnFinish = playerToShootOnFinish;
+        distanceMoved = 0;
+        destinationIndex = 0;
+
+        currentLocation = shipView.transform.position;
+        if (destinations.Count != 0)
+        {
+            currentDestination = destinations[destinationIndex].GetController().GetPosition();
+        }
+        else
+        {
+            currentDestination = new Vector2(-9999, -9999);
+        }
+    }
+
 	private void Update()
 	{
-		if (moving)
+        if (moving && currentDestination.x > -9999)
         {
             // add some distance
             distanceMoved += speed * Time.deltaTime;
@@ -74,16 +98,31 @@ public class ShipController : MonoBehaviour
                 distanceMoved = 0;
                 destinationIndex += 1;
                 // check if we're done moving
-                if (destinationIndex >= destinations.Length)
+                if (destinationIndex >= destinations.Count)
                 {
                     moving = false;
                     shipModel.FinishedAnimatingMovement();
+                    if (playerToShootOnFinish != null)
+                    {
+                        pirateToShoot.Shoot(playerToShootOnFinish);
+                        pirateToShoot = null;
+                        playerToShootOnFinish = null;
+                    }
                 }
                 else
                 {
                     currentLocation = currentDestination;
-                    currentDestination = destinations[destinationIndex].GetSpace().GetController().GetPosition();
+                    currentDestination = destinations[destinationIndex].GetController().GetPosition();
                 }
+            }
+        }
+        else if(currentDestination.x == -9999)
+        {
+            if (playerToShootOnFinish != null)
+            {
+                pirateToShoot.Shoot(playerToShootOnFinish);
+                pirateToShoot = null;
+                playerToShootOnFinish = null;
             }
         }
 	}

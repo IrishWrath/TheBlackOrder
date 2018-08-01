@@ -88,9 +88,6 @@ public class MapModel
                 }
             }
         }
-
-        // TODO, Oisín says: This is where I think the patrol points should be set up. 
-
         // Setting each space's adjacent spaces. Must be done after the map is generated
         for (int row = 0; row < rows; row++)
         {
@@ -105,11 +102,11 @@ public class MapModel
     }
 
     // At the end of the turn, pirates will move
-    public void EndTurn()
+    public void EndTurn(int turnNumber)
     {
         foreach(PirateAiModel pirate in pirates)
         {
-            pirate.EndTurn();
+            pirate.EndTurn(turnNumber);
         }
     }
 

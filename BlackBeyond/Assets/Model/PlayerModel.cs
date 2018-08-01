@@ -32,9 +32,11 @@ public class PlayerModel : ShipModel
         base.attackRange = 2;
         base.shotDamage = 2;
         base.shotCounter = 1;
+        base.currentShotCounter = 1;
         base.shipHealth = 10;
         base.maxCargoSpace = 50;
         this.mapModel = mapModel;
+        UpdatePlayerLocation(currentSpace);
     }
 
     public PlayerController GetController()
@@ -84,6 +86,7 @@ public class PlayerModel : ShipModel
     // For turn structure
     public void EndTurn()
     {
+        ResetShotCounter();
         // Should block player actions until their turn TODO
         if (validMovementSpaces != null)
         {

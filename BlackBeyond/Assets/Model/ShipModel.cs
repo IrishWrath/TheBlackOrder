@@ -11,6 +11,7 @@ public class ShipModel
     protected int maxMovement;
     protected int currentMovement;
     protected int shotCounter;
+    protected int currentShotCounter;
     // TODO, sort out how combat works
     protected int shipArmor = 1;
 
@@ -68,10 +69,15 @@ public class ShipModel
             }
             int remainingHP = currentHealth - adjDamage;
             enemy.SetHealth(remainingHP);
-            shotCounter -= 1;
+            currentShotCounter -= 1;
             // Creates a laser. Finn's animation
             shipController.CreateLaser(currentSpace, enemy.GetSpace());
         }
+    }
+
+    public void ResetShotCounter()
+    {
+        currentShotCounter = shotCounter;
     }
 
     public void FinishedAnimatingMovement()

@@ -213,5 +213,13 @@ public class ProceduralMapModel : MapModel
                 }
             }
         }
+
+        pirates.Add(new PatrolAI(PirateModel.PirateType.Scout, this, link, new List<SpaceModel>()
+        {
+            GetSpace(61, 121),
+             GetSpace(65, 121),
+             GetSpace(63, 129)
+        }));
+
     }
 }

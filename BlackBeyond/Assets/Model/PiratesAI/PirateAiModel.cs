@@ -17,7 +17,7 @@ public abstract class PirateAiModel
         this.modelLink = modelLink;
     }
 
-    public abstract void EndTurn();
+    public abstract void EndTurn(int turnNumber);
 
     //public PlayerModel GetPlayer()
     //{
@@ -35,7 +35,7 @@ public abstract class PirateAiModel
 
     public PlayerModel GetPlayerChasing()
     {
-        List<PathfindingNode> fov = Pathfinding.GetFieldOfView(pirateModel.GetSpace(), pirateModel.GetDetectRange()*3, map);
+        List<PathfindingNode> fov = Pathfinding.GetFieldOfView(pirateModel.GetSpace(), pirateModel.GetDetectRange(), map);
         foreach (PathfindingNode node in fov)
         {
             if (node.GetSpace().GetPlayer() != null)

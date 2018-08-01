@@ -26,7 +26,7 @@ public static class AStarPathfinding
                         {
                             newPathfindingCost += 0.001;
                         }
-                        PathfindingNode newNode = new PathfindingNode(adjacentSpace, currentnode, newNodeCost, , false, destSpace);
+                        PathfindingNode newNode = new PathfindingNode(adjacentSpace, currentnode, newNodeCost, newPathfindingCost, false, destSpace);
                         allNodes.Add(newNode);
                         adjacentSpace.SetNode(newNode);
                     }
@@ -96,6 +96,7 @@ public static class AStarPathfinding
         {
             node.GetSpace().SetNode(null);
         }
+        path.Remove(startSpace);
         return path;
     }
 }

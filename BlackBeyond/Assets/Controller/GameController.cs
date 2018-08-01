@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
 
     // A model link.
     private ModelLink modelLink;
+    private int turnNumber = 0;
 
     // The Prefab for Spaces
     public GameObject spaceView;
@@ -134,8 +135,8 @@ public class GameController : MonoBehaviour
         playerModel.EndTurn();
 		soundController.PlaySound(SoundController.Sound.endTurn);
 
-        // MapModel will handle the pirates   
-        this.MapControllerField.Map.EndTurn();
+        // MapModel will handle the pirates  
+        this.MapControllerField.Map.EndTurn(++turnNumber);
 
         playerModel.StartTurn();
     }

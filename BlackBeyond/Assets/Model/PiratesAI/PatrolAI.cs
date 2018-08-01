@@ -12,7 +12,7 @@ public class PatrolAI : PirateAiModel
     public bool engaged;
     private MapModel map;
 
-    protected PatrolAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, List<SpaceModel> patrolPoints) : base(pirateType, map, modelLink)
+    public PatrolAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, List<SpaceModel> patrolPoints) : base(pirateType, map, modelLink)
     {
         // Oisín Notes: This constructor takes in a list of patrol points, which we can use to set up the patrol
 
@@ -34,24 +34,41 @@ public class PatrolAI : PirateAiModel
 
     }
 
-    public override void EndTurn()
+    public override void EndTurn(int turnNumber)
     {
-        
-        for (int i = 0; i < (base.pirateModel.GetMaxMovement()); i++) 
+        if(turnNumber % 10 == 0)
         {
-            base.GetPlayerChasing();
-            // this method, UpdatePirateLocation, should call a move function
-            // in PirateController, so that the ships move to their new locations
-            base.pirateModel.UpdatePirateLocation(patrolPath[currentSpaceOnPath]);
-            currentSpaceOnPath++;
-                    // Oisín notes: I would do a for loop (i = 0, i > base.pirateModel.GetMaxMovement(), i++)
-                    // inside, check for a player, then move base.pirateModel to the next space on the path with currentSpaceOnPath
-                    // also check if we're at the end of the path (currentSpaceOnPath == patrolPath.Count) 
-                    // or (currentSpaceOnPath == patrolPath.Count - 1), depending on how you do it.
-                    // If we are at the end, go back to the start
-
-            // We don't need the engaged functionality for now, it might be easier to build and perfect 
-            // it in the Hunter Killer AI, then copy it in here.
+            base.SpawnPirate(patrolPath[0]);
+        }
+        if (pirateModel != null)
+        {
+            pirateModel.ResetShotCounter();
+            PlayerModel player = player = base.GetPlayerChasing();;
+            List<SpaceModel> turnPath = new List<SpaceModel>();
+            for (int i = 0; i < (base.pirateModel.GetMaxMovement()); i++)
+            {
+                if (player != null)
+                {
+                    i = (base.pirateModel.GetMaxMovement());
+                }
+                else
+                {
+                    int nextSpace = currentSpaceOnPath + 1;
+                    if (nextSpace == patrolPath.Count)
+                    {
+                        nextSpace = 0;
+                    }
+                    i += patrolPath[nextSpace].GetMovementCost() - 1;
+                    if (i <= (base.pirateModel.GetMaxMovement()))
+                    {
+                        currentSpaceOnPath = nextSpace;
+                        turnPath.Add(patrolPath[currentSpaceOnPath]);
+                        pirateModel.UpdatePirateLocation(patrolPath[currentSpaceOnPath]);
+                        player = base.GetPlayerChasing();
+                    }
+                }
+            }
+            pirateModel.GetController().MoveShip(turnPath, pirateModel, player);
         }
     }
 

@@ -17,7 +17,7 @@ public class HunterKillerAI :PirateAiModel
         this.player = player;
     }
 
-    public override void EndTurn()
+    public override void EndTurn(int turnNumber)
     {
         target = player.GetSpace();
 

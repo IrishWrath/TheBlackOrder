@@ -8,12 +8,16 @@ public class PlatformAi : PirateAiModel
     public PlatformAi(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, SpaceModel location) : base(pirateType, map, modelLink)
     {
         this.location = location;
+        base.SpawnPirate(location);
     }
 
-    public override void EndTurn()
+    public override void EndTurn(int turnNumber)
     {
         // only spawns pirate if it is dead
-        base.SpawnPirate(location);
+        if (turnNumber % 10 == 0)
+        {
+            base.SpawnPirate(location);
+        }
 
         PlayerModel player = base.GetPlayerChasing();
         if (player != null)
