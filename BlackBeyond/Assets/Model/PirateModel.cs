@@ -59,6 +59,7 @@ public class PirateModel : ShipModel
     {
         this.pirateController = controller;
         base.SetController(controller);
+        pirateController.SetSprite(type);
     }
 
 

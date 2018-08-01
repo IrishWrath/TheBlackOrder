@@ -281,6 +281,11 @@ MonoBehaviour:
   laserPrefab: {fileID: 1113096786840502, guid: c04bf167aa59e4b46bf604314f8b35b4,
     type: 2}
   engaged: 0
+  ScoutSprite: {fileID: 21300000, guid: 9ee5f21a044a745caa8210f0bf61de71, type: 3}
+  PlatformSprite: {fileID: 21300000, guid: bf70b3e8d6ce74554b53e5162e2543bd, type: 3}
+  FrigateSprite: {fileID: 21300000, guid: e2cec48c029734626b4e3653fb85e19e, type: 3}
+  DestroyerSprite: {fileID: 21300000, guid: 31daa1ef7e11945ceadb0d8b6a70c6bc, type: 3}
+  DreadnoughtSprite: {fileID: 21300000, guid: 37f2148c452f74c7eabe55d102b74cb6, type: 3}
 --- !u!114 &114893871364141044
 MonoBehaviour:
   m_ObjectHideFlags: 1
