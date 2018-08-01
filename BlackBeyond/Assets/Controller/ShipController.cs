@@ -60,6 +60,7 @@ public class ShipController : MonoBehaviour
 
         currentLocation = shipView.transform.position;
         currentDestination = destinations[destinationIndex].GetSpace().GetController().GetPosition();
+        FlipShip(currentLocation.x < currentDestination.x);
     }
 
     public void MoveShip(List<SpaceModel> destinations, PirateModel pirateToShoot, PlayerModel playerToShootOnFinish)
@@ -75,17 +76,12 @@ public class ShipController : MonoBehaviour
         if (destinations.Count != 0)
         {
             currentDestination = destinations[destinationIndex].GetController().GetPosition();
+            FlipShip(currentLocation.x < currentDestination.x);
         }
         else
         {
             currentDestination = new Vector2(-9999, -9999);
         }
-        if (currentLocation.x > currentDestination.x)
-        {
-            Debug.Log("flip");
-            FlipShip();
-        }
-
     }
 
 	private void Update()
@@ -119,10 +115,7 @@ public class ShipController : MonoBehaviour
                 {
                     currentLocation = currentDestination;
                     currentDestination = destinations[destinationIndex].GetController().GetPosition();
-                    if(currentLocation.x > currentDestination.x)
-                    {
-                        FlipShip();
-                    }
+                    FlipShip(currentLocation.x < currentDestination.x);
                 }
             }
         }
