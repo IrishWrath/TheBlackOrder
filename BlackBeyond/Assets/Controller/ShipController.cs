@@ -138,10 +138,11 @@ public class ShipController : MonoBehaviour
 
     public void FlipShip(bool turnRight)
     {
+
         Vector3 newScale = shipView.transform.localScale;
         if (turnRight)
         {
-
+            
             newScale.x = Mathf.Abs(newScale.x);
 
         } 

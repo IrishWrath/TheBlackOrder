@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - SpaceHex
+  - ShipSprite
   layers:
   - Default
   - TransparentFX
