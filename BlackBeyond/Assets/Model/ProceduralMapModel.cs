@@ -28,7 +28,8 @@ public class ProceduralMapModel : MapModel
          * 0. Nebula Field
          * 1. Asteroid Field
          * 2. Colonized
-         * 3. Empty (1/20 chance of both)
+         * 3. Empty
+         * 4. Pirate base
          */
 
         sectors = new int[rows/SECTOR_SIZE, columns/SECTOR_SIZE/2];
@@ -44,6 +45,21 @@ public class ProceduralMapModel : MapModel
         //make the middle spot a colonized area.
         sectors[2, 2] = 3;
 
+        int randomAxis = UnityEngine.Random.Range(0, 2);
+        int randomSide = UnityEngine.Random.Range(0, 2);
+        int position = UnityEngine.Random.Range(0, 5);
+        if (randomAxis == 0)
+        {
+            // pirate base is on top or bottom
+            sectors[position, randomSide * 4] = 4;
+        } 
+        else
+        {
+            // pirate base is on left or right
+            sectors[randomSide * 4, position] = 4;
+        }
+        Debug.Log(randomSide + " : " + randomAxis);
+            
 
         for (int row = 0; row < rows; row++)
         {
@@ -54,9 +70,9 @@ public class ProceduralMapModel : MapModel
                 {
                     int sectorType = sectors[row / SECTOR_SIZE, column/SECTOR_SIZE / 2];
 
-                    //rates (out of 100)
-                    int nebulaRate = 10;
-                    int asteroidRate = 10;
+                    //rates (out of 625)
+                    int nebulaRate = 100;
+                    int asteroidRate = 100;
                     int platformRate = 1;
                     //empty space makes up the rest
                     //TODO add planet rate
@@ -65,30 +81,37 @@ public class ProceduralMapModel : MapModel
                     {
                         case 0:
                             //Nebula Field
-                            nebulaRate = 30;
-                            asteroidRate = 10;
+                            nebulaRate = 150;
+                            asteroidRate = 50;
                             platformRate = 1;
 
                             break;
                         case 1:
                             //Asteroid Field
-                            nebulaRate = 10;
-                            asteroidRate = 20;
+                            nebulaRate = 50;
+                            asteroidRate = 150;
                             platformRate = 1;
 
                             break;
                         case 2:
                             // Empty
-                            nebulaRate = 3;
-                            asteroidRate = 3;
+                            nebulaRate = 30;
+                            asteroidRate = 30;
                             platformRate = 2;
 
                             break;
                         case 3:
                             //colonised
-                            nebulaRate = 5;
-                            asteroidRate = 5;
-                            platformRate = 0;
+                            nebulaRate = 50;
+                            asteroidRate = 50;
+                            platformRate = 1;
+
+                            break;
+                        case 4:
+                            //pirate base
+                            nebulaRate = 100;
+                            asteroidRate = 100;
+                            platformRate = 50;
 
                             break;
 
@@ -96,7 +119,7 @@ public class ProceduralMapModel : MapModel
                             break;
                     }
 
-                    int randomNumber = UnityEngine.Random.Range(1, 100);
+                    int randomNumber = UnityEngine.Random.Range(1, 625);
                     if(randomNumber <= nebulaRate)
                     {
                         tempSpace = new NebulaSpaceModel(row, column, this);
@@ -109,18 +132,19 @@ public class ProceduralMapModel : MapModel
                         map[row][column] = tempSpace;
                         link.CreateAsteroidSpace((AsteroidSpaceModel)tempSpace);
                     }
-                    else if (randomNumber <= nebulaRate + asteroidRate + platformRate)
-                    {
-                        tempSpace = new SpaceModel(row, column, this);
-                        map[row][column] = tempSpace;
-                        link.CreateSpaceView(tempSpace);
-                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
-                    }
                     else 
                     {
                         tempSpace = new SpaceModel(row, column, this);
                         map[row][column] = tempSpace;
                         link.CreateSpaceView(tempSpace);
+                    }
+
+                    //see if there are pirates
+                    randomNumber = UnityEngine.Random.Range(1, 625);
+
+                    if (randomNumber <= platformRate)
+                    {
+                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
                     }
 
                 }
@@ -131,9 +155,9 @@ public class ProceduralMapModel : MapModel
                 {
                     int sectorType = sectors[row / SECTOR_SIZE, column / SECTOR_SIZE / 2];
 
-                    //rates (out of 100)
-                    int nebulaRate = 10;
-                    int asteroidRate = 10;
+                    //rates (out of 625)
+                    int nebulaRate = 100;
+                    int asteroidRate = 100;
                     int platformRate = 1;
                     //empty space makes up the rest
                     //TODO add planet rate
@@ -142,30 +166,37 @@ public class ProceduralMapModel : MapModel
                     {
                         case 0:
                             //Nebula Field
-                            nebulaRate = 30;
-                            asteroidRate = 10;
+                            nebulaRate = 150;
+                            asteroidRate = 50;
                             platformRate = 1;
 
                             break;
                         case 1:
                             //Asteroid Field
-                            nebulaRate = 10;
-                            asteroidRate = 20;
+                            nebulaRate = 50;
+                            asteroidRate = 150;
                             platformRate = 1;
 
                             break;
                         case 2:
                             // Empty
-                            nebulaRate = 3;
-                            asteroidRate = 3;
+                            nebulaRate = 30;
+                            asteroidRate = 30;
                             platformRate = 2;
 
                             break;
                         case 3:
                             //colonised
-                            nebulaRate = 5;
-                            asteroidRate = 5;
-                            platformRate = 0;
+                            nebulaRate = 50;
+                            asteroidRate = 50;
+                            platformRate = 1;
+
+                            break;
+                        case 4:
+                            //pirate base
+                            nebulaRate = 100;
+                            asteroidRate = 100;
+                            platformRate = 50;
 
                             break;
 
@@ -173,7 +204,7 @@ public class ProceduralMapModel : MapModel
                             break;
                     }
 
-                    int randomNumber = UnityEngine.Random.Range(1, 100);
+                    int randomNumber = UnityEngine.Random.Range(1, 625);
                     if (randomNumber <= nebulaRate)
                     {
                         tempSpace = new NebulaSpaceModel(row, column, this);
@@ -186,19 +217,21 @@ public class ProceduralMapModel : MapModel
                         map[row][column] = tempSpace;
                         link.CreateAsteroidSpace((AsteroidSpaceModel)tempSpace);
                     }
-                    else if (randomNumber <= nebulaRate + asteroidRate + platformRate)
-                    {
-                        tempSpace = new SpaceModel(row, column, this);
-                        map[row][column] = tempSpace;
-                        link.CreateSpaceView(tempSpace);
-                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
-                    }
                     else
                     {
                         tempSpace = new SpaceModel(row, column, this);
                         map[row][column] = tempSpace;
                         link.CreateSpaceView(tempSpace);
                     }
+
+                    //see if there are pirates
+                    randomNumber = UnityEngine.Random.Range(1, 625);
+
+                    if (randomNumber <= platformRate)
+                    {
+                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
+                    }
+
                 }
             }
         }
