@@ -80,6 +80,12 @@ public class ShipController : MonoBehaviour
         {
             currentDestination = new Vector2(-9999, -9999);
         }
+        if (currentLocation.x > currentDestination.x)
+        {
+            Debug.Log("flip");
+            FlipShip();
+        }
+
     }
 
 	private void Update()
@@ -113,10 +119,14 @@ public class ShipController : MonoBehaviour
                 {
                     currentLocation = currentDestination;
                     currentDestination = destinations[destinationIndex].GetController().GetPosition();
+                    if(currentLocation.x > currentDestination.x)
+                    {
+                        FlipShip();
+                    }
                 }
             }
         }
-        else if(currentDestination.x == -9999)
+        else if(!(currentDestination.x > -9999))
         {
             if (playerToShootOnFinish != null)
             {

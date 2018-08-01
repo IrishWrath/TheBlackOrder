@@ -58,7 +58,7 @@ public class ProceduralMapModel : MapModel
             // pirate base is on left or right
             sectors[randomSide * 4, position] = 4;
         }
-        Debug.Log(randomSide + " : " + randomAxis);
+        //Debug.Log(randomSide + " : " + randomAxis);
             
 
         for (int row = 0; row < rows; row++)
