@@ -58,7 +58,7 @@ public class PatrolAI : PirateAiModel
                     {
                         nextSpace = 0;
                     }
-                    if(patrolPath[nextSpace].GetMovementCost() > 99)
+                    while(patrolPath[nextSpace].GetMovementCost() > 99)
                     {
                         nextSpace++;
                     }
