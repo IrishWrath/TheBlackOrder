@@ -60,7 +60,7 @@ public abstract class PirateAiModel
     public void SpawnPirate(SpaceModel spawnPoint)
     {
         //If the pirate is dead check type and create a new one
-        if (pirateModel == null)
+        if (pirateModel == null && !spawnPoint.Occupied())
         {
             switch (pirateType)
             {

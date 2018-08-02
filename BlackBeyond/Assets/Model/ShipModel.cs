@@ -16,7 +16,7 @@ public abstract class ShipModel
     protected int shotCounter;
     protected int currentShotCounter;
     // TODO, sort out how combat works
-    protected int shipArmor = 1;
+    protected int shipArmor = 0;
 
     // Cargo hold stats
     protected int maxCargoSpace;
@@ -84,7 +84,7 @@ public abstract class ShipModel
         {
             int armor = enemy.GetArmor();
             int currentHealth = enemy.GetHealth();
-            int adjDamage = armor - shotDamage;
+            int adjDamage =  shotDamage - armor;
             if (adjDamage <= 0)
             {
                 // Always does at least one damage

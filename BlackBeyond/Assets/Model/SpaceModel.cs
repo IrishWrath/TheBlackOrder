@@ -54,6 +54,17 @@ public class SpaceModel
     {
         occupyingShip = null;
     }
+    public bool Occupied()
+    {
+        if(occupyingShip == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
     // For Pathfinding
 
