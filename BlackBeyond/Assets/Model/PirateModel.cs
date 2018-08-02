@@ -74,8 +74,14 @@ public class PirateModel : ShipModel
         pirateController.Die();
     }
 
-    // Static methods for creating pirates
-    public static PirateModel CreateScoutPirate(SpaceModel location, PirateAiModel pirateAiModel)
+	public override void FinishedAnimatingMovement()
+	{
+        base.FinishedAnimatingMovement();
+        pirateAi.FinishedMovement();
+	}
+
+	// Static methods for creating pirates
+	public static PirateModel CreateScoutPirate(SpaceModel location, PirateAiModel pirateAiModel)
     {
         return new PirateModel(location, PirateType.Scout, 2, 2, 3, 1, 4, 2, pirateAiModel);
     }

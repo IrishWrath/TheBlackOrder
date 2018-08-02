@@ -21,7 +21,7 @@ public class ShipController : MonoBehaviour
 
     //destinations
     private List<SpaceModel> destinations;
-    private PirateModel pirateToShoot;
+    private PirateModel pirateMoving;
     private PlayerModel playerToShootOnFinish;
     private float distanceMoved = 0f;
     private float speed = 2f;
@@ -78,11 +78,11 @@ public class ShipController : MonoBehaviour
         FlipShip(currentLocation.x < currentDestination.x);
     }
 
-    public void MoveShip(List<SpaceModel> destinations, PirateModel pirateToShoot, PlayerModel playerToShootOnFinish)
+    public void MoveShip(List<SpaceModel> destinations, PirateModel pirateMoving, PlayerModel playerToShootOnFinish)
     {
         moving = true;
         this.destinations = destinations;
-        this.pirateToShoot = pirateToShoot;
+        this.pirateMoving = pirateMoving;
         this.playerToShootOnFinish = playerToShootOnFinish;
         distanceMoved = 0;
         destinationIndex = 0;
@@ -121,9 +121,13 @@ public class ShipController : MonoBehaviour
                     shipModel.FinishedAnimatingMovement();
                     if (playerToShootOnFinish != null)
                     {
-                        pirateToShoot.Shoot(playerToShootOnFinish);
-                        pirateToShoot = null;
+                        pirateMoving.Shoot(playerToShootOnFinish);
+                        pirateMoving = null;
                         playerToShootOnFinish = null;
+                    }
+                    if(pirateMoving != null)
+                    {
+                        pirateMoving.FinishedAnimatingMovement();
                     }
                 }
                 else
@@ -138,8 +142,8 @@ public class ShipController : MonoBehaviour
         {
             if (playerToShootOnFinish != null)
             {
-                pirateToShoot.Shoot(playerToShootOnFinish);
-                pirateToShoot = null;
+                pirateMoving.Shoot(playerToShootOnFinish);
+                pirateMoving = null;
                 playerToShootOnFinish = null;
             }
         }

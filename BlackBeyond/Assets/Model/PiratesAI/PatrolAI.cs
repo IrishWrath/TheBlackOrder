@@ -12,7 +12,7 @@ public class PatrolAI : PirateAiModel
     public bool engaged;
     private MapModel map;
 
-    public PatrolAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, List<SpaceModel> patrolPoints) : base(pirateType, map, modelLink)
+    public PatrolAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, List<SpaceModel> patrolPoints, GameController gameController) : base(pirateType, map, modelLink, gameController)
     {
         // Oisín Notes: This constructor takes in a list of patrol points, which we can use to set up the patrol
 
@@ -62,6 +62,7 @@ public class PatrolAI : PirateAiModel
         }
         if (pirateModel != null)
         {
+            gameController.AddPirateMoving(pirateModel);
             pirateModel.ResetShotCounter();
             PlayerModel player = player = base.GetPlayerChasing();;
             List<SpaceModel> turnPath = new List<SpaceModel>();

@@ -5,7 +5,7 @@ public class PlatformAi : PirateAiModel
 {
     private SpaceModel location;
 
-    public PlatformAi(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, SpaceModel location) : base(pirateType, map, modelLink)
+    public PlatformAi(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, SpaceModel location, GameController gameController) : base(pirateType, map, modelLink, gameController)
     {
         this.location = location;
         base.SpawnPirate(location);

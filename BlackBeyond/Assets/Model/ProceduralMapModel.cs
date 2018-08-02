@@ -17,7 +17,7 @@ public class ProceduralMapModel : MapModel
     private int[,] sectors;
 
 
-    public ProceduralMapModel(int rows, int columns, ModelLink link) : base()
+    public ProceduralMapModel(int rows, int columns, ModelLink link, GameController gameController) : base()
     {
         this.rows = rows;
         this.columns = columns;
@@ -144,7 +144,7 @@ public class ProceduralMapModel : MapModel
 
                     if (randomNumber <= platformRate)
                     {
-                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
+                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace, gameController));
                     }
 
                 }
@@ -229,7 +229,7 @@ public class ProceduralMapModel : MapModel
 
                     if (randomNumber <= platformRate)
                     {
-                        //pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
+                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace, gameController));
                     }
 
                 }
@@ -275,7 +275,7 @@ public class ProceduralMapModel : MapModel
                 }
             }
 
-            pirates.Add(new PatrolAI(PirateModel.PirateType.Scout, this, link, patrolPoints));
+            pirates.Add(new PatrolAI(PirateModel.PirateType.Scout, this, link, patrolPoints, gameController));
         }
 
     }

@@ -12,7 +12,7 @@ public class HunterKillerAI :PirateAiModel
 
     private PlayerModel player;
 
-    protected HunterKillerAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, PlayerModel player) : base(pirateType, map, modelLink)
+    protected HunterKillerAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, PlayerModel player, GameController gameController) : base(pirateType, map, modelLink, gameController)
     {
         this.player = player;
     }

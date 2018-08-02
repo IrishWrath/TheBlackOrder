@@ -103,7 +103,7 @@ public abstract class ShipModel
         currentShotCounter = shotCounter;
     }
 
-    public void FinishedAnimatingMovement()
+    public virtual void FinishedAnimatingMovement()
     {
         animatingMovement = false;
     }

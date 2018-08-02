@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,13 +9,15 @@ public abstract class PirateAiModel
     private PirateModel.PirateType pirateType;
     private MapModel map;
     private ModelLink modelLink;
+    protected GameController gameController;
     protected PirateModel pirateModel;
 
-    protected PirateAiModel(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink)
+    protected PirateAiModel(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, GameController gameController)
     {
         this.pirateType = pirateType;
         this.map = map;
         this.modelLink = modelLink;
+        this.gameController = gameController;
     }
 
     public abstract void EndTurn(int turnNumber);
@@ -84,5 +87,10 @@ public abstract class PirateAiModel
             modelLink.CreatePirateView(pirateModel);
             spawnPoint.OccupySpace(pirateModel);
         }
+    }
+
+    public void FinishedMovement()
+    {
+        gameController.RemovePirateMoving(pirateModel);
     }
 }

@@ -4932,6 +4932,10 @@ MonoBehaviour:
   playerMovementText: {fileID: 1890571450}
   musicSlider: {fileID: 1588954249}
   sfxSlider: {fileID: 424863878}
+  MoveButton: {fileID: 1489357283}
+  ShootButton: {fileID: 1562337654}
+  TradeButton: {fileID: 2017111640}
+  EndTurnButton: {fileID: 472184263}
   mapGameObject: {fileID: 90238576}
 --- !u!4 &2045183071
 Transform:

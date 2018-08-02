@@ -7,9 +7,9 @@ using UnityEngine;
 public class MapController 
 {
     // Creates Map 
-    public MapController(int rows, int columns, ModelLink link)
+    public MapController(int rows, int columns, ModelLink link, GameController gameController)
     {
-        this.Map = new ProceduralMapModel(rows, columns, link);
+        this.Map = new ProceduralMapModel(rows, columns, link, gameController);
     }
 
     // The Map Model

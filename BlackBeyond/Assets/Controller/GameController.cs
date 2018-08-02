@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
     private ModelLink modelLink;
     private int turnNumber = 0;
 
+    private bool playerTurn = true;
+
     // The Prefab for Spaces
     public GameObject spaceView;
     // The Prefab for Player's ship
@@ -37,11 +39,18 @@ public class GameController : MonoBehaviour
 	public Slider musicSlider;
 	public Slider sfxSlider;
 
+    public Button MoveButton;
+    public Button ShootButton;
+    public Button TradeButton;
+    public Button EndTurnButton;
+
     // Container for spaces
     public GameObject mapGameObject;
 	
     // A reference to the player.
     private PlayerModel playerModel;
+    // All the pirates that are currently moving
+    private List<PirateModel> piratesMoving = new List<PirateModel>();
 
     // Use this for initialization. Starting method for our code.
     public void Start()
@@ -61,7 +70,7 @@ public class GameController : MonoBehaviour
         this.modelLink = new ModelLink(this, mapGameObject);
 
         // Creates the map.
-        this.MapControllerField = new MapController(125, 250, modelLink);
+        this.MapControllerField = new MapController(125, 250, modelLink, this);
 
         // Gets a starting space for the player, based on coordinates. Moving away from coordinates, but they are fine for setup
         SpaceModel playerSpace = MapControllerField.Map.GetSpace(63, 125);
@@ -107,38 +116,78 @@ public class GameController : MonoBehaviour
     // called when the player presses the move button
     public void PlayerMoveButton()
     {
-        EventSystem.current.SetSelectedGameObject(null);
-        // Tells the player to start moving
-        playerModel.StartMove();
-		//play button sound
-		soundController.PlaySound(SoundController.Sound.buttonPress);
+        if (playerTurn)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            // Tells the player to start moving
+            playerModel.StartMove();
+            //play button sound
+            soundController.PlaySound(SoundController.Sound.buttonPress);
+        }
     }
 
     // called when the player presses the shoot button
     public void PlayerShootButton()
     {
-        EventSystem.current.SetSelectedGameObject(null);
-        playerModel.StartShoot();
+        if (playerTurn)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            playerModel.StartShoot();
+        }
     }
 
     // called when the player presses the trade button, should be disabled if there is nothing to trade with
     public void PlayerTradeButton()
     {
-        EventSystem.current.SetSelectedGameObject(null);
-        // player.OpenTrade
+        if (playerTurn)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            // player.OpenTrade
+        }
     }
 
     // This function is called whe the player presses "end turn"
     public void EndTurn()
     {
-        EventSystem.current.SetSelectedGameObject(null);
-        playerModel.EndTurn();
-		soundController.PlaySound(SoundController.Sound.endTurn);
+        if (playerTurn)
+        {
+            playerTurn = false;
+            MoveButton.interactable = false;
+            ShootButton.interactable = false;
+            TradeButton.interactable = false;
+            EndTurnButton.interactable = false;
 
-        // MapModel will handle the pirates  
-        this.MapControllerField.Map.EndTurn(++turnNumber);
+            EventSystem.current.SetSelectedGameObject(null);
+            playerModel.EndTurn();
+            soundController.PlaySound(SoundController.Sound.endTurn);
 
+            // MapModel will handle the pirates  
+            this.MapControllerField.Map.EndTurn(++turnNumber);
+        }
+    }
+
+    public void StartTurn()
+    {
+        playerTurn = true;
+        MoveButton.interactable = true;
+        ShootButton.interactable = true;
+        //if( player is on trade station)
+        //TradeButton.interactable = true;
+        EndTurnButton.interactable = true;
         playerModel.StartTurn();
+    }
+
+    public void AddPirateMoving(PirateModel pirate)
+    {
+        piratesMoving.Add(pirate);
+    }
+    public void RemovePirateMoving(PirateModel pirate)
+    {
+        piratesMoving.Remove(pirate);
+        if (piratesMoving.Count == 0)
+        {
+            StartTurn();
+        }
     }
 
     // This Update should be avoided. Only place testing code here.

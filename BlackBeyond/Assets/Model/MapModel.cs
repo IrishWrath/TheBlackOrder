@@ -20,7 +20,7 @@ public class MapModel
     }
 
     // Create a map. TODO nothing in this map yet.
-    public MapModel(int rows, int columns, ModelLink link)
+    public MapModel(int rows, int columns, ModelLink link, GameController gameController)
     {
         this.rows = rows;
         this.columns = columns;
@@ -54,7 +54,7 @@ public class MapModel
                     }
                     if(UnityEngine.Random.Range(1,101) < PLATFORM_RATE)
                     {
-                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
+                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace, gameController));
                     }
                 }
             }
@@ -83,7 +83,7 @@ public class MapModel
                     }
                     if (UnityEngine.Random.Range(1, 101) < PLATFORM_RATE)
                     {
-                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
+                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace, gameController));
                     }
                 }
             }
