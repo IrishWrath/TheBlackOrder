@@ -21,24 +21,29 @@ public class PirateController : ShipController
         base.SetModel(pirateModel);
     }
 
+    public void Die()
+    {
+        Destroy(shipView);
+    }
+
     public void SetSprite(PirateModel.PirateType type)
     {
         switch(type)
         {
             case PirateModel.PirateType.Scout:
-                shipView.GetComponent<SpriteRenderer>().sprite = ScoutSprite;
+                shipView.GetComponentInChildren<SpriteRenderer>().sprite = ScoutSprite;
                 break;
             case PirateModel.PirateType.Platform:
-                shipView.GetComponent<SpriteRenderer>().sprite = PlatformSprite;
+                shipView.GetComponentInChildren<SpriteRenderer>().sprite = PlatformSprite;
                 break;
             case PirateModel.PirateType.Frigate:
-                shipView.GetComponent<SpriteRenderer>().sprite = FrigateSprite;
+                shipView.GetComponentInChildren<SpriteRenderer>().sprite = FrigateSprite;
                 break;
             case PirateModel.PirateType.Destroyer:
-                shipView.GetComponent<SpriteRenderer>().sprite = DestroyerSprite;
+                shipView.GetComponentInChildren<SpriteRenderer>().sprite = DestroyerSprite;
                 break;
             case PirateModel.PirateType.Dreadnought:
-                shipView.GetComponent<SpriteRenderer>().sprite = DreadnoughtSprite;
+                shipView.GetComponentInChildren<SpriteRenderer>().sprite = DreadnoughtSprite;
                 break;
         }
     }

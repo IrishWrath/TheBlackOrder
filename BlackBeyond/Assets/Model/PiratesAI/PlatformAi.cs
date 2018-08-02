@@ -18,13 +18,15 @@ public class PlatformAi : PirateAiModel
         {
             base.SpawnPirate(location);
         }
-
-        PlayerModel player = base.GetPlayerChasing();
-        if (player != null)
+        if (pirateModel != null)
         {
-            // gets the model from the superclass, and calls its shoot method.
-            // Shoot is a ShipModel method
-            base.pirateModel.Shoot(player);
+            PlayerModel player = base.GetPlayerChasing();
+            if (player != null)
+            {
+                // gets the model from the superclass, and calls its shoot method.
+                // Shoot is a ShipModel method
+                base.pirateModel.Shoot(player);
+            }
         }
 
     }

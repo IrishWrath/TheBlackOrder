@@ -52,6 +52,11 @@ public abstract class PirateAiModel
         return map;
     }
 
+    public virtual void NullPirate()
+    {
+        pirateModel = null;
+    }
+
     public void SpawnPirate(SpaceModel spawnPoint)
     {
         //If the pirate is dead check type and create a new one
@@ -60,19 +65,19 @@ public abstract class PirateAiModel
             switch (pirateType)
             {
                 case PirateModel.PirateType.Scout:
-                    pirateModel = PirateModel.CreateScoutPirate(spawnPoint);
+                    pirateModel = PirateModel.CreateScoutPirate(spawnPoint, this);
                     break;
                 case PirateModel.PirateType.Frigate:
-                    pirateModel = PirateModel.CreateFrigatePirate(spawnPoint);
+                    pirateModel = PirateModel.CreateFrigatePirate(spawnPoint, this);
                     break;
                 case PirateModel.PirateType.Platform:
-                    pirateModel = PirateModel.CreatePlatformPirate(spawnPoint);
+                    pirateModel = PirateModel.CreatePlatformPirate(spawnPoint, this);
                     break;
                 case PirateModel.PirateType.Dreadnought:
-                    pirateModel = PirateModel.CreateDreadnaughtPirate(spawnPoint);
+                    pirateModel = PirateModel.CreateDreadnaughtPirate(spawnPoint, this);
                     break;
                 case PirateModel.PirateType.Destroyer:
-                    pirateModel = PirateModel.CreateDestroyerPirate(spawnPoint);
+                    pirateModel = PirateModel.CreateDestroyerPirate(spawnPoint, this);
                     break;
             }
 

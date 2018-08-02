@@ -34,11 +34,25 @@ public class PatrolAI : PirateAiModel
 
     }
 
-    public override void EndTurn(int turnNumber)
-    {
-        if(turnNumber % 10 == 0)
+	public override void NullPirate()
+	{
+        base.NullPirate();
+        currentSpaceOnPath = 0;
+        while(patrolPath[currentSpaceOnPath].GetMovementCost() > 99)
         {
-            base.SpawnPirate(patrolPath[0]);
+            currentSpaceOnPath++;
+            if (currentSpaceOnPath >= patrolPath.Count)
+            {
+                currentSpaceOnPath = -1;
+            }
+        }
+	}
+
+	public override void EndTurn(int turnNumber)
+    {
+        if(turnNumber % 10 == 0 && currentSpaceOnPath > -1)
+        {
+            base.SpawnPirate(patrolPath[currentSpaceOnPath]);
         }
         if (pirateModel != null)
         {
@@ -60,7 +74,12 @@ public class PatrolAI : PirateAiModel
                     }
                     while(patrolPath[nextSpace].GetMovementCost() > 99)
                     {
+                        i += patrolPath[nextSpace].GetNormalMovementCost() - 1;
                         nextSpace++;
+                        if (nextSpace == patrolPath.Count)
+                        {
+                            nextSpace = 0;
+                        }
                     }
                     i += patrolPath[nextSpace].GetMovementCost() - 1;
                     if (i <= (base.pirateModel.GetMaxMovement()))
@@ -75,6 +94,8 @@ public class PatrolAI : PirateAiModel
             pirateModel.GetController().MoveShip(turnPath, pirateModel, player);
         }
     }
+
+
 
     //if (engaged == true)
     //      {

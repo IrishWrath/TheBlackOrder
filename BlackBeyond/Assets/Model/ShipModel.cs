@@ -1,11 +1,12 @@
 ﻿// This is a class for ships. It could be a player or a pirate ship
-public class ShipModel
+public abstract class ShipModel
 {
     // Is this ship animating movement?
     protected bool animatingMovement;
 
     //ship combat stat variables. Both Player and pirates use these. protected so that subclasses can use
     protected int shipHealth;
+    protected int maxHealth;
     protected int shotDamage;
     protected int attackRange;
     protected int maxMovement;
@@ -34,7 +35,17 @@ public class ShipModel
     public void SetHealth(int health)
     {
         shipHealth = health;
+        // update health bar
+        shipController.UpdateHealth(shipHealth, maxHealth);
+        if (shipHealth <= 0)
+        {
+            // die
+            Die();
+        }
     }
+
+    public abstract void Die();
+
     public int GetArmor()
     {
         return shipArmor;
@@ -64,7 +75,7 @@ public class ShipModel
             int adjDamage = armor - shotDamage;
             if (adjDamage <= 0)
             {
-                // Always does at least one damage?
+                // Always does at least one damage
                 adjDamage = 1;
             }
             int remainingHP = currentHealth - adjDamage;

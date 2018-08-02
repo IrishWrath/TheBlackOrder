@@ -13,6 +13,11 @@ public class NebulaSpaceModel: SpaceModel
         return base.GetMovementCost() + 1;
     }
 
+    public override int GetNormalMovementCost()
+    {
+        return 2;
+    }
+
     public override bool BlocksLOS()
     {
         return true;

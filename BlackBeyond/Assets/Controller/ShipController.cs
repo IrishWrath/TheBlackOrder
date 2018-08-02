@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,10 +39,18 @@ public class ShipController : MonoBehaviour
         return shipView;
     }
 
+    public void UpdateHealth(int shipHealth, int maxHealth)
+    {
+//        throw new NotImplementedException();
+        // TODO
+
+    }
+
     // For the Model link, lets this access the GameObject.
     public void SetShipView(GameObject shipView)
     {
         this.shipView = shipView;
+
     }
 
     // Moves the ship to a new location
@@ -132,14 +141,13 @@ public class ShipController : MonoBehaviour
 
     public void CreateLaser(SpaceModel start, SpaceModel end)
     {
-        var laser = Object.Instantiate(laserPrefab) as GameObject;
+        var laser = UnityEngine.Object.Instantiate(laserPrefab) as GameObject;
         laser.GetComponent<Laser>().SetLine(start.GetController().GetPosition(), end.GetController().GetPosition());
     }
 
     public void FlipShip(bool turnRight)
     {
-
-        Vector3 newScale = shipView.transform.localScale;
+        Vector3 newScale = gameObject.transform.localScale;
         if (turnRight)
         {
             
@@ -150,6 +158,6 @@ public class ShipController : MonoBehaviour
         {
             newScale.x = -Mathf.Abs(newScale.x);
         }
-        shipView.transform.localScale = newScale;
+        gameObject.transform.localScale = newScale;
     }
 }

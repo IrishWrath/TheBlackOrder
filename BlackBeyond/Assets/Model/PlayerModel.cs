@@ -33,7 +33,8 @@ public class PlayerModel : ShipModel
         base.shotDamage = 2;
         base.shotCounter = 1;
         base.currentShotCounter = 1;
-        base.shipHealth = 10;
+        base.shipHealth = 15;
+        base.maxHealth = 15;
         base.maxCargoSpace = 50;
         this.mapModel = mapModel;
         UpdatePlayerLocation(currentSpace);
@@ -230,5 +231,11 @@ public class PlayerModel : ShipModel
 
             validMovementSpaces.Clear();
         }
+    }
+
+    public override void Die()
+    {
+        // end game
+        shipHealth = maxHealth;
     }
 }

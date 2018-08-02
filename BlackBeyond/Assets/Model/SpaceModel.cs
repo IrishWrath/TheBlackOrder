@@ -102,6 +102,11 @@ public class SpaceModel
         }
     }
 
+    public virtual int GetNormalMovementCost()
+    {
+        return 1;
+    }
+
     public virtual bool IsHazardous()
     {
         return false;
