@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Class for all ships. TODO Possibly make abstract
 public class ShipController : MonoBehaviour
@@ -10,6 +11,7 @@ public class ShipController : MonoBehaviour
     //public SpaceModel CurrentSpaceModel { get; private set; }
 
     public GameObject laserPrefab;
+    public GameObject slider;
 
     // shipview is the ships gameobject
     protected GameObject shipView;
@@ -27,8 +29,13 @@ public class ShipController : MonoBehaviour
     Vector2 currentLocation, currentDestination;
     private int destinationIndex;
 
+	public void Start()
+	{
+        slider.GetComponent<Slider>().maxValue = 1;
+        slider.GetComponent<Slider>().value = 1;
+	}
 
-    public void SetModel(ShipModel shipModel)
+	public void SetModel(ShipModel shipModel)
     {
         this.shipModel = shipModel;
     }
@@ -41,9 +48,8 @@ public class ShipController : MonoBehaviour
 
     public void UpdateHealth(int shipHealth, int maxHealth)
     {
-//        throw new NotImplementedException();
-        // TODO
-
+        slider.GetComponent<Slider>().maxValue = maxHealth;
+        slider.GetComponent<Slider>().value = shipHealth;
     }
 
     // For the Model link, lets this access the GameObject.

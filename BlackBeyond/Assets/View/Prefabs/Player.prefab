@@ -246,6 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserPrefab: {fileID: 1113096786840502, guid: c04bf167aa59e4b46bf604314f8b35b4,
     type: 2}
+  slider: {fileID: 1937379558430418}
 --- !u!114 &114588467320136436
 MonoBehaviour:
   m_ObjectHideFlags: 1

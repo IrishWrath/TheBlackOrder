@@ -37,13 +37,19 @@ public class PatrolAI : PirateAiModel
 	public override void NullPirate()
 	{
         base.NullPirate();
-        currentSpaceOnPath = 0;
+        int random = Random.Range(0, patrolPath.Count);
+        currentSpaceOnPath = random;
         while(patrolPath[currentSpaceOnPath].GetMovementCost() > 99)
         {
             currentSpaceOnPath++;
             if (currentSpaceOnPath >= patrolPath.Count)
             {
+                currentSpaceOnPath = 0;
+            }
+            else if (currentSpaceOnPath == random)
+            {
                 currentSpaceOnPath = -1;
+                break;
             }
         }
 	}
@@ -92,6 +98,10 @@ public class PatrolAI : PirateAiModel
                 }
             }
             pirateModel.GetController().MoveShip(turnPath, pirateModel, player);
+            foreach (SpaceModel space in turnPath)
+            {
+                space.GetMovementEffects(pirateModel);
+            }
         }
     }
 

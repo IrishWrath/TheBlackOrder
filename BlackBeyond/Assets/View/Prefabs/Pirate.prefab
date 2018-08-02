@@ -261,6 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserPrefab: {fileID: 1113096786840502, guid: c04bf167aa59e4b46bf604314f8b35b4,
     type: 2}
+  slider: {fileID: 1463324879360272}
   engaged: 0
   ScoutSprite: {fileID: 21300000, guid: 9ee5f21a044a745caa8210f0bf61de71, type: 3}
   PlatformSprite: {fileID: 21300000, guid: bf70b3e8d6ce74554b53e5162e2543bd, type: 3}
@@ -308,8 +309,8 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 10
-  m_WholeNumbers: 0
-  m_Value: 7.1
+  m_WholeNumbers: 1
+  m_Value: 5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

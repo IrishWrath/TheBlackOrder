@@ -1,4 +1,6 @@
 ﻿// This is a class for ships. It could be a player or a pirate ship
+using System;
+
 public abstract class ShipModel
 {
     // Is this ship animating movement?
@@ -32,6 +34,16 @@ public abstract class ShipModel
     {
         return shipHealth;
     }
+    public int GetAttackRange()
+    {
+        return attackRange;
+    }
+
+    public void Damage(int damage)
+    {
+        SetHealth(shipHealth - damage);
+    }
+
     public void SetHealth(int health)
     {
         shipHealth = health;

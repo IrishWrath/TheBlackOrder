@@ -20,7 +20,7 @@ public class PirateModel : ShipModel
 
 
     //pirate ship builder template
-    public PirateModel(SpaceModel location, PirateType type, int health, int shotDamage, int detectRange, int attackRange , int maxPirateMovement , int shotCounter, PirateAiModel pirateAi)
+    public PirateModel(SpaceModel location, PirateType type, int health, int shotDamage, int detectRange, int attackRange, int maxPirateMovement , int shotCounter, PirateAiModel pirateAi)
     {
         // The "base" for these are unnecessary, but it helps keep them seperate. Base gets the superclass
         base.currentSpace = location;
