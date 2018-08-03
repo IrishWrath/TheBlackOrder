@@ -9,7 +9,7 @@ public class HunterKillerAI :PirateAiModel
     private SpaceModel target;
     public bool engaged;
     private MapModel map;
-    private PlayerModel playerCheck;
+    private PlayerModel playerScan;
     private PlayerModel player;
 
     protected HunterKillerAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, PlayerModel player, GameController gameController) : base(pirateType, map, modelLink, gameController)
@@ -27,8 +27,8 @@ public class HunterKillerAI :PirateAiModel
         for (int i = 0; i < (base.pirateModel.GetMaxMovement()); i++)
         {
             {
-                playerCheck = base.GetPlayerChasing();
-                if (playerCheck != null)
+                playerScan = base.GetPlayerChasing();
+                if (playerScan != null)
                 {
                     i = (base.pirateModel.GetMaxMovement());
                 }
@@ -56,7 +56,7 @@ public class HunterKillerAI :PirateAiModel
                     }
                 }
             }
-            pirateModel.GetController().MoveShip(targetPath, pirateModel, playerCheck);
+            pirateModel.GetController().MoveShip(targetPath, pirateModel, playerScan);
         }
         targetPath.Clear();
     }

@@ -8,12 +8,14 @@ public class PatrolAI : PirateAiModel
     // Once the path is set up, it never changes, so we'll make it in the constructor
     private List<SpaceModel> patrolPath;
     private int currentSpaceOnPath;
-
+    private PlayerModel playerScan;
+    private PlayerModel player;
     public bool engaged;
     private MapModel map;
 
-    public PatrolAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, List<SpaceModel> patrolPoints, GameController gameController) : base(pirateType, map, modelLink, gameController)
+    public PatrolAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, List<SpaceModel> patrolPoints, GameController gameController, PlayerModel player) : base(pirateType, map, modelLink, gameController)
     {
+        this.player = player;
         // Oisín Notes: This constructor takes in a list of patrol points, which we can use to set up the patrol
 
         patrolPath = new List<SpaceModel>();
@@ -34,7 +36,52 @@ public class PatrolAI : PirateAiModel
 
     }
 
-	public override void NullPirate()
+    public void pursuit()
+    {
+        int currentSpaceOnPath = 0;
+        SpaceModel target = player.GetSpace();
+        PlayerModel playerScan;
+        List<SpaceModel> targetPath = new List<SpaceModel>();
+        targetPath.AddRange(AStarPathfinding.GetPathToDestination(pirateModel.GetSpace(), target));
+
+        // Oisín Notes: Add a for loop here, and checks for if the player is in range?
+        for (int i = 0; i < (pirateModel.GetMaxMovement()); i++)
+        {
+            {
+                playerScan = GetPlayerChasing();
+                if (playerScan != null)
+                {
+                    i = (pirateModel.GetMaxMovement());
+                }
+                else
+                {
+                    int nextSpace = currentSpaceOnPath + 1;
+                    if (nextSpace == targetPath.Count)
+                    {
+                        nextSpace = 0;
+                    }
+                    while (targetPath[nextSpace].GetMovementCost() > 99)
+                    {
+                        i += targetPath[nextSpace].GetNormalMovementCost() - 1;
+                        nextSpace++;
+                        if (nextSpace == targetPath.Count)
+                        {
+                            nextSpace = 0;
+                        }
+                    }
+                    i += targetPath[nextSpace].GetMovementCost() - 1;
+                    if (i <= (pirateModel.GetMaxMovement()))
+                    {
+                        currentSpaceOnPath = nextSpace;
+                        pirateModel.UpdatePirateLocation(targetPath[currentSpaceOnPath]);
+                    }
+                }
+            }
+            pirateModel.GetController().MoveShip(targetPath, pirateModel, playerScan);
+        }
+    }
+
+    public override void NullPirate()
 	{
         base.NullPirate();
         int random = Random.Range(0, patrolPath.Count);
@@ -60,7 +107,14 @@ public class PatrolAI : PirateAiModel
         {
             base.SpawnPirate(patrolPath[currentSpaceOnPath]);
         }
-        if (pirateModel != null)
+
+        if (engaged == true)
+        {
+            pursuit();
+        }else
+            engaged = false;
+
+            if (pirateModel != null)
         {
             gameController.AddPirateMoving(pirateModel);
             pirateModel.ResetShotCounter();
@@ -108,14 +162,6 @@ public class PatrolAI : PirateAiModel
 
 
 
-    //if (engaged == true)
-    //      {
-    //        base.GetPlayerChasing();
-    //          // Outside for loop, no players found
-    //    
-    // Return to original patrol path
-    //  else
-    //{
-    //      engaged = false;
+
 
 }
