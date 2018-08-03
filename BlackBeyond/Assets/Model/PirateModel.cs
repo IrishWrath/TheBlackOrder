@@ -69,9 +69,11 @@ public class PirateModel : ShipModel
 
     public override void Die()
     {
+        FinishedAnimatingMovement();
         pirateAi.NullPirate();
         currentSpace.LeaveSpace();
         pirateController.Die();
+        Debug.Log("Dead");
     }
 
 	public override void FinishedAnimatingMovement()

@@ -50,7 +50,7 @@ public class GameController : MonoBehaviour
     // A reference to the player.
     private PlayerModel playerModel;
     // All the pirates that are currently moving
-    private List<PirateModel> piratesMoving = new List<PirateModel>();
+    public List<PirateModel> piratesMoving = new List<PirateModel>();
 
     // Use this for initialization. Starting method for our code.
     public void Start()
@@ -151,6 +151,7 @@ public class GameController : MonoBehaviour
     {
         if (playerTurn)
         {
+            piratesMoving.Clear();
             playerTurn = false;
             MoveButton.interactable = false;
             ShootButton.interactable = false;

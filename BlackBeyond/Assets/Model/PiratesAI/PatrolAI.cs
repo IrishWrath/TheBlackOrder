@@ -99,10 +99,10 @@ public class PatrolAI : PirateAiModel
                 }
             }
             pirateModel.GetController().MoveShip(turnPath, pirateModel, player);
-            foreach (SpaceModel space in turnPath)
-            {
-                space.GetMovementEffects(pirateModel);
-            }
+            //foreach (SpaceModel space in turnPath)
+            //{
+            //    space.GetMovementEffects(pirateModel);
+            //}
         }
     }
 
