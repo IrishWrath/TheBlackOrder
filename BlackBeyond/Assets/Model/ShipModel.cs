@@ -92,7 +92,7 @@ public abstract class ShipModel
             }
             int remainingHP = currentHealth - adjDamage;
             enemy.SetHealth(remainingHP);
-            currentShotCounter -= 1;
+            this.currentShotCounter -= 1;
             // Creates a laser. Finn's animation
             shipController.CreateLaser(currentSpace, enemy.GetSpace());
         }
