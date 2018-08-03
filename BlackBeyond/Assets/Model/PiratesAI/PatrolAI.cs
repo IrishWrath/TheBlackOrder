@@ -48,7 +48,7 @@ public class PatrolAI : PirateAiModel
         for (int i = 0; i < (pirateModel.GetMaxMovement()); i++)
         {
             {
-                playerScan = GetPlayerChasing();
+                playerScan = GetPlayerPursuit();
                 if (playerScan != null)
                 {
                     i = (pirateModel.GetMaxMovement());
