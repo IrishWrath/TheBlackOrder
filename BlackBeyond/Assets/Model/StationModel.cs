@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class StationModel
 {
     private StationController stationController;
     private SpaceModel stationSpaceModel;
+    
 
     // Station Resources
+    public int currentStationType = 0;
     public int metalAvailable = 0;
     public int metalPrice = 0;
     public int organicAvailable = 0;
@@ -17,6 +20,13 @@ public class StationModel
     public int gasPrice = 0;
     public int waterAvailable = 0;
     public int waterPrice = 0;
+
+    Dictionary<SpaceModel, Station> allStations = new Dictionary<SpaceModel, Station>();
+
+    public void addStation(SpaceModel stationID, Station newStation)
+    {
+        //allStations.Add(stationID, newStation);
+    }
 
     private int GetResourceAvailable(int minRange, int maxRange)
     {
@@ -164,4 +174,41 @@ public class StationModel
         this.stationController = controller;
     }
 
+}
+
+public class Station
+{
+    private readonly SpaceModel currentStation;
+    public int currentStationType = 0;
+    public int metalAvailable = 0;
+    public int metalPrice = 0;
+    public int organicAvailable = 0;
+    public int organicPrice = 0;
+    public int fuelAvailable = 0;
+    public int fuelPrice = 0;
+    public int gasAvailable = 0;
+    public int gasPrice = 0;
+    public int waterAvailable = 0;
+    public int waterPrice = 0;
+
+    public Station(SpaceModel stationLocation, int stationType, int newMetalAvail, int newMetalPrice, int newOrganicAvail, int newOrganicPrice, int newFuelAvail, int newFuelPrice, int newGasAvail, int newGasPrice, int newWaterAvail, int newWaterPrice)
+    {
+        this.currentStation = stationLocation;
+        currentStationType = stationType;
+        metalAvailable = newMetalAvail;
+        metalPrice = newMetalPrice;
+        organicAvailable = newOrganicAvail;
+        organicPrice = newOrganicPrice;
+        fuelAvailable = newFuelAvail;
+        fuelPrice = newFuelPrice;
+        gasAvailable = newGasAvail;
+        gasPrice = newGasPrice;
+        waterAvailable = newWaterAvail;
+        waterPrice = newWaterPrice;
+    }
+
+    public SpaceModel GetStationLocation (Station station)
+    {
+        return currentStation;
+    }
 }
