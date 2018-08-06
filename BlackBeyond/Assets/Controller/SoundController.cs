@@ -80,25 +80,7 @@ public class SoundController : MonoBehaviour{
 
 	// Update is called once per frame
     void Update()
-    {
-        //Test press B to switch to battle music. Later have it switch by natural causes
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            SwitchMusic(SoundController.Sound.battle);
-        }
-
-        //Test press T to switch to trade music. Later have it switch by natural causes
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            SwitchMusic(SoundController.Sound.trade);
-        }
-
-        //Test press D to switch to default music. Later have it switch by natural causes
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            SwitchMusic(SoundController.Sound.main);
-        }
-		
+    {	
 		ChangeVolume();
 		
     }
