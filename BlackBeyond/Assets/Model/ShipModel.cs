@@ -26,6 +26,8 @@ public abstract class ShipModel
     protected SpaceModel currentSpace;
     private ShipController shipController;
 
+    //this counts how many turns since the player was last shot. used to control music.
+    public int turnsSinceShot = 0;
     internal SoundController soundController;
 
     public int GetDamage()
@@ -51,7 +53,7 @@ public abstract class ShipModel
 
         if (health < shipHealth && health != 0)
         {
-            soundController.PlaySound(SoundController.Sound.damage, 0.4f);
+            soundController.PlaySound(SoundController.Sound.damage, 0.3f);
         }
 
         shipHealth = health;
@@ -112,6 +114,8 @@ public abstract class ShipModel
             shipController.CreateLaser(currentSpace, enemy.GetSpace());
             soundController.PlaySound(SoundController.Sound.shoot1);
             soundController.SwitchMusic(SoundController.Sound.battle);
+            //reset counter.
+            turnsSinceShot = 0;
         }
     }
 
