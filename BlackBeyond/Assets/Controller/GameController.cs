@@ -169,7 +169,7 @@ public class GameController : MonoBehaviour
             //attempt to increase the amount of turns since the player was in battle.
             playerModel.turnsSinceShot++;
             //if the player has not been shot for 3 turns, change music.
-            if(playerModel.turnsSinceShot >= 3)
+            if(playerModel.turnsSinceShot > 3)
             {
                 soundController.SwitchMusic(SoundController.Sound.main);
             }

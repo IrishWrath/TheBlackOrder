@@ -50,12 +50,6 @@ public abstract class ShipModel
 
     public void SetHealth(int health)
     {
-
-        if (health < shipHealth && health != 0)
-        {
-            soundController.PlaySound(SoundController.Sound.damage, 0.3f);
-        }
-
         shipHealth = health;
         // update health bar
         shipController.UpdateHealth(shipHealth, maxHealth);
@@ -65,6 +59,10 @@ public abstract class ShipModel
             // die
             Die();
             soundController.PlaySound(SoundController.Sound.destroy, 0.4f);
+        }
+        else
+        {
+            soundController.PlaySound(SoundController.Sound.damage, 0.3f);
         }
     }
 
@@ -116,6 +114,7 @@ public abstract class ShipModel
             soundController.SwitchMusic(SoundController.Sound.battle);
             //reset counter.
             turnsSinceShot = 0;
+            enemy.turnsSinceShot = 0;
         }
     }
 
