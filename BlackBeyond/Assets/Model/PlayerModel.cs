@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerModel : ShipModel
 {
+
     // Player trade info
     public int playerCurrency = 0;
     public int metalResource = 0;

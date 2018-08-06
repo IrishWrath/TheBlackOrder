@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour
     public GameObject asteroidTerrain;
 
     public Text playerMovementText;
-	
+	//The Menu audio sliders
 	public Slider musicSlider;
 	public Slider sfxSlider;
 
@@ -133,6 +133,7 @@ public class GameController : MonoBehaviour
         {
             EventSystem.current.SetSelectedGameObject(null);
             playerModel.StartShoot();
+            soundController.PlaySound(SoundController.Sound.buttonPress);
         }
     }
 
@@ -164,6 +165,14 @@ public class GameController : MonoBehaviour
 
             // MapModel will handle the pirates  
             this.MapControllerField.Map.EndTurn(++turnNumber);
+
+            //attempt to increase the amount of turns since the player was in battle.
+            playerModel.turnsSinceShot++;
+            //if the player has not been shot for 3 turns, change music.
+            if(playerModel.turnsSinceShot > 3)
+            {
+                soundController.SwitchMusic(SoundController.Sound.main);
+            }
         }
     }
 

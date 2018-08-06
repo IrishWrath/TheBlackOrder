@@ -26,6 +26,10 @@ public abstract class ShipModel
     protected SpaceModel currentSpace;
     private ShipController shipController;
 
+    //this counts how many turns since the player was last shot. used to control music.
+    public int turnsSinceShot = 0;
+    internal SoundController soundController;
+
     public int GetDamage()
     {
         return shotDamage;
@@ -49,11 +53,22 @@ public abstract class ShipModel
         shipHealth = health;
         // update health bar
         shipController.UpdateHealth(shipHealth, maxHealth);
+
         if (shipHealth <= 0)
         {
             // die
             Die();
+            soundController.PlaySound(SoundController.Sound.destroy, 0.4f);
         }
+        else
+        {
+            soundController.PlaySound(SoundController.Sound.damage, 0.3f);
+        }
+    }
+
+    public void SetSoundController(SoundController soundController)
+    {
+        this.soundController = soundController;
     }
 
     public abstract void Die();
@@ -95,6 +110,11 @@ public abstract class ShipModel
             this.currentShotCounter -= 1;
             // Creates a laser. Finn's animation
             shipController.CreateLaser(currentSpace, enemy.GetSpace());
+            soundController.PlaySound(SoundController.Sound.shoot1);
+            soundController.SwitchMusic(SoundController.Sound.battle);
+            //reset counter.
+            turnsSinceShot = 0;
+            enemy.turnsSinceShot = 0;
         }
     }
 

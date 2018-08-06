@@ -14,11 +14,11 @@ public class PirateController : ShipController
     public Sprite DestroyerSprite;
     public Sprite DreadnoughtSprite;
 
-    public void SetModel(PirateModel pirateModel)
+    public void SetModel(PirateModel pirateModel, SoundController soundController)
     {
         this.pirateModel = pirateModel;
         // The superclass sometimes needs access to the model
-        base.SetModel(pirateModel);
+        base.SetModel(pirateModel, soundController);
     }
 
     public void Die()
@@ -47,4 +47,5 @@ public class PirateController : ShipController
                 break;
         }
     }
+
 }

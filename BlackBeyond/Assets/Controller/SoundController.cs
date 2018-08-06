@@ -10,8 +10,10 @@ public class SoundController : MonoBehaviour{
 	//has all our music and sfx stored.
 	private AudioSource[] sounds;
     //gives each sound number a name.
-    public enum Sound { main, battle, trade, endTurn, move, buttonPress, shoot, buy, destroy, damage }
-	
+    public enum Sound { main, battle, trade, endTurn, move, buttonPress, shoot1, shoot2, shoot3, buy, destroy, damage }
+
+    protected SoundController.Sound currentlyPlaying = SoundController.Sound.main;
+
 	private Slider musicSlider;
 	private Slider sfxSlider;
 
@@ -27,15 +29,17 @@ public class SoundController : MonoBehaviour{
 
     public void SwitchMusic(Sound songNum)
     {
-
-        //stop all music first.
-        for (int i = 0; i < 3; i++)
+        if (currentlyPlaying != songNum)
         {
-            sounds[i].Stop();
+            //stop all music first.
+            for (int i = 0; i < 3; i++)
+            {
+                sounds[i].Stop();
+            }
+            //play selected song
+            sounds[(int)songNum].Play();
+            currentlyPlaying = songNum;
         }
-        //play selected song
-        sounds[(int)songNum].Play();
-
     }
 
 	//makes the volume for our sounds match the sliders in the menu.
@@ -69,27 +73,14 @@ public class SoundController : MonoBehaviour{
 	public void PlaySound(Sound soundNum){
 		sounds[(int)soundNum].Play();
 	}
+    public void PlaySound(Sound soundNum, float delay)
+    {
+        sounds[(int)soundNum].PlayDelayed(delay);
+    }
+
 	// Update is called once per frame
     void Update()
-    {
-        //Test press B to switch to battle music. Later have it switch by natural causes
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            SwitchMusic(SoundController.Sound.battle);
-        }
-
-        //Test press T to switch to trade music. Later have it switch by natural causes
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            SwitchMusic(SoundController.Sound.trade);
-        }
-
-        //Test press D to switch to default music. Later have it switch by natural causes
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            SwitchMusic(SoundController.Sound.main);
-        }
-		
+    {	
 		ChangeVolume();
 		
     }
