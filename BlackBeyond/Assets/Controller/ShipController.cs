@@ -119,15 +119,15 @@ public class ShipController : MonoBehaviour
                 {
                     moving = false;
                     shipModel.FinishedAnimatingMovement();
+                    if (pirateMoving != null)
+                    {
+                        pirateMoving.FinishedAnimatingMovement();
+                    }
                     if (playerToShootOnFinish != null)
                     {
                         pirateMoving.Shoot(playerToShootOnFinish);
                         pirateMoving = null;
                         playerToShootOnFinish = null;
-                    }
-                    if(pirateMoving != null)
-                    {
-                        pirateMoving.FinishedAnimatingMovement();
                     }
                 }
                 else
@@ -140,6 +140,10 @@ public class ShipController : MonoBehaviour
         }
         else if(!(currentDestination.x > -9999))
         {
+            if (pirateMoving != null)
+            {
+                pirateMoving.FinishedAnimatingMovement();
+            }
             if (playerToShootOnFinish != null)
             {
                 pirateMoving.Shoot(playerToShootOnFinish);

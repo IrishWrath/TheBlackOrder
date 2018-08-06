@@ -248,7 +248,7 @@ public class ProceduralMapModel : MapModel
         }
 
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 50; i++)
         {
             List<SpaceModel> patrolPoints = new List<SpaceModel>();
             for (int j = 0; j < 3; j++)
@@ -278,5 +278,94 @@ public class ProceduralMapModel : MapModel
             pirates.Add(new PatrolAI(PirateModel.PirateType.Scout, this, link, patrolPoints, gameController));
         }
 
+        for (int i = 0; i < 25; i++)
+        {
+            List<SpaceModel> patrolPoints = new List<SpaceModel>();
+            for (int j = 0; j < 3; j++)
+            {
+                int row = UnityEngine.Random.Range(0, rows);
+                int column = UnityEngine.Random.Range(0, columns);
+                if ((row % 2 == 0 && column % 2 != 0) || (row % 2 != 0 && column % 2 == 0))
+                {
+                    if (column == 0)
+                    {
+                        row = Math.Max(0, row - 1);
+                    }
+                    else
+                    {
+                        column = Math.Max(0, column - 1);
+                    }
+
+                }
+                patrolPoints.Add(GetSpace(row, column));
+                //Debug.Log(GetSpace(row, column));
+                if (GetSpace(row, column) == null)
+                {
+                    Debug.Log(row + " : " + column);
+                }
+            }
+
+            pirates.Add(new PatrolAI(PirateModel.PirateType.Frigate, this, link, patrolPoints, gameController));
+        }
+
+        for (int i = 0; i < 20; i++)
+        {
+            List<SpaceModel> patrolPoints = new List<SpaceModel>();
+            for (int j = 0; j < 3; j++)
+            {
+                int row = UnityEngine.Random.Range(0, rows);
+                int column = UnityEngine.Random.Range(0, columns);
+                if ((row % 2 == 0 && column % 2 != 0) || (row % 2 != 0 && column % 2 == 0))
+                {
+                    if (column == 0)
+                    {
+                        row = Math.Max(0, row - 1);
+                    }
+                    else
+                    {
+                        column = Math.Max(0, column - 1);
+                    }
+
+                }
+                patrolPoints.Add(GetSpace(row, column));
+                //Debug.Log(GetSpace(row, column));
+                if (GetSpace(row, column) == null)
+                {
+                    Debug.Log(row + " : " + column);
+                }
+            }
+
+            pirates.Add(new PatrolAI(PirateModel.PirateType.Destroyer, this, link, patrolPoints, gameController));
+        }
+
+        for (int i = 0; i < 5; i++)
+        {
+            List<SpaceModel> patrolPoints = new List<SpaceModel>();
+            for (int j = 0; j < 3; j++)
+            {
+                int row = UnityEngine.Random.Range(0, rows);
+                int column = UnityEngine.Random.Range(0, columns);
+                if ((row % 2 == 0 && column % 2 != 0) || (row % 2 != 0 && column % 2 == 0))
+                {
+                    if (column == 0)
+                    {
+                        row = Math.Max(0, row - 1);
+                    }
+                    else
+                    {
+                        column = Math.Max(0, column - 1);
+                    }
+
+                }
+                patrolPoints.Add(GetSpace(row, column));
+                //Debug.Log(GetSpace(row, column));
+                if (GetSpace(row, column) == null)
+                {
+                    Debug.Log(row + " : " + column);
+                }
+            }
+
+            pirates.Add(new PatrolAI(PirateModel.PirateType.Dreadnought, this, link, patrolPoints, gameController));
+        }
     }
 }

@@ -109,57 +109,56 @@ public class PatrolAI : PirateAiModel
         if (engaged == true)
         {
             Pursuit();
-        }else
-            engaged = false;
+        }
+        else
+        {
+            // engaged = false;
 
             if (pirateModel != null)
-        {
-            gameController.AddPirateMoving(pirateModel);
-            pirateModel.ResetShotCounter();
-            PlayerModel player = player = base.GetPlayerChasing();;
-            List<SpaceModel> turnPath = new List<SpaceModel>();
-            for (int i = 0; i < (base.pirateModel.GetMaxMovement()); i++)
             {
-                if (player != null)
+                gameController.AddPirateMoving(pirateModel);
+                pirateModel.ResetShotCounter();
+                PlayerModel player = player = base.GetPlayerChasing(); ;
+                List<SpaceModel> turnPath = new List<SpaceModel>();
+                for (int i = 0; i < (base.pirateModel.GetMaxMovement()); i++)
                 {
-                    i = (base.pirateModel.GetMaxMovement());
-                }
-                else
-                {
-                    int nextSpace = currentSpaceOnPath + 1;
-                    if (nextSpace == patrolPath.Count)
+                    if (player != null)
                     {
-                        nextSpace = 0;
+                        i = (base.pirateModel.GetMaxMovement());
                     }
-                    while(patrolPath[nextSpace].GetMovementCost() > 99)
+                    else
                     {
-                        i += patrolPath[nextSpace].GetNormalMovementCost() - 1;
-                        nextSpace++;
+                        int nextSpace = currentSpaceOnPath + 1;
                         if (nextSpace == patrolPath.Count)
                         {
                             nextSpace = 0;
                         }
-                    }
-                    i += patrolPath[nextSpace].GetMovementCost() - 1;
-                    if (i <= (base.pirateModel.GetMaxMovement()))
-                    {
-                        currentSpaceOnPath = nextSpace;
-                        turnPath.Add(patrolPath[currentSpaceOnPath]);
-                        pirateModel.UpdatePirateLocation(patrolPath[currentSpaceOnPath]);
-                        player = base.GetPlayerChasing();
+                        while (patrolPath[nextSpace].GetMovementCost() > 99)
+                        {
+                            i += patrolPath[nextSpace].GetNormalMovementCost() - 1;
+                            nextSpace++;
+                            if (nextSpace == patrolPath.Count)
+                            {
+                                nextSpace = 0;
+                            }
+                        }
+                        i += patrolPath[nextSpace].GetMovementCost() - 1;
+                        if (i <= (base.pirateModel.GetMaxMovement()))
+                        {
+                            currentSpaceOnPath = nextSpace;
+                            turnPath.Add(patrolPath[currentSpaceOnPath]);
+                            pirateModel.UpdatePirateLocation(patrolPath[currentSpaceOnPath]);
+                            player = base.GetPlayerChasing();
+                        }
                     }
                 }
+                pirateModel.GetController().MoveShip(turnPath, pirateModel, player);
+                foreach (SpaceModel space in turnPath)
+                {
+                    space.GetMovementEffects(pirateModel);
+                }
             }
-            pirateModel.GetController().MoveShip(turnPath, pirateModel, player);
-            //foreach (SpaceModel space in turnPath)
-            //{
-            //    space.GetMovementEffects(pirateModel);
-            //}
         }
     }
-
-
-
-
 
 }
