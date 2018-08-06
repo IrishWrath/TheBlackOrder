@@ -8,14 +8,12 @@ public class PatrolAI : PirateAiModel
     // Once the path is set up, it never changes, so we'll make it in the constructor
     private List<SpaceModel> patrolPath;
     private int currentSpaceOnPath;
-    private PlayerModel playerScan;
-    private PlayerModel player;
+    private PlayerModel playerPursuing;
     public bool engaged;
     private MapModel map;
 
-    public PatrolAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, List<SpaceModel> patrolPoints, GameController gameController, PlayerModel player) : base(pirateType, map, modelLink, gameController)
+    public PatrolAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, List<SpaceModel> patrolPoints, GameController gameController) : base(pirateType, map, modelLink, gameController)
     {
-        this.player = player;
         // Oisín Notes: This constructor takes in a list of patrol points, which we can use to set up the patrol
 
         patrolPath = new List<SpaceModel>();
@@ -36,10 +34,10 @@ public class PatrolAI : PirateAiModel
 
     }
 
-    public void pursuit()
+    public void Pursuit()
     {
-        int currentSpaceOnPath = 0;
-        SpaceModel target = player.GetSpace();
+        int currentSpaceOnPursuitPath = 0;
+        SpaceModel target = playerPursuing.GetSpace();
         PlayerModel playerScan;
         List<SpaceModel> targetPath = new List<SpaceModel>();
         targetPath.AddRange(AStarPathfinding.GetPathToDestination(pirateModel.GetSpace(), target));
@@ -55,7 +53,7 @@ public class PatrolAI : PirateAiModel
                 }
                 else
                 {
-                    int nextSpace = currentSpaceOnPath + 1;
+                    int nextSpace = currentSpaceOnPursuitPath + 1;
                     if (nextSpace == targetPath.Count)
                     {
                         nextSpace = 0;
@@ -72,8 +70,8 @@ public class PatrolAI : PirateAiModel
                     i += targetPath[nextSpace].GetMovementCost() - 1;
                     if (i <= (pirateModel.GetMaxMovement()))
                     {
-                        currentSpaceOnPath = nextSpace;
-                        pirateModel.UpdatePirateLocation(targetPath[currentSpaceOnPath]);
+                        currentSpaceOnPursuitPath = nextSpace;
+                        pirateModel.UpdatePirateLocation(targetPath[currentSpaceOnPursuitPath]);
                     }
                 }
             }
@@ -110,7 +108,7 @@ public class PatrolAI : PirateAiModel
 
         if (engaged == true)
         {
-            pursuit();
+            Pursuit();
         }else
             engaged = false;
 

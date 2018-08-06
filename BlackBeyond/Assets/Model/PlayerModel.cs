@@ -194,13 +194,16 @@ public class PlayerModel : ShipModel
 
     public void FinishShoot(ShipModel occupyingShip)
     {
-        base.Shoot(occupyingShip);
-        foreach (PathfindingNode node in validShootingSpaces)
+        if (occupyingShip != null)
         {
-            node.GetSpace().ClearHighlighted();
-        }
+            base.Shoot(occupyingShip);
+            foreach (PathfindingNode node in validShootingSpaces)
+            {
+                node.GetSpace().ClearHighlighted();
+            }
 
-        validShootingSpaces.Clear();
+            validShootingSpaces.Clear();
+        }
     }
 
     public void FinishMove(PathfindingNode destination)

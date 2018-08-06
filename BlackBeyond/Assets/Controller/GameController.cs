@@ -185,7 +185,7 @@ public class GameController : MonoBehaviour
     public void RemovePirateMoving(PirateModel pirate)
     {
         piratesMoving.Remove(pirate);
-        if (piratesMoving.Count == 0)
+        if (piratesMoving.Count == 0 && !playerTurn)
         {
             StartTurn();
         }

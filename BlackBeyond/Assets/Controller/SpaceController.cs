@@ -80,7 +80,7 @@ public class SpaceController : MonoBehaviour
         }
     }
 
-    private void OnMouseEnter()
+    private void OnMouseOver()
 	{
         if(selectable)
         {
