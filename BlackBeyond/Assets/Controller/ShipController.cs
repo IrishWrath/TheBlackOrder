@@ -16,8 +16,6 @@ public class ShipController : MonoBehaviour
     // shipview is the ships gameobject
     protected GameObject shipView;
     protected ShipModel shipModel;
-    //for playing of sounds.
-    protected SoundController soundController;
     // is this ship moving
     private bool moving = false;
 
@@ -37,9 +35,10 @@ public class ShipController : MonoBehaviour
         slider.GetComponent<Slider>().value = 1;
 	}
 
-	public void SetModel(ShipModel shipModel)
+	public void SetModel(ShipModel shipModel, SoundController soundController)
     {
         this.shipModel = shipModel;
+        this.shipModel.SetSoundController(soundController);
     }
 
     // Gives the GameObject
@@ -78,7 +77,9 @@ public class ShipController : MonoBehaviour
         currentLocation = shipView.transform.position;
         currentDestination = destinations[destinationIndex].GetSpace().GetController().GetPosition();
         FlipShip(currentLocation.x < currentDestination.x);
-        soundController.PlaySound(SoundController.Sound.move);
+        //not sure if getting this back from the ship model makes sense, but it does work. The ShipController could just have
+        //a sound controller too.
+        shipModel.soundController.PlaySound(SoundController.Sound.move);
     }
 
     public void MoveShip(List<SpaceModel> destinations, PirateModel pirateMoving, PlayerModel playerToShootOnFinish)
@@ -125,7 +126,7 @@ public class ShipController : MonoBehaviour
                     if (playerToShootOnFinish != null)
                     {
                         pirateMoving.Shoot(playerToShootOnFinish);
-                        soundController.PlaySound(SoundController.Sound.shoot);
+                        shipModel.soundController.SwitchMusic(SoundController.Sound.battle);
                         pirateMoving = null;
                         playerToShootOnFinish = null;
                     }
@@ -147,7 +148,7 @@ public class ShipController : MonoBehaviour
             if (playerToShootOnFinish != null)
             {
                 pirateMoving.Shoot(playerToShootOnFinish);
-                soundController.PlaySound(SoundController.Sound.shoot);
+                shipModel.soundController.SwitchMusic(SoundController.Sound.battle);
                 pirateMoving = null;
                 playerToShootOnFinish = null;
             }

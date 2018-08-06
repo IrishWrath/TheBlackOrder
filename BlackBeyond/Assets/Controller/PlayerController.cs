@@ -26,11 +26,4 @@ public class PlayerController : ShipController
         movementText.text = currentPlayerMovement + "/" + maxPlayerMovement;
     }
 
-	// For getting the soundController that can be found in the GameController
-	public void SetSoundController(SoundController soundController)
-    {
-		base.soundController = soundController;
-	}
-
-
 }

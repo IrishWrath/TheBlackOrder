@@ -14,11 +14,11 @@ public class PirateController : ShipController
     public Sprite DestroyerSprite;
     public Sprite DreadnoughtSprite;
 
-    public void SetModel(PirateModel pirateModel)
+    public void SetModel(PirateModel pirateModel, SoundController soundController)
     {
         this.pirateModel = pirateModel;
         // The superclass sometimes needs access to the model
-        base.SetModel(pirateModel);
+        base.SetModel(pirateModel, soundController);
     }
 
     public void Die()
@@ -48,9 +48,4 @@ public class PirateController : ShipController
         }
     }
 
-    // For getting the soundController that can be found in the GameController
-    public void SetSoundController(SoundController soundController)
-    {
-        base.soundController = soundController;
-    }
 }

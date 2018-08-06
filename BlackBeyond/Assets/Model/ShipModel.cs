@@ -26,6 +26,8 @@ public abstract class ShipModel
     protected SpaceModel currentSpace;
     private ShipController shipController;
 
+    internal SoundController soundController;
+
     public int GetDamage()
     {
         return shotDamage;
@@ -53,7 +55,13 @@ public abstract class ShipModel
         {
             // die
             Die();
+            soundController.PlaySound(SoundController.Sound.destroy);
         }
+    }
+
+    public void SetSoundController(SoundController soundController)
+    {
+        this.soundController = soundController;
     }
 
     public abstract void Die();
@@ -95,6 +103,8 @@ public abstract class ShipModel
             this.currentShotCounter -= 1;
             // Creates a laser. Finn's animation
             shipController.CreateLaser(currentSpace, enemy.GetSpace());
+            soundController.PlaySound(SoundController.Sound.shoot1);
+            soundController.SwitchMusic(SoundController.Sound.battle);
         }
     }
 
