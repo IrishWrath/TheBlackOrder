@@ -126,7 +126,6 @@ public class ShipController : MonoBehaviour
                     if (playerToShootOnFinish != null)
                     {
                         pirateMoving.Shoot(playerToShootOnFinish);
-                        shipModel.soundController.SwitchMusic(SoundController.Sound.battle);
                         pirateMoving = null;
                         playerToShootOnFinish = null;
                     }

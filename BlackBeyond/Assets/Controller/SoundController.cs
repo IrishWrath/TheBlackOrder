@@ -73,6 +73,11 @@ public class SoundController : MonoBehaviour{
 	public void PlaySound(Sound soundNum){
 		sounds[(int)soundNum].Play();
 	}
+    public void PlaySound(Sound soundNum, float delay)
+    {
+        sounds[(int)soundNum].PlayDelayed(delay);
+    }
+
 	// Update is called once per frame
     void Update()
     {

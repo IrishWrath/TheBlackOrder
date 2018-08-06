@@ -48,14 +48,21 @@ public abstract class ShipModel
 
     public void SetHealth(int health)
     {
+
+        if (health < shipHealth && health != 0)
+        {
+            soundController.PlaySound(SoundController.Sound.damage, 0.4f);
+        }
+
         shipHealth = health;
         // update health bar
         shipController.UpdateHealth(shipHealth, maxHealth);
+
         if (shipHealth <= 0)
         {
             // die
             Die();
-            soundController.PlaySound(SoundController.Sound.destroy);
+            soundController.PlaySound(SoundController.Sound.destroy, 0.4f);
         }
     }
 
