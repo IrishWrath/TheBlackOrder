@@ -16,6 +16,8 @@ public class ShipController : MonoBehaviour
     // shipview is the ships gameobject
     protected GameObject shipView;
     protected ShipModel shipModel;
+    //for playing of sounds.
+    protected SoundController soundController;
     // is this ship moving
     private bool moving = false;
 
@@ -76,6 +78,7 @@ public class ShipController : MonoBehaviour
         currentLocation = shipView.transform.position;
         currentDestination = destinations[destinationIndex].GetSpace().GetController().GetPosition();
         FlipShip(currentLocation.x < currentDestination.x);
+        soundController.PlaySound(SoundController.Sound.move);
     }
 
     public void MoveShip(List<SpaceModel> destinations, PirateModel pirateMoving, PlayerModel playerToShootOnFinish)
@@ -122,6 +125,7 @@ public class ShipController : MonoBehaviour
                     if (playerToShootOnFinish != null)
                     {
                         pirateMoving.Shoot(playerToShootOnFinish);
+                        soundController.PlaySound(SoundController.Sound.shoot);
                         pirateMoving = null;
                         playerToShootOnFinish = null;
                     }
@@ -143,6 +147,7 @@ public class ShipController : MonoBehaviour
             if (playerToShootOnFinish != null)
             {
                 pirateMoving.Shoot(playerToShootOnFinish);
+                soundController.PlaySound(SoundController.Sound.shoot);
                 pirateMoving = null;
                 playerToShootOnFinish = null;
             }

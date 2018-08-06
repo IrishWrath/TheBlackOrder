@@ -71,7 +71,7 @@ public class ModelLink
         playerModel.SetController(playerController);
 
         playerController.SetMovementTextInterface(movementText);
-		playerController.SetSoundController(this.GameController.soundController);
+		playerController.SetSoundController(GameController.soundController);
     }
 
     // Same as above for a Space GameObject
@@ -87,6 +87,8 @@ public class ModelLink
         pirateController.SetShipView(pirateView);
         // Lets the Controller access the Model
         pirateController.SetModel(pirateModel);
+        // Lets the pirate trigger a sound
+        pirateController.SetSoundController(GameController.soundController);
         // Lets the Model access the Controller, as a callback
         pirateModel.SetController(pirateController);
     }

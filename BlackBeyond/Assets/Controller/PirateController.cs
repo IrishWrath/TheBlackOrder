@@ -47,4 +47,10 @@ public class PirateController : ShipController
                 break;
         }
     }
+
+    // For getting the soundController that can be found in the GameController
+    public void SetSoundController(SoundController soundController)
+    {
+        base.soundController = soundController;
+    }
 }

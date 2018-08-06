@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour
     public GameObject asteroidTerrain;
 
     public Text playerMovementText;
-	
+	//The Menu audio sliders
 	public Slider musicSlider;
 	public Slider sfxSlider;
 
@@ -133,6 +133,7 @@ public class GameController : MonoBehaviour
         {
             EventSystem.current.SetSelectedGameObject(null);
             playerModel.StartShoot();
+            soundController.PlaySound(SoundController.Sound.buttonPress);
         }
     }
 

@@ -10,7 +10,6 @@ public class PlayerController : ShipController
 {
     private Text movementText;
     //private PlayerModel playerModel;
-    private SoundController soundController;
 
     //public void SetModel(PlayerModel model)
     //{
@@ -30,7 +29,7 @@ public class PlayerController : ShipController
 	// For getting the soundController that can be found in the GameController
 	public void SetSoundController(SoundController soundController)
     {
-		this.soundController = soundController;
+		base.soundController = soundController;
 	}
 
 
