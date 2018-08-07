@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityToolbag;
 
 public class MapModel 
 {
@@ -105,20 +106,25 @@ public class MapModel
 
 	public SpaceModel GetRandomSpace()
 	{
-        int row = UnityEngine.Random.Range(0, rows);
-        int column = UnityEngine.Random.Range(0, columns);
-        if ((row % 2 == 0 && column % 2 != 0) || (row % 2 != 0 && column % 2 == 0))
+        int row = 0, column = 0;
+        Dispatcher.Invoke(() =>
         {
-            if (column == 0)
+            row = UnityEngine.Random.Range(0, rows);
+            column = UnityEngine.Random.Range(0, columns);
+            if ((row % 2 == 0 && column % 2 != 0) || (row % 2 != 0 && column % 2 == 0))
             {
-                row = Math.Max(0, row - 1);
-            }
-            else
-            {
-                column = Math.Max(0, column - 1);
+                if (column == 0)
+                {
+                    row = Math.Max(0, row - 1);
+                }
+                else
+                {
+                    column = Math.Max(0, column - 1);
+                }
+
             }
 
-        }
+        });
         return GetSpace(row, column);
 	}
 

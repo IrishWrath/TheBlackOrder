@@ -187,12 +187,15 @@ public class GameController : MonoBehaviour
     public void StartTurn()
     {
         playerTurn = true;
-        MoveButton.interactable = true;
-        ShootButton.interactable = true;
-        //if( player is on trade station)
-        //TradeButton.interactable = true;
-        EndTurnButton.interactable = true;
-        playerModel.StartTurn();
+        Dispatcher.InvokeAsync(() =>
+        {
+            MoveButton.interactable = true;
+            ShootButton.interactable = true;
+            //if( player is on trade station)
+            //TradeButton.interactable = true;
+            EndTurnButton.interactable = true;
+            playerModel.StartTurn();
+        });
     }
 
     public void AddPirateMoving(PirateModel pirate)
