@@ -18,7 +18,7 @@ public class HunterKillerAI :PirateAiModel
     }
 
     public override void EndTurn(int turnNumber)
-    { 
+    {
         base.SpawnPirate(map.GetRandomSpace());
         gameController.AddPirateMoving();
         //Defines the path to the player
@@ -27,44 +27,44 @@ public class HunterKillerAI :PirateAiModel
         targetPath.AddRange(AStarPathfinding.GetPathToDestination(pirateModel.GetSpace(), target));
 
         // Oisín Notes: Add a for loop here, and checks for if the player is in range?
-        for (int i = 0; i < (base.pirateModel.GetMaxMovement()); i++)
+        //for (int i = 0; i < (base.pirateModel.GetMaxMovement()); i++)
+        //{
+        //    {
+        //        playerScan = base.GetPlayerChasing();
+        //        if (playerScan != null)
+        //        {
+        //            i = (base.pirateModel.GetMaxMovement());
+        //        }
+        //        else
+        //        {
+        //            int nextSpace = currentSpaceOnPath + 1;
+        //            if (nextSpace == targetPath.Count)
+        //            {
+        //                nextSpace = 0;
+        //            }
+        //            while (targetPath[nextSpace].GetMovementCost() > 99)
+        //            {
+        //                i += targetPath[nextSpace].GetNormalMovementCost() - 1;
+        //                nextSpace++;
+        //                if (nextSpace == targetPath.Count)
+        //                {
+        //                    nextSpace = 0;
+        //                }
+        //            }
+        //            i += targetPath[nextSpace].GetMovementCost() - 1;
+        //            if (i <= (base.pirateModel.GetMaxMovement()))
+        //            {
+        //                currentSpaceOnPath = nextSpace;
+        //                pirateModel.UpdatePirateLocation(targetPath[currentSpaceOnPath]);
+        //            }
+        //        }
+        //    }
+        //}
+        Dispatcher.InvokeAsync(() =>
         {
-            {
-                playerScan = base.GetPlayerChasing();
-                if (playerScan != null)
-                {
-                    i = (base.pirateModel.GetMaxMovement());
-                }
-                else
-                {
-                    int nextSpace = currentSpaceOnPath + 1;
-                    if (nextSpace == targetPath.Count)
-                    {
-                        nextSpace = 0;
-                    }
-                    while (targetPath[nextSpace].GetMovementCost() > 99)
-                    {
-                        i += targetPath[nextSpace].GetNormalMovementCost() - 1;
-                        nextSpace++;
-                        if (nextSpace == targetPath.Count)
-                        {
-                            nextSpace = 0;
-                        }
-                    }
-                    i += targetPath[nextSpace].GetMovementCost() - 1;
-                    if (i <= (base.pirateModel.GetMaxMovement()))
-                    {
-                        currentSpaceOnPath = nextSpace;
-                        pirateModel.UpdatePirateLocation(targetPath[currentSpaceOnPath]);
-                    }
-                }
-            }
-            Dispatcher.InvokeAsync(() =>
-            {
-                pirateModel.GetController().MoveShip(targetPath, pirateModel, playerScan);
-            });
-        }
-        targetPath.Clear();
+            pirateModel.GetController().MoveShip(targetPath, pirateModel, playerScan);
+        });
+        //targetPath.Clear();
         currentSpaceOnPath = 0;
     }
    
