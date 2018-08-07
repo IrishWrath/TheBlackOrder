@@ -35,6 +35,8 @@ public class SoundController : MonoBehaviour{
             for (int i = 0; i < 3; i++)
             {
                 sounds[i].Stop();
+                sounds[i].time = 0;
+
             }
             //play selected song
             sounds[(int)songNum].Play();
@@ -82,6 +84,15 @@ public class SoundController : MonoBehaviour{
     void Update()
     {	
 		ChangeVolume();
+
+        //loop battle music correctly
+        if(currentlyPlaying == Sound.battle)
+        {
+            if(sounds[(int)Sound.battle].time >= 117f)
+            {
+                sounds[(int)Sound.battle].time = 1.8f;
+            }
+        }
 		
     }
 }
