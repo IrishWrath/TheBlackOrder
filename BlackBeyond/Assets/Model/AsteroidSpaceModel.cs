@@ -6,11 +6,18 @@
 
 	public override void GetMovementEffects(ShipModel shipModel)
 	{
-        //TODO Implement this after damage
-        //shipModel.Damage();
+        if (shipModel != null)
+        {
+            shipModel.Damage(1);
+        }
 	}
 
     public override bool IsHazardous()
+    {
+        return true;
+    }
+
+    public override bool BlocksLOS()
     {
         return true;
     }

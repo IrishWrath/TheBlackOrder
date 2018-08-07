@@ -54,6 +54,17 @@ public class SpaceModel
     {
         occupyingShip = null;
     }
+    public bool Occupied()
+    {
+        if(occupyingShip == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
     // For Pathfinding
 
@@ -100,6 +111,11 @@ public class SpaceModel
             // impassable
             return 100;
         }
+    }
+
+    public virtual int GetNormalMovementCost()
+    {
+        return 1;
     }
 
     public virtual bool IsHazardous()

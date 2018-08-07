@@ -5,23 +5,30 @@ public class PlatformAi : PirateAiModel
 {
     private SpaceModel location;
 
-    public PlatformAi(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, SpaceModel location) : base(pirateType, map, modelLink)
+    public PlatformAi(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, SpaceModel location, GameController gameController) : base(pirateType, map, modelLink, gameController)
     {
         this.location = location;
+        base.SpawnPirate(location);
     }
 
-    public override void EndTurn()
+    public override void EndTurn(int turnNumber)
     {
         // only spawns pirate if it is dead
-        base.SpawnPirate(location);
-
-        PlayerModel player = base.GetPlayer();
-        if (player != null)
+        if (turnNumber % 10 == 0)
         {
-            // gets the model from the superclass, and calls its shoot method.
-            // Shoot is a ShipModel method
-            base.pirateModel.Shoot(player);
+            base.SpawnPirate(location);
         }
+        if (pirateModel != null)
+        {
+            PlayerModel player = base.GetPlayerChasing();
+            if (player != null)
+            {
+                // gets the model from the superclass, and calls its shoot method.
+                // Shoot is a ShipModel method
+                base.pirateModel.Shoot(player);
+            }
+        }
+
     }
  
   

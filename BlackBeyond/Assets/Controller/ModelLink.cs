@@ -62,31 +62,30 @@ public class ModelLink
         Camera.main.transform.localPosition = new Vector3(0, 0, -10);
 
         // Gets the controller from the GameObject.
-        PlayerController playerController = playerView.GetComponent<PlayerController>();
+        PlayerController playerController = playerView.GetComponentInChildren<PlayerController>();
         // Lets the Controller access the GameObject
         playerController.SetShipView(playerView);
         // Lets the Controller access the Model
-        playerController.SetModel(playerModel);
+        playerController.SetModel(playerModel, GameController.soundController);
         // Lets the Model access the Controller, as a callback
         playerModel.SetController(playerController);
 
         playerController.SetMovementTextInterface(movementText);
-		playerController.SetSoundController(this.GameController.soundController);
     }
 
     // Same as above for a Space GameObject
     public void CreatePirateView(PirateModel pirateModel)
     {
-        // Creates the player GameObject in the correct position. TODO update this formula for hexes
+        // Creates the player GameObject in the correct position.
         GameObject pirateView = Object.Instantiate(GameController.GetPirateView(),
                                                    pirateModel.GetSpace().GetController().GetPosition(), Quaternion.identity, MapContainer);
 
         // Gets the controller from the GameObject.
-        PirateController pirateController = pirateView.GetComponent<PirateController>();
+        PirateController pirateController = pirateView.GetComponentInChildren<PirateController>();
         // Lets the Controller access the GameObject
         pirateController.SetShipView(pirateView);
         // Lets the Controller access the Model
-        pirateController.SetModel(pirateModel);
+        pirateController.SetModel(pirateModel, GameController.soundController);
         // Lets the Model access the Controller, as a callback
         pirateModel.SetController(pirateController);
     }

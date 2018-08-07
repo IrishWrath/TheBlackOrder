@@ -1,17 +1,22 @@
 ﻿// This is a class for ships. It could be a player or a pirate ship
-public class ShipModel
+using System;
+
+public abstract class ShipModel
 {
     // Is this ship animating movement?
     protected bool animatingMovement;
 
     //ship combat stat variables. Both Player and pirates use these. protected so that subclasses can use
     protected int shipHealth;
+    protected int maxHealth;
     protected int shotDamage;
     protected int attackRange;
     protected int maxMovement;
     protected int currentMovement;
+    protected int shotCounter;
+    protected int currentShotCounter;
     // TODO, sort out how combat works
-    protected int shipArmor = 1;
+    protected int shipArmor = 0;
 
     // Cargo hold stats
     protected int maxCargoSpace;
@@ -21,6 +26,10 @@ public class ShipModel
     protected SpaceModel currentSpace;
     private ShipController shipController;
 
+    //this counts how many turns since the player was last shot. used to control music.
+    public int turnsSinceShot = 0;
+    internal SoundController soundController;
+
     public int GetDamage()
     {
         return shotDamage;
@@ -29,10 +38,41 @@ public class ShipModel
     {
         return shipHealth;
     }
+    public int GetAttackRange()
+    {
+        return attackRange;
+    }
+
+    public void Damage(int damage)
+    {
+        SetHealth(shipHealth - damage);
+    }
+
     public void SetHealth(int health)
     {
         shipHealth = health;
+        // update health bar
+        shipController.UpdateHealth(shipHealth, maxHealth);
+
+        if (shipHealth <= 0)
+        {
+            // die
+            Die();
+            soundController.PlaySound(SoundController.Sound.destroy, 0.4f);
+        }
+        else
+        {
+            soundController.PlaySound(SoundController.Sound.damage, 0.3f);
+        }
     }
+
+    public void SetSoundController(SoundController soundController)
+    {
+        this.soundController = soundController;
+    }
+
+    public abstract void Die();
+
     public int GetArmor()
     {
         return shipArmor;
@@ -55,21 +95,35 @@ public class ShipModel
 
     public void Shoot(ShipModel enemy)
     {
-        int armor = enemy.GetArmor();
-        int currentHealth = enemy.GetHealth();
-        int adjDamage = armor - shotDamage;
-        if (adjDamage <= 0)
+        if (shotCounter > 0)
         {
-            // Always does at least one damage?
-            adjDamage = 1;
+            int armor = enemy.GetArmor();
+            int currentHealth = enemy.GetHealth();
+            int adjDamage =  shotDamage - armor;
+            if (adjDamage <= 0)
+            {
+                // Always does at least one damage
+                adjDamage = 1;
+            }
+            int remainingHP = currentHealth - adjDamage;
+            enemy.SetHealth(remainingHP);
+            this.currentShotCounter -= 1;
+            // Creates a laser. Finn's animation
+            shipController.CreateLaser(currentSpace, enemy.GetSpace());
+            soundController.PlaySound(SoundController.Sound.shoot1);
+            soundController.SwitchMusic(SoundController.Sound.battle);
+            //reset counter.
+            turnsSinceShot = 0;
+            enemy.turnsSinceShot = 0;
         }
-        int remainingHP = currentHealth - adjDamage;
-        enemy.SetHealth(remainingHP);
-        // Creates a laser. Finn's animation
-        shipController.CreateLaser(currentSpace, enemy.GetSpace());
     }
 
-    public void FinishedAnimatingMovement()
+    public void ResetShotCounter()
+    {
+        currentShotCounter = shotCounter;
+    }
+
+    public virtual void FinishedAnimatingMovement()
     {
         animatingMovement = false;
     }
@@ -94,3 +148,5 @@ public class ShipModel
         this.shipController = controller;
     }
 }
+
+

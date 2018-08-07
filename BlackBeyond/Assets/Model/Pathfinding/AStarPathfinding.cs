@@ -24,7 +24,7 @@ public static class AStarPathfinding
                         double newPathfindingCost = newNodeCost;
                         if (adjacentSpace.IsHazardous())
                         {
-                            newPathfindingCost += 0.001;
+                            newPathfindingCost += 10;
                         }
                         PathfindingNode newNode = new PathfindingNode(adjacentSpace, currentnode, newNodeCost, newPathfindingCost, false, destSpace);
                         allNodes.Add(newNode);
@@ -38,7 +38,7 @@ public static class AStarPathfinding
                         double newPathfindingCost = newNodeCost;
                         if (adjacentSpace.IsHazardous())
                         {
-                            newPathfindingCost += 0.001;
+                            newPathfindingCost += 10;
                         }
                         if (!nextNode.BeenSeen())
                         {
@@ -96,6 +96,7 @@ public static class AStarPathfinding
         {
             node.GetSpace().SetNode(null);
         }
+        path.Remove(startSpace);
         return path;
     }
 }

@@ -622,7 +622,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.85
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2678,7 +2678,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1548947039
   m_SortingLayer: -3
-  m_SortingOrder: 0
+  m_SortingOrder: -43
   m_Sprite: {fileID: 21300000, guid: 49735c01a7db7451592af3312fb258fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3800,7 +3800,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.85
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -4921,8 +4921,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceView: {fileID: 1096247770409850, guid: f6fddf2c853e943f6916152b077b9d9d, type: 2}
-  playership: {fileID: 1010566008670778, guid: fffa1cf2a929d4254984e3764bdcfb18, type: 2}
-  pirateship: {fileID: 1197585251534778, guid: f2d473af2fb1b4484b2353f043061d71, type: 2}
+  playership: {fileID: 1070089491471250, guid: 4c4e813a030654628ad8e18ecd20d8aa, type: 2}
+  pirateship: {fileID: 1857637845564180, guid: b57e2c525b4864f598ed2f9bf1022c00, type: 2}
   stationView: {fileID: 0}
   nebulaTerrain: {fileID: 1261053534705998, guid: eb2017eec4c4c43b6b7db01479417c3d,
     type: 2}
@@ -4932,6 +4932,10 @@ MonoBehaviour:
   playerMovementText: {fileID: 1890571450}
   musicSlider: {fileID: 1588954249}
   sfxSlider: {fileID: 424863878}
+  MoveButton: {fileID: 1489357283}
+  ShootButton: {fileID: 1562337654}
+  TradeButton: {fileID: 2017111640}
+  EndTurnButton: {fileID: 472184263}
   mapGameObject: {fileID: 90238576}
 --- !u!4 &2045183071
 Transform:

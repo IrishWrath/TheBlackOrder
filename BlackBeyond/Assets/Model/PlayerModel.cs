@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerModel : ShipModel
 {
+
     // Player trade info
     public int playerCurrency = 0;
     public int metalResource = 0;
@@ -31,9 +32,13 @@ public class PlayerModel : ShipModel
         base.maxMovement = 3;
         base.attackRange = 2;
         base.shotDamage = 2;
-        base.shipHealth = 10;
+        base.shotCounter = 1;
+        base.currentShotCounter = 1;
+        base.shipHealth = 15;
+        base.maxHealth = 15;
         base.maxCargoSpace = 50;
         this.mapModel = mapModel;
+        UpdatePlayerLocation(currentSpace);
     }
 
     public PlayerController GetController()
@@ -77,6 +82,7 @@ public class PlayerModel : ShipModel
     // For turn structure
     public void EndTurn()
     {
+        ResetShotCounter();
         // Should block player actions until their turn TODO
         if (validMovementSpaces != null)
         {
@@ -189,13 +195,16 @@ public class PlayerModel : ShipModel
 
     public void FinishShoot(ShipModel occupyingShip)
     {
-        base.Shoot(occupyingShip);
-        foreach (PathfindingNode node in validShootingSpaces)
+        if (occupyingShip != null)
         {
-            node.GetSpace().ClearHighlighted();
-        }
+            base.Shoot(occupyingShip);
+            foreach (PathfindingNode node in validShootingSpaces)
+            {
+                node.GetSpace().ClearHighlighted();
+            }
 
-        validShootingSpaces.Clear();
+            validShootingSpaces.Clear();
+        }
     }
 
     public void FinishMove(PathfindingNode destination)
@@ -206,6 +215,10 @@ public class PlayerModel : ShipModel
             UpdateCurrentPlayerMovement(destination.GetCost());
 
             this.GetController().MoveShip(destination.GetPath(true).ToArray());
+            foreach(PathfindingNode node in destination.GetPath(true))
+            {
+                node.GetSpace().GetMovementEffects(this);
+            }
             playerController.SetCurrentMovement(base.currentMovement, base.maxMovement);
 
 
@@ -220,5 +233,11 @@ public class PlayerModel : ShipModel
 
             validMovementSpaces.Clear();
         }
+    }
+
+    public override void Die()
+    {
+        // end game
+        shipHealth = maxHealth;
     }
 }

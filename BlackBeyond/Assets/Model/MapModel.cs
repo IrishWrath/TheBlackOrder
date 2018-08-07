@@ -20,7 +20,7 @@ public class MapModel
     }
 
     // Create a map. TODO nothing in this map yet.
-    public MapModel(int rows, int columns, ModelLink link)
+    public MapModel(int rows, int columns, ModelLink link, GameController gameController)
     {
         this.rows = rows;
         this.columns = columns;
@@ -54,7 +54,7 @@ public class MapModel
                     }
                     if(UnityEngine.Random.Range(1,101) < PLATFORM_RATE)
                     {
-                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
+                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace, gameController));
                     }
                 }
             }
@@ -83,7 +83,7 @@ public class MapModel
                     }
                     if (UnityEngine.Random.Range(1, 101) < PLATFORM_RATE)
                     {
-                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace));
+                        pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace, gameController));
                     }
                 }
             }
@@ -101,15 +101,16 @@ public class MapModel
         }
     }
 
-    public void EndTurn()
+    // At the end of the turn, pirates will move
+    public void EndTurn(int turnNumber)
     {
         foreach(PirateAiModel pirate in pirates)
         {
-            pirate.EndTurn();
+            pirate.EndTurn(turnNumber);
         }
     }
 
-    // Gets spaces by coordinate. Avoid this method
+    // Gets spaces by coordinate. Avoid this method, if possible
     public SpaceModel GetSpace(int row, int column)
     {
         try
@@ -122,11 +123,7 @@ public class MapModel
         }
     }
 
-    // Gives the map. Avoid this method
-    public SpaceModel[][] getMap()
-    {
-        return map;
-    }
+
 
     // Movement Methods. Only used in Space generation.
     public SpaceModel GetNE(SpaceModel startSpace)
