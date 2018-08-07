@@ -248,6 +248,7 @@ public class ProceduralMapModel : MapModel
         }
 
 
+
         for (int i = 0; i < 50; i++)
         {
             List<SpaceModel> patrolPoints = new List<SpaceModel>();
@@ -274,11 +275,10 @@ public class ProceduralMapModel : MapModel
                     Debug.Log(row + " : " + column);
                 }
             }
-
             pirates.Add(new PatrolAI(PirateModel.PirateType.Scout, this, link, patrolPoints, gameController));
         }
 
-        for (int i = 0; i < 25; i++)
+        for (int i = 0; i < 35; i++)
         {
             List<SpaceModel> patrolPoints = new List<SpaceModel>();
             for (int j = 0; j < 3; j++)
@@ -308,7 +308,7 @@ public class ProceduralMapModel : MapModel
             pirates.Add(new PatrolAI(PirateModel.PirateType.Frigate, this, link, patrolPoints, gameController));
         }
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 10; i++)
         {
             List<SpaceModel> patrolPoints = new List<SpaceModel>();
             for (int j = 0; j < 3; j++)
@@ -334,7 +334,6 @@ public class ProceduralMapModel : MapModel
                     Debug.Log(row + " : " + column);
                 }
             }
-
             pirates.Add(new PatrolAI(PirateModel.PirateType.Destroyer, this, link, patrolPoints, gameController));
         }
 
@@ -364,7 +363,6 @@ public class ProceduralMapModel : MapModel
                     Debug.Log(row + " : " + column);
                 }
             }
-
             pirates.Add(new PatrolAI(PirateModel.PirateType.Dreadnought, this, link, patrolPoints, gameController));
         }
     }

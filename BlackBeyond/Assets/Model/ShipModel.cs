@@ -95,7 +95,7 @@ public abstract class ShipModel
 
     public void Shoot(ShipModel enemy)
     {
-        if (shotCounter > 0)
+        if (currentShotCounter > 0)
         {
             int armor = enemy.GetArmor();
             int currentHealth = enemy.GetHealth();
