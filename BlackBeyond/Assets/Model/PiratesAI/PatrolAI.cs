@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityToolbag;
 
 public class PatrolAI : PirateAiModel
 {
@@ -10,7 +11,7 @@ public class PatrolAI : PirateAiModel
     private int currentSpaceOnPath;
     private PlayerModel playerPursuing;
     public bool engaged;
-    private MapModel map;
+    //private MapModel map;
 
     public PatrolAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, List<SpaceModel> patrolPoints, GameController gameController) : base(pirateType, map, modelLink, gameController)
     {
@@ -75,7 +76,10 @@ public class PatrolAI : PirateAiModel
                     }
                 }
             }
-            pirateModel.GetController().MoveShip(targetPath, pirateModel, playerScan);
+            Dispatcher.InvokeAsync(() =>
+            {
+                pirateModel.GetController().MoveShip(targetPath, pirateModel, playerScan);
+            });
         }
     }
 
@@ -152,7 +156,10 @@ public class PatrolAI : PirateAiModel
                         }
                     }
                 }
-                pirateModel.GetController().MoveShip(turnPath, pirateModel, player);
+                Dispatcher.InvokeAsync(() =>
+                {
+                    pirateModel.GetController().MoveShip(turnPath, pirateModel, player);
+                });
                 foreach (SpaceModel space in turnPath)
                 {
                     space.GetMovementEffects(pirateModel);

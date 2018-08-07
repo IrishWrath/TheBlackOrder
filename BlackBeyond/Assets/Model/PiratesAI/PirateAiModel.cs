@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityToolbag;
 
 // Could be any AI. Holds common methods to AIs
 public abstract class PirateAiModel
@@ -84,9 +85,11 @@ public abstract class PirateAiModel
                     pirateModel = PirateModel.CreateDestroyerPirate(spawnPoint, this);
                     break;
             }
-
-            modelLink.CreatePirateView(pirateModel);
-            spawnPoint.OccupySpace(pirateModel);
+            Dispatcher.InvokeAsync(() =>
+            {
+                modelLink.CreatePirateView(pirateModel);
+                spawnPoint.OccupySpace(pirateModel);
+            });
         }
     }
 

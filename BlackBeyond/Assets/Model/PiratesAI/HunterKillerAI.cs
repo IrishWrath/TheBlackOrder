@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityToolbag;
 
 public class HunterKillerAI :PirateAiModel
 {
@@ -58,7 +59,10 @@ public class HunterKillerAI :PirateAiModel
                     }
                 }
             }
-            pirateModel.GetController().MoveShip(targetPath, pirateModel, playerScan);
+            Dispatcher.InvokeAsync(() =>
+            {
+                pirateModel.GetController().MoveShip(targetPath, pirateModel, playerScan);
+            });
         }
         targetPath.Clear();
         currentSpaceOnPath = 0;

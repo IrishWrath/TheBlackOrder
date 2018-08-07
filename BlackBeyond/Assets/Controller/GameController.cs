@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityToolbag;
+
+//using UnityEngine.
 
 // This is the main class of this system. It is the starting point of our code.
 public class GameController : MonoBehaviour
@@ -79,7 +83,7 @@ public class GameController : MonoBehaviour
         this.playerModel = new PlayerModel(playerSpace, MapControllerField.Map);
         modelLink.CreatePlayerView(playerModel, playerMovementText);
 
-        //MapControllerField.Map.CreateHunterKiller(playerModel, this);
+        MapControllerField.Map.CreateHunterKiller(playerModel, this);
     }
 
     // Returns the Prefabs
@@ -150,31 +154,33 @@ public class GameController : MonoBehaviour
     }
 
     // This function is called whe the player presses "end turn"
-    public IEnumerator EndTurn()
+    public void EndTurn()
     {
         if (playerTurn)
         {
             piratesMoving.Clear();
             playerTurn = false;
-            MoveButton.interactable = false;
-            ShootButton.interactable = false;
-            TradeButton.interactable = false;
-            EndTurnButton.interactable = false;
+            Dispatcher.InvokeAsync(() =>
+            {
+                MoveButton.interactable = false;
+                ShootButton.interactable = false;
+                TradeButton.interactable = false;
+                EndTurnButton.interactable = false;
+                EventSystem.current.SetSelectedGameObject(null);
+                playerModel.EndTurn();
+                soundController.PlaySound(SoundController.Sound.endTurn);
 
-            EventSystem.current.SetSelectedGameObject(null);
-            playerModel.EndTurn();
-            soundController.PlaySound(SoundController.Sound.endTurn);
+                //attempt to increase the amount of turns since the player was in battle.
+                playerModel.turnsSinceShot++;
+                //if the player has not been shot for 3 turns, change music.
+                if (playerModel.turnsSinceShot > 3)
+                {
+                    soundController.SwitchMusic(SoundController.Sound.main);
+                }
+            });
 
             // MapModel will handle the pirates  
-            yield return this.MapControllerField.Map.EndTurn(++turnNumber);
-
-            //attempt to increase the amount of turns since the player was in battle.
-            playerModel.turnsSinceShot++;
-            //if the player has not been shot for 3 turns, change music.
-            if(playerModel.turnsSinceShot > 3)
-            {
-                soundController.SwitchMusic(SoundController.Sound.main);
-            }
+            this.MapControllerField.Map.EndTurn(++turnNumber);
         }
     }
 
@@ -208,7 +214,8 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Return))
         {
-            StartCoroutine(EndTurn());
+            var thread = new Thread(new ThreadStart(EndTurn));
+            thread.Start();
         }
         if (Input.GetKeyUp(KeyCode.M))
         {
