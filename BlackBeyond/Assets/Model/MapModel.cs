@@ -8,6 +8,7 @@ public class MapModel
     //protected readonly SpaceModel[][] map;
     
     protected SpaceModel[][] map;
+    protected ModelLink link;
     protected int rows;
     protected int columns;
 
@@ -22,6 +23,7 @@ public class MapModel
     // Create a map. TODO nothing in this map yet.
     public MapModel(int rows, int columns, ModelLink link, GameController gameController)
     {
+        this.link = link;
         this.rows = rows;
         this.columns = columns;
         map = new SpaceModel[rows][];
@@ -101,13 +103,33 @@ public class MapModel
         }
     }
 
-    // At the end of the turn, pirates will move
-    public void EndTurn(int turnNumber)
+	public SpaceModel GetRandomSpace()
+	{
+        int row = UnityEngine.Random.Range(0, rows);
+        int column = UnityEngine.Random.Range(0, columns);
+        if ((row % 2 == 0 && column % 2 != 0) || (row % 2 != 0 && column % 2 == 0))
+        {
+            if (column == 0)
+            {
+                row = Math.Max(0, row - 1);
+            }
+            else
+            {
+                column = Math.Max(0, column - 1);
+            }
+
+        }
+        return GetSpace(row, column);
+	}
+
+	// At the end of the turn, pirates will move
+	public int EndTurn(int turnNumber)
     {
         foreach(PirateAiModel pirate in pirates)
         {
             pirate.EndTurn(turnNumber);
         }
+        return (turnNumber);
     }
 
     // Gets spaces by coordinate. Avoid this method, if possible
@@ -123,6 +145,10 @@ public class MapModel
         }
     }
 
+    public void CreateHunterKiller(PlayerModel player, GameController gameController)
+    {
+        pirates.Add(new HunterKillerAI(PirateModel.PirateType.Scout, this, link, player, gameController));
+    }
 
 
     // Movement Methods. Only used in Space generation.

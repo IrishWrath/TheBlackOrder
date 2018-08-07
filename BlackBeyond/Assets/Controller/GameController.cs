@@ -78,6 +78,8 @@ public class GameController : MonoBehaviour
         // Create a player, and set up MVC connections
         this.playerModel = new PlayerModel(playerSpace, MapControllerField.Map);
         modelLink.CreatePlayerView(playerModel, playerMovementText);
+
+        //MapControllerField.Map.CreateHunterKiller(playerModel, this);
     }
 
     // Returns the Prefabs
@@ -148,7 +150,7 @@ public class GameController : MonoBehaviour
     }
 
     // This function is called whe the player presses "end turn"
-    public void EndTurn()
+    public IEnumerator EndTurn()
     {
         if (playerTurn)
         {
@@ -164,7 +166,7 @@ public class GameController : MonoBehaviour
             soundController.PlaySound(SoundController.Sound.endTurn);
 
             // MapModel will handle the pirates  
-            this.MapControllerField.Map.EndTurn(++turnNumber);
+            yield return this.MapControllerField.Map.EndTurn(++turnNumber);
 
             //attempt to increase the amount of turns since the player was in battle.
             playerModel.turnsSinceShot++;
@@ -206,7 +208,7 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Return))
         {
-            EndTurn();
+            StartCoroutine(EndTurn());
         }
         if (Input.GetKeyUp(KeyCode.M))
         {

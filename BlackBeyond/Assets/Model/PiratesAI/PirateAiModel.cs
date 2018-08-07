@@ -7,7 +7,7 @@ using UnityEngine;
 public abstract class PirateAiModel
 {
     private PirateModel.PirateType pirateType;
-    private MapModel map;
+    protected MapModel map;
     private ModelLink modelLink;
     protected GameController gameController;
     protected PirateModel pirateModel;

@@ -8,17 +8,19 @@ public class HunterKillerAI :PirateAiModel
     private int currentSpaceOnPath = 0;
     private SpaceModel target;
     public bool engaged;
-    private MapModel map;
     private PlayerModel playerScan;
     private PlayerModel player;
 
-    protected HunterKillerAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, PlayerModel player, GameController gameController) : base(pirateType, map, modelLink, gameController)
+    public HunterKillerAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, PlayerModel player, GameController gameController) : base(pirateType, map, modelLink, gameController)
     {
         this.player = player;
     }
 
     public override void EndTurn(int turnNumber)
-    { //Defines the path to the player
+    { 
+        base.SpawnPirate(map.GetRandomSpace());
+
+        //Defines the path to the player
         target = player.GetSpace();
         targetPath = new List<SpaceModel>();
         targetPath.AddRange(AStarPathfinding.GetPathToDestination(pirateModel.GetSpace(), target));
@@ -59,6 +61,7 @@ public class HunterKillerAI :PirateAiModel
             pirateModel.GetController().MoveShip(targetPath, pirateModel, playerScan);
         }
         targetPath.Clear();
+        currentSpaceOnPath = 0;
     }
    
 }
