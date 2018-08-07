@@ -123,13 +123,12 @@ public class MapModel
 	}
 
 	// At the end of the turn, pirates will move
-	public int EndTurn(int turnNumber)
+    public void EndTurn(int turnNumber)
     {
         foreach(PirateAiModel pirate in pirates)
         {
             pirate.EndTurn(turnNumber);
         }
-        return (turnNumber);
     }
 
     // Gets spaces by coordinate. Avoid this method, if possible

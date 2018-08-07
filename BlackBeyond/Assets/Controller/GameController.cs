@@ -150,7 +150,7 @@ public class GameController : MonoBehaviour
     }
 
     // This function is called whe the player presses "end turn"
-    public IEnumerator EndTurn()
+    public void EndTurn()
     {
         if (playerTurn)
         {
@@ -166,7 +166,7 @@ public class GameController : MonoBehaviour
             soundController.PlaySound(SoundController.Sound.endTurn);
 
             // MapModel will handle the pirates  
-            yield return this.MapControllerField.Map.EndTurn(++turnNumber);
+            this.MapControllerField.Map.EndTurn(++turnNumber);
 
             //attempt to increase the amount of turns since the player was in battle.
             playerModel.turnsSinceShot++;
@@ -208,7 +208,7 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Return))
         {
-            StartCoroutine(EndTurn());
+            EndTurn();
         }
         if (Input.GetKeyUp(KeyCode.M))
         {
