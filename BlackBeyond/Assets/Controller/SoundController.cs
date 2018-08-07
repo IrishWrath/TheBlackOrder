@@ -82,6 +82,15 @@ public class SoundController : MonoBehaviour{
     void Update()
     {	
 		ChangeVolume();
+
+        //loop battle music correctly
+        if(currentlyPlaying == Sound.battle)
+        {
+            if(sounds[(int)Sound.battle].time > 117f)
+            {
+                sounds[(int)Sound.battle].time = 1.8f;
+            }
+        }
 		
     }
 }
