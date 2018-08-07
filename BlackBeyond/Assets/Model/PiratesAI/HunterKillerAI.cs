@@ -20,7 +20,7 @@ public class HunterKillerAI :PirateAiModel
     public override void EndTurn(int turnNumber)
     { 
         base.SpawnPirate(map.GetRandomSpace());
-
+        gameController.AddPirateMoving();
         //Defines the path to the player
         target = player.GetSpace();
         targetPath = new List<SpaceModel>();

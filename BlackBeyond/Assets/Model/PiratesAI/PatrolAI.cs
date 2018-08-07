@@ -120,7 +120,7 @@ public class PatrolAI : PirateAiModel
 
             if (pirateModel != null)
             {
-                gameController.AddPirateMoving(pirateModel);
+                gameController.AddPirateMoving();
                 pirateModel.ResetShotCounter();
                 PlayerModel player = player = base.GetPlayerChasing(); ;
                 List<SpaceModel> turnPath = new List<SpaceModel>();

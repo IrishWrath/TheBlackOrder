@@ -95,6 +95,6 @@ public abstract class PirateAiModel
 
     public void FinishedMovement()
     {
-        gameController.RemovePirateMoving(pirateModel);
+        gameController.RemovePirateMoving();
     }
 }

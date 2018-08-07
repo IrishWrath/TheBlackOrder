@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityToolbag;
 
 // Class for all ships. TODO Possibly make abstract
 public class ShipController : MonoBehaviour
@@ -49,8 +50,11 @@ public class ShipController : MonoBehaviour
 
     public void UpdateHealth(int shipHealth, int maxHealth)
     {
-        slider.GetComponent<Slider>().maxValue = maxHealth;
-        slider.GetComponent<Slider>().value = shipHealth;
+        Dispatcher.InvokeAsync(() =>
+        {
+            slider.GetComponent<Slider>().maxValue = maxHealth;
+            slider.GetComponent<Slider>().value = shipHealth;
+        });
     }
 
     // For the Model link, lets this access the GameObject.
@@ -79,7 +83,10 @@ public class ShipController : MonoBehaviour
         FlipShip(currentLocation.x < currentDestination.x);
         //not sure if getting this back from the ship model makes sense, but it does work. The ShipController could just have
         //a sound controller too.
-        shipModel.soundController.PlaySound(SoundController.Sound.move);
+        Dispatcher.InvokeAsync(() =>
+        {
+            shipModel.soundController.PlaySound(SoundController.Sound.move);
+        });
     }
 
     public void MoveShip(List<SpaceModel> destinations, PirateModel pirateMoving, PlayerModel playerToShootOnFinish)
@@ -160,23 +167,29 @@ public class ShipController : MonoBehaviour
 
     public void CreateLaser(SpaceModel start, SpaceModel end)
     {
-        var laser = UnityEngine.Object.Instantiate(laserPrefab) as GameObject;
-        laser.GetComponent<Laser>().SetLine(start.GetController().GetPosition(), end.GetController().GetPosition());
+        Dispatcher.InvokeAsync(() =>
+        {
+            var laser = UnityEngine.Object.Instantiate(laserPrefab) as GameObject;
+            laser.GetComponent<Laser>().SetLine(start.GetController().GetPosition(), end.GetController().GetPosition());
+        });
     }
 
     public void FlipShip(bool turnRight)
     {
-        Vector3 newScale = gameObject.transform.localScale;
-        if (turnRight)
+        Dispatcher.InvokeAsync(() =>
         {
-            
-            newScale.x = Mathf.Abs(newScale.x);
+            Vector3 newScale = gameObject.transform.localScale;
+            if (turnRight)
+            {
 
-        } 
-        else
-        {
-            newScale.x = -Mathf.Abs(newScale.x);
-        }
-        gameObject.transform.localScale = newScale;
+                newScale.x = Mathf.Abs(newScale.x);
+
+            }
+            else
+            {
+                newScale.x = -Mathf.Abs(newScale.x);
+            }
+            gameObject.transform.localScale = newScale;
+        });
     }
 }

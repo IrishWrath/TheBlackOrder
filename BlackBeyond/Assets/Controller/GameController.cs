@@ -54,7 +54,7 @@ public class GameController : MonoBehaviour
     // A reference to the player.
     private PlayerModel playerModel;
     // All the pirates that are currently moving
-    public List<PirateModel> piratesMoving = new List<PirateModel>();
+    public int piratesMoving = 0;
 
     // Use this for initialization. Starting method for our code.
     public void Start()
@@ -158,7 +158,7 @@ public class GameController : MonoBehaviour
     {
         if (playerTurn)
         {
-            piratesMoving.Clear();
+            piratesMoving = 0;
             playerTurn = false;
             Dispatcher.InvokeAsync(() =>
             {
@@ -198,14 +198,14 @@ public class GameController : MonoBehaviour
         });
     }
 
-    public void AddPirateMoving(PirateModel pirate)
+    public void AddPirateMoving()
     {
-        piratesMoving.Add(pirate);
+        piratesMoving++;
     }
-    public void RemovePirateMoving(PirateModel pirate)
+    public void RemovePirateMoving()
     {
-        piratesMoving.Remove(pirate);
-        if (piratesMoving.Count == 0 && !playerTurn)
+        piratesMoving--;
+        if (piratesMoving == 0 && !playerTurn)
         {
             StartTurn();
         }
