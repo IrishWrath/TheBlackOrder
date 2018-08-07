@@ -29,11 +29,10 @@ public class PlatformAi : PirateAiModel
                 Dispatcher.InvokeAsync(() =>
                 {
                     base.pirateModel.Shoot(player);
-                    gameController.RemovePirateMoving();
                 });
             }
         }
-
+        gameController.RemovePirateMoving();
     }
  
   

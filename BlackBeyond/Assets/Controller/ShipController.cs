@@ -129,10 +129,13 @@ public class ShipController : MonoBehaviour
                 if (destinationIndex >= destinations.Count)
                 {
                     moving = false;
-                    shipModel.FinishedAnimatingMovement();
                     if (pirateMoving != null)
                     {
                         pirateMoving.FinishedAnimatingMovement();
+                    }
+                    else
+                    {
+                        shipModel.FinishedAnimatingMovement();
                     }
                     if (playerToShootOnFinish != null)
                     {
