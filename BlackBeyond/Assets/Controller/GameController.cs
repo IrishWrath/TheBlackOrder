@@ -202,6 +202,10 @@ public class GameController : MonoBehaviour
     {
         piratesMoving++;
     }
+    public void SetPirateMoving(int number)
+    {
+        piratesMoving = number;
+    }
     public void RemovePirateMoving()
     {
         piratesMoving--;
@@ -217,6 +221,7 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Return))
         {
+            // TODO remove sound from thread with dispatch
             var thread = new Thread(new ThreadStart(EndTurn));
             thread.Start();
         }

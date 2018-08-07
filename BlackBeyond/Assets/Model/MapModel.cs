@@ -9,6 +9,7 @@ public class MapModel
     //protected readonly SpaceModel[][] map;
     
     protected SpaceModel[][] map;
+    protected GameController gameController;
     protected ModelLink link;
     protected int rows;
     protected int columns;
@@ -24,6 +25,7 @@ public class MapModel
     // Create a map. TODO nothing in this map yet.
     public MapModel(int rows, int columns, ModelLink link, GameController gameController)
     {
+        this.gameController = gameController;
         this.link = link;
         this.rows = rows;
         this.columns = columns;
@@ -131,6 +133,10 @@ public class MapModel
 	// At the end of the turn, pirates will move
 	public void EndTurn(int turnNumber)
     {
+        Dispatcher.Invoke(() => 
+        {
+            gameController.SetPirateMoving(pirates.Count);
+        });
         foreach(PirateAiModel pirate in pirates)
         {
             pirate.EndTurn(turnNumber);
