@@ -19,34 +19,46 @@ public class HunterKillerAI :PirateAiModel
 
     public override void EndTurn(int turnNumber)
     {
-        base.SpawnPirate(map.GetRandomSpace());
-        int currentSpaceOnPath = 0;
-        //Defines the path to the player
-        target = player.GetSpace();
-        List<SpaceModel> targetPath = AStarPathfinding.GetPathToDestination(pirateModel.GetSpace(), target);
-        List<SpaceModel> turnPath = new List<SpaceModel>();
-        PlayerModel playerScan = null;
-
-        // Oisín Notes: Add a for loop here, and checks for if the player is in range?
-        for (int i = 0; i < (base.pirateModel.GetMaxMovement()); i++)
+        if (turnNumber % 10 == 0)
         {
+            base.SpawnPirate(map.GetRandomSpace());
+        }
+
+        if (pirateModel != null)
+        {
+            pirateModel.ResetShotCounter();
+            int currentSpaceOnPath = -1;
+            //Defines the path to the player
+            target = player.GetSpace();
+            List<SpaceModel> targetPath = AStarPathfinding.GetPathToDestination(pirateModel.GetSpace(), target);
+            List<SpaceModel> turnPath = new List<SpaceModel>();
+
+            PlayerModel playerScan = base.GetPlayerChasing();
+
+            // Oisín Notes: Add a for loop here, and checks for if the player is in range?
+            for (int i = 0; i < (base.pirateModel.GetMaxMovement()); i++)
             {
-                playerScan = base.GetPlayerChasing();
                 if (playerScan != null)
                 {
-                    i = (base.pirateModel.GetMaxMovement());
+                    break;
                 }
                 else
                 {
                     int nextSpace = currentSpaceOnPath + 1;
-                    if (nextSpace == targetPath.Count)
+                    if (nextSpace == targetPath.Count - 1)
                     {
-                        nextSpace = 0;
+                        break;
                     }
+                    bool breakOutofLoop = false;
                     while (targetPath[nextSpace].GetMovementCost() > 99)
                     {
                         i += targetPath[nextSpace].GetNormalMovementCost() - 1;
                         nextSpace++;
+                        breakOutofLoop |= nextSpace == targetPath.Count - 1;
+                    }
+                    if (breakOutofLoop)
+                    {
+                        break;
                     }
                     i += targetPath[nextSpace].GetMovementCost() - 1;
                     if (i <= (base.pirateModel.GetMaxMovement()))
@@ -54,18 +66,22 @@ public class HunterKillerAI :PirateAiModel
                         currentSpaceOnPath = nextSpace;
                         pirateModel.UpdatePirateLocation(targetPath[currentSpaceOnPath]);
                         turnPath.Add(targetPath[currentSpaceOnPath]);
+                        playerScan = base.GetPlayerChasing();
                     }
                 }
             }
-        }
-        Dispatcher.InvokeAsync(() =>
-        {
-            pirateModel.GetController().MoveShip(turnPath, pirateModel, playerScan);
-            foreach (SpaceModel space in turnPath)
+            Dispatcher.InvokeAsync(() =>
             {
-                space.GetMovementEffects(pirateModel);
-            }
-        });
+                pirateModel.GetController().MoveShip(turnPath, pirateModel, playerScan);
+                foreach (SpaceModel space in turnPath)
+                {
+                    space.GetMovementEffects(pirateModel);
+                }
+            });
+        }
+        else
+        {
+            gameController.RemovePirateMoving();
+        }
     }
-   
 }
