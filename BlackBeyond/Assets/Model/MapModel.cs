@@ -134,24 +134,10 @@ public class MapModel
 	public void EndTurn(int turnNumber)
     {
         gameController.SetPirateMoving(pirates.Count);
-        Dispatcher.InvokeAsync(() => 
-        {
-            foreach (SpaceModel[] spaces in map) 
-            {
-                foreach(SpaceModel space in spaces)
-                {
-                    if(space!=null)
-                    {
-                        space.ClearHighlighted();
-                    }
-                }
-            }
-        });
         foreach(PirateAiModel pirate in pirates)
         {
             pirate.EndTurn(turnNumber);
         }
-        //return (turnNumber);
     }
 
     // Gets spaces by coordinate. Avoid this method, if possible
