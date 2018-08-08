@@ -21,6 +21,7 @@ public class PlatformAi : PirateAiModel
         }
         if (pirateModel != null)
         {
+            pirateModel.ResetShotCounter();
             PlayerModel player = base.GetPlayerChasing();
             if (player != null)
             {

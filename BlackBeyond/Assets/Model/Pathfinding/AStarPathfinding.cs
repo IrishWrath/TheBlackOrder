@@ -23,9 +23,13 @@ public static class AStarPathfinding
                         // Is null, need new node
                         int newNodeCost = currentnode.GetCost() + adjacentSpace.GetMovementCost();
                         double newPathfindingCost = newNodeCost;
-                        if (adjacentSpace.IsHazardous() && adjacentSpace != destSpace)
+                        if (adjacentSpace.IsHazardous())
                         {
                             newPathfindingCost += 10;
+                        }
+                        if(adjacentSpace == destSpace)
+                        {
+                            newPathfindingCost = 1;
                         }
                         PathfindingNode newNode = new PathfindingNode(adjacentSpace, currentnode, newNodeCost, newPathfindingCost, false, destSpace);
                         allNodes.Add(newNode);
