@@ -133,9 +133,19 @@ public class MapModel
 	// At the end of the turn, pirates will move
 	public void EndTurn(int turnNumber)
     {
-        Dispatcher.Invoke(() => 
+        gameController.SetPirateMoving(pirates.Count);
+        Dispatcher.InvokeAsync(() => 
         {
-            gameController.SetPirateMoving(pirates.Count);
+            foreach (SpaceModel[] spaces in map) 
+            {
+                foreach(SpaceModel space in spaces)
+                {
+                    if(space!=null)
+                    {
+                        space.ClearHighlighted();
+                    }
+                }
+            }
         });
         foreach(PirateAiModel pirate in pirates)
         {

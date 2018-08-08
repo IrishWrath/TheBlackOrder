@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityToolbag;
 
 public static class AStarPathfinding
 {
@@ -29,6 +30,12 @@ public static class AStarPathfinding
                         PathfindingNode newNode = new PathfindingNode(adjacentSpace, currentnode, newNodeCost, newPathfindingCost, false, destSpace);
                         allNodes.Add(newNode);
                         adjacentSpace.SetNode(newNode);
+
+                        //Dispatcher.Invoke(() =>
+                        //{
+                        //    newNode.GetSpace().GetController().SetSelectable((int)newNode.GetRemainingCost());
+                        //});
+                        //System.Threading.Thread.Sleep(1000);
                     }
                     else
                     {
@@ -44,11 +51,23 @@ public static class AStarPathfinding
                         {
                             // Next node hasn't been visited yet
                             nextNode.Update(newNodeCost, newPathfindingCost, currentnode);
+                            //Dispatcher.Invoke(() =>
+                            //{
+                            //    nextNode.GetSpace().GetController().SetSelectable((int)nextNode.GetRemainingCost());
+
+                            //});
+                            //System.Threading.Thread.Sleep(1000);
                         }
+
                     }
                 }
             }
             currentnode.Seen();
+            //Dispatcher.Invoke(() =>
+            //{
+            //    currentnode.GetSpace().GetController().SetTest();
+            //});
+            //System.Threading.Thread.Sleep(5);
             if (!currentnode.GetSpace().Equals(destSpace))
             {
                 PathfindingNode lowestNode = null;
@@ -62,9 +81,12 @@ public static class AStarPathfinding
                         }
                         else
                         {
-                            if (node.GetASCost() < lowestNode.GetASCost())
+                            if (node.GetASCost() <= lowestNode.GetASCost())
                             {
-                                lowestNode = node;
+                                if (node.GetRemainingCost() <= lowestNode.GetRemainingCost())
+                                {
+                                    lowestNode = node;
+                                }
                             }
                         }
                     }
@@ -92,10 +114,23 @@ public static class AStarPathfinding
             backtrackNode = backtrackNode.GetParent();
         }
         path.Reverse();
-        foreach (PathfindingNode node in allNodes)
-        {
-            node.GetSpace().SetNode(null);
-        }
+
+        //Dispatcher.Invoke(() =>
+        //{
+            foreach (PathfindingNode node in allNodes)
+            {
+                node.GetSpace().SetNode(null);
+
+                //node.GetSpace().ClearHighlighted();
+            }
+        //});
+        //Dispatcher.Invoke(() =>
+        //{
+        //    foreach (SpaceModel node in path)
+        //    {
+        //        node.GetController().SetTestFinal();
+        //    }
+        //});
         path.Remove(startSpace);
         return path;
     }

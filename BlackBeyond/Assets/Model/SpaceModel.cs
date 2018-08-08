@@ -106,11 +106,12 @@ public class SpaceModel
         {
             return 1;
         }
-        else
-        {
-            // impassable
-            return 100;
-        }
+        //else
+        //{
+        //    // impassable
+        //    return 100;
+        //}
+        return 1;
     }
 
     public virtual int GetNormalMovementCost()

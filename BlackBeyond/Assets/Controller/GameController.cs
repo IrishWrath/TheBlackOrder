@@ -160,27 +160,29 @@ public class GameController : MonoBehaviour
         {
             piratesMoving = 0;
             playerTurn = false;
-            Dispatcher.InvokeAsync(() =>
-            {
-                MoveButton.interactable = false;
-                ShootButton.interactable = false;
-                TradeButton.interactable = false;
-                EndTurnButton.interactable = false;
-                EventSystem.current.SetSelectedGameObject(null);
-                playerModel.EndTurn();
-                soundController.PlaySound(SoundController.Sound.endTurn);
 
-                //attempt to increase the amount of turns since the player was in battle.
-                playerModel.turnsSinceShot++;
-                //if the player has not been shot for 3 turns, change music.
-                if (playerModel.turnsSinceShot > 3)
-                {
-                    soundController.SwitchMusic(SoundController.Sound.main);
-                }
-            });
+            MoveButton.interactable = false;
+            ShootButton.interactable = false;
+            TradeButton.interactable = false;
+            EndTurnButton.interactable = false;
+            EventSystem.current.SetSelectedGameObject(null);
+            playerModel.EndTurn();
+            soundController.PlaySound(SoundController.Sound.endTurn);
+
+            //attempt to increase the amount of turns since the player was in battle.
+            playerModel.turnsSinceShot++;
+            //if the player has not been shot for 3 turns, change music.
+            if (playerModel.turnsSinceShot > 3)
+            {
+                soundController.SwitchMusic(SoundController.Sound.main);
+            }
 
             // MapModel will handle the pirates  
-            this.MapControllerField.Map.EndTurn(++turnNumber);
+            var thread = new Thread(() =>
+            {
+                this.MapControllerField.Map.EndTurn(++turnNumber);
+            });
+            thread.Start();
         }
     }
 
@@ -221,9 +223,7 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Return))
         {
-            // TODO remove sound from thread with dispatch
-            var thread = new Thread(new ThreadStart(EndTurn));
-            thread.Start();
+            EndTurn();
         }
         if (Input.GetKeyUp(KeyCode.M))
         {
