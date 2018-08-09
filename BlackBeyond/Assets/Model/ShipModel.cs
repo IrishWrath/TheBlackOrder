@@ -97,25 +97,29 @@ public abstract class ShipModel
     {
         if (currentShotCounter > 0)
         {
-            int armor = enemy.GetArmor();
-            int currentHealth = enemy.GetHealth();
-            int adjDamage =  shotDamage - armor;
-            if (adjDamage <= 0)
-            {
-                // Always does at least one damage
-                adjDamage = 1;
-            }
-            int remainingHP = currentHealth - adjDamage;
-            enemy.SetHealth(remainingHP);
-            this.currentShotCounter -= 1;
-            // Creates a laser. Finn's animation
-            shipController.CreateLaser(currentSpace, enemy.GetSpace());
+            shipController.CreateLaser(currentSpace, enemy.GetSpace(), enemy);
             soundController.PlaySound(SoundController.Sound.shoot1);
             soundController.SwitchMusic(SoundController.Sound.battle);
             //reset counter.
             turnsSinceShot = 0;
             enemy.turnsSinceShot = 0;
         }
+    }
+
+    public void ShootDamage(ShipModel enemy)
+    {
+        int armor = enemy.GetArmor();
+        int currentHealth = enemy.GetHealth();
+        int adjDamage = shotDamage - armor;
+        if (adjDamage <= 0)
+        {
+            // Always does at least one damage
+            adjDamage = 1;
+        }
+        int remainingHP = currentHealth - adjDamage;
+        enemy.SetHealth(remainingHP);
+        this.currentShotCounter -= 1;
+        // Creates a laser. Finn's animation
     }
 
     public void ResetShotCounter()

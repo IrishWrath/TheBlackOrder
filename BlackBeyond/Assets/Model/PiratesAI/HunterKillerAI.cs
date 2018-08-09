@@ -73,10 +73,10 @@ public class HunterKillerAI :PirateAiModel
             Dispatcher.InvokeAsync(() =>
             {
                 pirateModel.GetController().MoveShip(turnPath, pirateModel, playerScan);
-                foreach (SpaceModel space in turnPath)
-                {
-                    space.GetMovementEffects(pirateModel);
-                }
+                //foreach (SpaceModel space in turnPath)
+                //{
+                //    space.GetMovementEffects(pirateModel);
+                //}
             });
         }
         else

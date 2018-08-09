@@ -123,6 +123,7 @@ public class ShipController : MonoBehaviour
             //check if we've reached the goal point
             if (distanceMoved >= 1)
             {
+                destinations[destinationIndex].GetMovementEffects(shipModel);
                 distanceMoved = 0;
                 destinationIndex += 1;
                 // check if we're done moving
@@ -168,12 +169,12 @@ public class ShipController : MonoBehaviour
         }
 	}
 
-    public void CreateLaser(SpaceModel start, SpaceModel end)
+    public void CreateLaser(SpaceModel start, SpaceModel end, ShipModel enemy)
     {
         Dispatcher.InvokeAsync(() =>
         {
             var laser = UnityEngine.Object.Instantiate(laserPrefab) as GameObject;
-            laser.GetComponent<Laser>().SetLine(start.GetController().GetPosition(), end.GetController().GetPosition());
+            laser.GetComponent<Laser>().SetLine(start.GetController().GetPosition(), end.GetController().GetPosition(), shipModel, enemy);
         });
     }
 

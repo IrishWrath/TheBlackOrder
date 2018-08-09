@@ -22,9 +22,13 @@ public class Laser : MonoBehaviour {
     private float lengthOfLine;
 
     public GameObject explosionPrefab;
+    private ShipModel shooter;
+    private ShipModel enemy;
 
-	public void SetLine(Vector2 start, Vector2 end)
+    public void SetLine(Vector2 start, Vector2 end, ShipModel shooter, ShipModel enemy)
     {
+        this.shooter = shooter;
+        this.enemy = enemy;
         startPoint = start;
         currentStartPoint = startPoint;
         goalPoint = end;
@@ -59,14 +63,14 @@ public class Laser : MonoBehaviour {
         {
             // TODO: create an explosion
             Instantiate(explosionPrefab, goalPoint, Quaternion.identity);
-
+            shooter.ShootDamage(enemy);
             Destroy(this.gameObject);
         }
 
     }
 
     // does not work
-    public static void makeLasers (Vector2 start, Vector2 end)
+    public static void FireLasers (Vector2 start, Vector2 end)
     {
         //creates 3-5 lasers going between the points
         float tileSize = 1f;

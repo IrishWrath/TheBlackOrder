@@ -163,10 +163,10 @@ public class PatrolAI : PirateAiModel
                 Dispatcher.InvokeAsync(() =>
                 {
                     pirateModel.GetController().MoveShip(turnPath, pirateModel, player);
-                    foreach (SpaceModel space in turnPath)
-                    {
-                        space.GetMovementEffects(pirateModel);
-                    }
+                    //foreach (SpaceModel space in turnPath)
+                    //{
+                    //    space.GetMovementEffects(pirateModel);
+                    //}
                 });
             }
             else
