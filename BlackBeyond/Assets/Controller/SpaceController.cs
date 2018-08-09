@@ -108,4 +108,14 @@ public class SpaceController : MonoBehaviour
         defaultSprite = asteroidSprite;
         spaceView.GetComponent<SpriteRenderer>().sprite = asteroidSprite;
     }
+
+	public void SetTest()
+	{
+        spaceView.GetComponent<SpriteRenderer>().sprite = mouseEnterSprite;
+	}
+
+    public void SetTestFinal()
+    {
+        spaceView.GetComponent<SpriteRenderer>().sprite = shootableSprite;
+    }
 }

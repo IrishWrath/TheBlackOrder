@@ -111,6 +111,7 @@ public class SpaceModel
             // impassable
             return 100;
         }
+        //return 1;
     }
 
     public virtual int GetNormalMovementCost()

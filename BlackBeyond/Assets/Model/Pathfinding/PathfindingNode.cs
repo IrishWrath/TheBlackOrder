@@ -74,6 +74,11 @@ public class PathfindingNode
         return pathfindingCost;
     }
 
+    public int GetRemainingCost()
+    {
+        return ASRemaining;
+    }
+
     // recursive function
     public List<PathfindingNode> GetPath(bool endPoint)
     {

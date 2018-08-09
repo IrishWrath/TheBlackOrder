@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityToolbag;
+using System.Threading;
 
 public class PatrolAI : PirateAiModel
 {
@@ -10,7 +12,7 @@ public class PatrolAI : PirateAiModel
     private int currentSpaceOnPath;
     private PlayerModel playerPursuing;
     public bool engaged;
-    private MapModel map;
+    //private MapModel map;
 
     public PatrolAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, List<SpaceModel> patrolPoints, GameController gameController) : base(pirateType, map, modelLink, gameController)
     {
@@ -19,19 +21,22 @@ public class PatrolAI : PirateAiModel
         patrolPath = new List<SpaceModel>();
         // Oisín Notes: Should be using a for loop, but for now assume that the patrol points have three points.
 
-        // path between point 0 and 1
-        patrolPath.AddRange(AStarPathfinding.GetPathToDestination(patrolPoints[0], patrolPoints[1]));
-        // path between point 1 and 2
-        patrolPath.AddRange(AStarPathfinding.GetPathToDestination(patrolPoints[1], patrolPoints[2]));
-        // path between point 2 and 0
-        patrolPath.AddRange(AStarPathfinding.GetPathToDestination(patrolPoints[2], patrolPoints[0]));
+        //var thread = new Thread(() =>
+        //{
+            // path between point 0 and 1
+            patrolPath.AddRange(AStarPathfinding.GetPathToDestination(patrolPoints[0], patrolPoints[1]));
+            // path between point 1 and 2
+            patrolPath.AddRange(AStarPathfinding.GetPathToDestination(patrolPoints[1], patrolPoints[2]));
+            // path between point 2 and 0
+            patrolPath.AddRange(AStarPathfinding.GetPathToDestination(patrolPoints[2], patrolPoints[0]));
 
-        // patrolPath should now be one continuous line of spaces. If AStar has bugs, it might break around the edges
+            // patrolPath should now be one continuous line of spaces. If AStar has bugs, it might break around the edges
 
-        // What space of the path we're on.
-        currentSpaceOnPath = 0;
-        base.SpawnPirate(patrolPath[0]);
-
+            // What space of the path we're on.
+            currentSpaceOnPath = 0;
+            base.SpawnPirate(patrolPath[0]);
+        //});
+        //thread.Start();
     }
 
     public void Pursuit()
@@ -75,7 +80,10 @@ public class PatrolAI : PirateAiModel
                     }
                 }
             }
-            pirateModel.GetController().MoveShip(targetPath, pirateModel, playerScan);
+            Dispatcher.InvokeAsync(() =>
+            {
+                pirateModel.GetController().MoveShip(targetPath, pirateModel, playerScan);
+            });
         }
     }
 
@@ -116,9 +124,9 @@ public class PatrolAI : PirateAiModel
 
             if (pirateModel != null)
             {
-                gameController.AddPirateMoving(pirateModel);
+                //gameController.AddPirateMoving();
                 pirateModel.ResetShotCounter();
-                PlayerModel player = player = base.GetPlayerChasing(); ;
+                PlayerModel player = player = base.GetPlayerChasing();
                 List<SpaceModel> turnPath = new List<SpaceModel>();
                 for (int i = 0; i < (base.pirateModel.GetMaxMovement()); i++)
                 {
@@ -152,11 +160,18 @@ public class PatrolAI : PirateAiModel
                         }
                     }
                 }
-                pirateModel.GetController().MoveShip(turnPath, pirateModel, player);
-                foreach (SpaceModel space in turnPath)
+                Dispatcher.InvokeAsync(() =>
                 {
-                    space.GetMovementEffects(pirateModel);
-                }
+                    pirateModel.GetController().MoveShip(turnPath, pirateModel, player);
+                    foreach (SpaceModel space in turnPath)
+                    {
+                        space.GetMovementEffects(pirateModel);
+                    }
+                });
+            }
+            else
+            {
+                gameController.RemovePirateMoving();
             }
         }
     }

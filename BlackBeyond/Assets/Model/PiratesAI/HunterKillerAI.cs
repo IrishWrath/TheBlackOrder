@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityToolbag;
 
 public class HunterKillerAI :PirateAiModel
 {
-    private List<SpaceModel> targetPath;
-    private int currentSpaceOnPath = 0;
+    //private List<SpaceModel> targetPath;
+    //private int currentSpaceOnPath = 0;
     private SpaceModel target;
     public bool engaged;
-    private PlayerModel playerScan;
+    //private PlayerModel playerScan;
     private PlayerModel player;
 
     public HunterKillerAI(PirateModel.PirateType pirateType, MapModel map, ModelLink modelLink, PlayerModel player, GameController gameController) : base(pirateType, map, modelLink, gameController)
@@ -17,51 +18,70 @@ public class HunterKillerAI :PirateAiModel
     }
 
     public override void EndTurn(int turnNumber)
-    { 
-        base.SpawnPirate(map.GetRandomSpace());
-
-        //Defines the path to the player
-        target = player.GetSpace();
-        targetPath = new List<SpaceModel>();
-        targetPath.AddRange(AStarPathfinding.GetPathToDestination(pirateModel.GetSpace(), target));
-
-        // Oisín Notes: Add a for loop here, and checks for if the player is in range?
-        for (int i = 0; i < (base.pirateModel.GetMaxMovement()); i++)
+    {
+        if (turnNumber % 10 == 0)
         {
+            base.SpawnPirate(map.GetRandomSpace());
+        }
+
+        if (pirateModel != null)
+        {
+            pirateModel.ResetShotCounter();
+            int currentSpaceOnPath = -1;
+            //Defines the path to the player
+            target = player.GetSpace();
+            List<SpaceModel> targetPath = AStarPathfinding.GetPathToDestination(pirateModel.GetSpace(), target);
+            List<SpaceModel> turnPath = new List<SpaceModel>();
+
+            PlayerModel playerScan = base.GetPlayerChasing();
+
+            // Oisín Notes: Add a for loop here, and checks for if the player is in range?
+            for (int i = 0; i < (base.pirateModel.GetMaxMovement()); i++)
             {
-                playerScan = base.GetPlayerChasing();
                 if (playerScan != null)
                 {
-                    i = (base.pirateModel.GetMaxMovement());
+                    break;
                 }
                 else
                 {
                     int nextSpace = currentSpaceOnPath + 1;
-                    if (nextSpace == targetPath.Count)
+                    if (nextSpace == targetPath.Count - 1)
                     {
-                        nextSpace = 0;
+                        break;
                     }
+                    bool breakOutofLoop = false;
                     while (targetPath[nextSpace].GetMovementCost() > 99)
                     {
                         i += targetPath[nextSpace].GetNormalMovementCost() - 1;
                         nextSpace++;
-                        if (nextSpace == targetPath.Count)
-                        {
-                            nextSpace = 0;
-                        }
+                        breakOutofLoop |= nextSpace == targetPath.Count - 1;
+                    }
+                    if (breakOutofLoop)
+                    {
+                        break;
                     }
                     i += targetPath[nextSpace].GetMovementCost() - 1;
                     if (i <= (base.pirateModel.GetMaxMovement()))
                     {
                         currentSpaceOnPath = nextSpace;
                         pirateModel.UpdatePirateLocation(targetPath[currentSpaceOnPath]);
+                        turnPath.Add(targetPath[currentSpaceOnPath]);
+                        playerScan = base.GetPlayerChasing();
                     }
                 }
             }
-            pirateModel.GetController().MoveShip(targetPath, pirateModel, playerScan);
+            Dispatcher.InvokeAsync(() =>
+            {
+                pirateModel.GetController().MoveShip(turnPath, pirateModel, playerScan);
+                foreach (SpaceModel space in turnPath)
+                {
+                    space.GetMovementEffects(pirateModel);
+                }
+            });
         }
-        targetPath.Clear();
-        currentSpaceOnPath = 0;
+        else
+        {
+            gameController.RemovePirateMoving();
+        }
     }
-   
 }

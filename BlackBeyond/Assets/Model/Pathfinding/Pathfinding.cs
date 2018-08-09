@@ -40,10 +40,12 @@ public static class Pathfinding
                             {
                                 int adjacentSpaceCost = currentnode.GetCost() + adjacentSpace.GetMovementCost();
                                 double adjacentSpacePathfindingCost = adjacentSpaceCost;
-                                if(adjacentSpace.IsHazardous())
+                                if (adjacentSpace.IsHazardous())
                                 {
                                     adjacentSpacePathfindingCost += 0.001;
                                 }
+
+
                                 nextNode.Update(adjacentSpaceCost, adjacentSpacePathfindingCost, currentnode);
                             }
                         }
@@ -66,6 +68,10 @@ public static class Pathfinding
                             if (adjacentSpace.IsHazardous())
                             {
                                 pathfindingCost = newNodeCost + 0.001;
+                            }
+                            if (adjacentSpace.Occupied())
+                            {
+                                pathfindingCost += 100;
                             }
                         }
 
