@@ -434,7 +434,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 518057290}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -595,7 +595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c4d9c68e99014c759c461334886cb26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: MainScene
+  sceneName: Loading
   helpSceneName: Help
 --- !u!1 &618852296
 GameObject:
