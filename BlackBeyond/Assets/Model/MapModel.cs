@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityToolbag;
 
 public class MapModel 
 {
     //protected readonly SpaceModel[][] map;
     
     protected SpaceModel[][] map;
+    protected GameController gameController;
     protected ModelLink link;
     protected int rows;
     protected int columns;
@@ -23,6 +25,7 @@ public class MapModel
     // Create a map. TODO nothing in this map yet.
     public MapModel(int rows, int columns, ModelLink link, GameController gameController)
     {
+        this.gameController = gameController;
         this.link = link;
         this.rows = rows;
         this.columns = columns;
@@ -105,26 +108,32 @@ public class MapModel
 
 	public SpaceModel GetRandomSpace()
 	{
-        int row = UnityEngine.Random.Range(0, rows);
-        int column = UnityEngine.Random.Range(0, columns);
-        if ((row % 2 == 0 && column % 2 != 0) || (row % 2 != 0 && column % 2 == 0))
+        int row = 0, column = 0;
+        Dispatcher.Invoke(() =>
         {
-            if (column == 0)
+            row = UnityEngine.Random.Range(0, rows);
+            column = UnityEngine.Random.Range(0, columns);
+            if ((row % 2 == 0 && column % 2 != 0) || (row % 2 != 0 && column % 2 == 0))
             {
-                row = Math.Max(0, row - 1);
-            }
-            else
-            {
-                column = Math.Max(0, column - 1);
+                if (column == 0)
+                {
+                    row = Math.Max(0, row - 1);
+                }
+                else
+                {
+                    column = Math.Max(0, column - 1);
+                }
+
             }
 
-        }
+        });
         return GetSpace(row, column);
 	}
 
 	// At the end of the turn, pirates will move
     public void EndTurn(int turnNumber)
     {
+        gameController.SetPirateMoving(pirates.Count);
         foreach(PirateAiModel pirate in pirates)
         {
             pirate.EndTurn(turnNumber);

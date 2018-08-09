@@ -215,10 +215,7 @@ public class PlayerModel : ShipModel
             UpdateCurrentPlayerMovement(destination.GetCost());
 
             this.GetController().MoveShip(destination.GetPath(true).ToArray());
-            foreach(PathfindingNode node in destination.GetPath(true))
-            {
-                node.GetSpace().GetMovementEffects(this);
-            }
+
             playerController.SetCurrentMovement(base.currentMovement, base.maxMovement);
 
 

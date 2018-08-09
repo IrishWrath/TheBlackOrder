@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityToolbag;
+
+//using UnityEngine.
 
 // This is the main class of this system. It is the starting point of our code.
 public class GameController : MonoBehaviour
@@ -50,7 +54,7 @@ public class GameController : MonoBehaviour
     // A reference to the player.
     private PlayerModel playerModel;
     // All the pirates that are currently moving
-    public List<PirateModel> piratesMoving = new List<PirateModel>();
+    public int piratesMoving = 0;
 
     // Use this for initialization. Starting method for our code.
     public void Start()
@@ -79,7 +83,7 @@ public class GameController : MonoBehaviour
         this.playerModel = new PlayerModel(playerSpace, MapControllerField.Map);
         modelLink.CreatePlayerView(playerModel, playerMovementText);
 
-        //MapControllerField.Map.CreateHunterKiller(playerModel, this);
+        MapControllerField.Map.CreateHunterKiller(playerModel, this);
     }
 
     // Returns the Prefabs
@@ -154,49 +158,60 @@ public class GameController : MonoBehaviour
     {
         if (playerTurn)
         {
-            piratesMoving.Clear();
+            piratesMoving = 0;
             playerTurn = false;
+
             MoveButton.interactable = false;
             ShootButton.interactable = false;
             TradeButton.interactable = false;
             EndTurnButton.interactable = false;
-
             EventSystem.current.SetSelectedGameObject(null);
             playerModel.EndTurn();
             soundController.PlaySound(SoundController.Sound.endTurn);
 
-            // MapModel will handle the pirates  
-            this.MapControllerField.Map.EndTurn(++turnNumber);
-
             //attempt to increase the amount of turns since the player was in battle.
             playerModel.turnsSinceShot++;
             //if the player has not been shot for 3 turns, change music.
-            if(playerModel.turnsSinceShot > 3)
+            if (playerModel.turnsSinceShot > 3)
             {
                 soundController.SwitchMusic(SoundController.Sound.main);
             }
+
+            // MapModel will handle the pirates  
+            var thread = new Thread(() =>
+            {
+                this.MapControllerField.Map.EndTurn(++turnNumber);
+            });
+            thread.Start();
         }
     }
 
     public void StartTurn()
     {
         playerTurn = true;
-        MoveButton.interactable = true;
-        ShootButton.interactable = true;
-        //if( player is on trade station)
-        //TradeButton.interactable = true;
-        EndTurnButton.interactable = true;
-        playerModel.StartTurn();
+        Dispatcher.InvokeAsync(() =>
+        {
+            MoveButton.interactable = true;
+            ShootButton.interactable = true;
+            //if( player is on trade station)
+            //TradeButton.interactable = true;
+            EndTurnButton.interactable = true;
+            playerModel.StartTurn();
+        });
     }
 
-    public void AddPirateMoving(PirateModel pirate)
+    public void AddPirateMoving()
     {
-        piratesMoving.Add(pirate);
+        piratesMoving++;
     }
-    public void RemovePirateMoving(PirateModel pirate)
+    public void SetPirateMoving(int number)
     {
-        piratesMoving.Remove(pirate);
-        if (piratesMoving.Count == 0 && !playerTurn)
+        piratesMoving = number;
+    }
+    public void RemovePirateMoving()
+    {
+        piratesMoving--;
+        if (piratesMoving == 0 && !playerTurn)
         {
             StartTurn();
         }

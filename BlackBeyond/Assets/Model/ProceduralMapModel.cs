@@ -19,6 +19,7 @@ public class ProceduralMapModel : MapModel
 
     public ProceduralMapModel(int rows, int columns, ModelLink link, GameController gameController) : base()
     {
+        base.gameController = gameController;
         base.link = link;
         this.rows = rows;
         this.columns = columns;

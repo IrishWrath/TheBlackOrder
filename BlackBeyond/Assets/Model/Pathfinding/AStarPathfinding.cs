@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityToolbag;
 
 public static class AStarPathfinding
 {
@@ -26,6 +27,10 @@ public static class AStarPathfinding
                         {
                             newPathfindingCost += 10;
                         }
+                        if(adjacentSpace == destSpace)
+                        {
+                            newPathfindingCost = 1;
+                        }
                         PathfindingNode newNode = new PathfindingNode(adjacentSpace, currentnode, newNodeCost, newPathfindingCost, false, destSpace);
                         allNodes.Add(newNode);
                         adjacentSpace.SetNode(newNode);
@@ -45,6 +50,7 @@ public static class AStarPathfinding
                             // Next node hasn't been visited yet
                             nextNode.Update(newNodeCost, newPathfindingCost, currentnode);
                         }
+
                     }
                 }
             }
@@ -62,9 +68,12 @@ public static class AStarPathfinding
                         }
                         else
                         {
-                            if (node.GetASCost() < lowestNode.GetASCost())
+                            if (node.GetASCost() <= lowestNode.GetASCost())
                             {
-                                lowestNode = node;
+                                if (node.GetRemainingCost() <= lowestNode.GetRemainingCost())
+                                {
+                                    lowestNode = node;
+                                }
                             }
                         }
                     }
@@ -92,10 +101,14 @@ public static class AStarPathfinding
             backtrackNode = backtrackNode.GetParent();
         }
         path.Reverse();
+
         foreach (PathfindingNode node in allNodes)
         {
             node.GetSpace().SetNode(null);
+
+            //node.GetSpace().ClearHighlighted();
         }
+
         path.Remove(startSpace);
         return path;
     }
