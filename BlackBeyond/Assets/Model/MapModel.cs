@@ -13,10 +13,11 @@ public class MapModel
     public StationModel stationModel { get; private set; }
 
     // Create a map. TODO nothing in this map yet.
-    public MapModel(int rows, int columns, ModelLink link)
+    public MapModel(int rows, int columns, ModelLink link, StationModel stationModel)
     {
         this.rows = rows;
         this.columns = columns;
+        this.stationModel = stationModel;
         map = new SpaceModel[rows][];
         SpaceModel tempSpace;
         for (int row = 0; row < rows; row++)
@@ -52,9 +53,8 @@ public class MapModel
 
                     if (UnityEngine.Random.Range(1, 101) == 1)
                     {
-                        StationModel station = new StationModel(tempSpace);
                         int stationType = UnityEngine.Random.Range(1, 5);
-                        link.CreateStationView(station, tempSpace, stationType);
+                        stationModel.CreateStation(tempSpace, stationType, link);
                     }
                 }
             }
@@ -88,9 +88,8 @@ public class MapModel
 
                     if (UnityEngine.Random.Range(1, 101) == 1)
                     {
-                        StationModel station = new StationModel(tempSpace);
                         int stationType = UnityEngine.Random.Range(1, 5);
-                        link.CreateStationView(station, tempSpace, stationType);
+                        stationModel.CreateStation(tempSpace, stationType, link);
                     }
                 }
             }

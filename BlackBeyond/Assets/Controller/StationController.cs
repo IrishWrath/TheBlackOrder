@@ -7,16 +7,16 @@ public class StationController : MonoBehaviour
     private GameObject stationView;
     private GameObject dockUI;
 
-    private StationModel stationModel;
+    private Station station;
     private PlayerModel playerModel;
     private ShipModel shipModel;
 
     public Sprite defaultSprite;
     public Sprite stationSprite;
 
-    public void SetModel(StationModel stationModel)
+    public void SetModel(Station station)
     {
-        this.stationModel = stationModel;
+        this.station = station;
     }
 
     public void SetDockUI(GameObject dockUI)

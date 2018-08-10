@@ -58,10 +58,10 @@ public class GameController : MonoBehaviour
         this.soundController.SetSoundView(this.soundView);
 		
         //Output the Game data path to the console
-        this.modelLink = new ModelLink(this, mapGameObject);
+        this.modelLink = new ModelLink(this, mapGameObject, stationModel);
 
         // Creates the map.
-        this.MapController = new MapController(125, 250, modelLink);
+        this.MapController = new MapController(125, 250, modelLink, stationModel);
 
         // Gets a starting space for the player, based on coordinates. Moving away from coordinates, but they are fine for setup
         SpaceModel playerSpace = MapController.Map.GetSpace(63, 125);

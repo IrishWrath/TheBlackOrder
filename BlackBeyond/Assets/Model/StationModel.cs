@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class StationModel
 {
@@ -24,7 +25,7 @@ public class StationModel
 
     Dictionary<SpaceModel, Station> allStations = new Dictionary<SpaceModel, Station>();
 
-    public void createStation(SpaceModel stationLocation, int stationType)
+    public void CreateStation(SpaceModel stationLocation, int stationType, ModelLink link)
     {
         int reset = 999;
 
@@ -33,13 +34,20 @@ public class StationModel
         GenerateStationResources(stationType); // IF THE LOADING TIME TAKES TOO LONG, THIS NEEDS TO BE DONE ONLY WHEN A STATION IS DOCKED AT
 
         Station newStation = new Station(stationLocation, stationType, metalAvailable, metalPrice, organicAvailable, organicPrice, fuelAvailable, fuelPrice, gasAvailable, gasPrice, waterAvailable, waterPrice);
-
+        link.CreateStationView(newStation);
         allStations.Add(stationLocation, newStation);
     }
 
     public Station GetStation(SpaceModel space)
     {
-        return allStations[space];
+        try
+        {
+            return allStations[space];
+        }
+        catch(KeyNotFoundException)
+        {
+            return null;
+        }
     }
 
     private int GetResourceAvailable(int minRange, int maxRange)
@@ -226,5 +234,15 @@ public class Station
     public SpaceModel GetStationLocation (Station station)
     {
         return currentStation;
+    }
+
+    public SpaceModel GetSpace()
+    {
+        return currentStation;
+    }
+
+    public void SetController(StationController stationController)
+    {
+        this.stationController = stationController;
     }
 }
