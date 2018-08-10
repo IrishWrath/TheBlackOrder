@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour
 
     // A model link.
     private ModelLink modelLink;
+    private StationModel stationModel;
+
 
     // The Prefab for Spaces
     public GameObject spaceView;
@@ -45,6 +47,8 @@ public class GameController : MonoBehaviour
     {
 		        //Get the path of the Game data folder
         string m_Path = Application.dataPath;
+
+        stationModel = new StationModel();
 
 		//Creates the sound view and sound controller.
 		this.soundView = UnityEngine.Object.Instantiate(this.soundView);
@@ -124,10 +128,15 @@ public class GameController : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         // player.OpenTrade
-        StationModel station = new StationModel(MapController.Map.GetSpace(61,125));
+        //StationModel station = new StationModel(MapController.Map.GetSpace(61,125));
         //modelLink.CreateStationView(station); -- ERROR!!
-        stationController = station.GetController();
-        stationController.ShowDockUI();
+
+        Station station = stationModel.GetStation(playerModel.GetSpace());
+        if(station != null)
+        {
+            // TODO, something like:
+            //station.ShowDockUI();
+        }
         //play button sound
         soundController.PlaySound(SoundController.Sound.buttonPress);
     }

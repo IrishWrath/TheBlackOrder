@@ -4,8 +4,9 @@ using System.Collections.Generic;
 
 public class StationModel
 {
-    private StationController stationController;
-    private SpaceModel stationSpaceModel;
+    // Shouldn't be here, since this is a manager class.
+    //private StationController stationController;
+    //private SpaceModel stationSpaceModel;
     
 
     // Station Resources
@@ -34,6 +35,11 @@ public class StationModel
         Station newStation = new Station(stationLocation, stationType, metalAvailable, metalPrice, organicAvailable, organicPrice, fuelAvailable, fuelPrice, gasAvailable, gasPrice, waterAvailable, waterPrice);
 
         allStations.Add(stationLocation, newStation);
+    }
+
+    public Station GetStation(SpaceModel space)
+    {
+        return allStations[space];
     }
 
     private int GetResourceAvailable(int minRange, int maxRange)
@@ -161,31 +167,34 @@ public class StationModel
     // Organic - Sell 300 - 600
     // Water - Buy 50 - 200
 
+    // only one StationModel
+    //public StationModel(SpaceModel stationSpace)
+    //{
+    //    this.stationSpaceModel = stationSpace;
+    //}
 
-    public StationModel(SpaceModel stationSpace)
-    {
-        this.stationSpaceModel = stationSpace;
-    }
+    //public SpaceModel GetSpace()
+    //{
+    //    return stationSpaceModel;
+    //}
 
-    public SpaceModel GetSpace()
-    {
-        return stationSpaceModel;
-    }
+    //public StationController GetController()
+    //{
+    //    return stationController;
+    //}
 
-    public StationController GetController()
-    {
-        return stationController;
-    }
-
-    public void SetController(StationController controller)
-    {
-        this.stationController = controller;
-    }
+    //public void SetController(StationController controller)
+    //{
+    //    this.stationController = controller;
+    //}
 }
 
 public class Station
 {
+    // This class will have getters for location and stationController, will act like a model class (like PirateModel or SpaceModel)
     private readonly SpaceModel currentStation;
+    private StationController stationController;
+
     public int currentStationType = 0;
     public int metalAvailable = 0;
     public int metalPrice = 0;
