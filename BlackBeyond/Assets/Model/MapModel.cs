@@ -10,6 +10,7 @@ public class MapModel
     private int columns;
 
     private List<PirateAiModel> pirates = new List<PirateAiModel>();
+    public StationModel stationModel { get; private set; }
 
     // Create a map. TODO nothing in this map yet.
     public MapModel(int rows, int columns, ModelLink link)
@@ -51,11 +52,9 @@ public class MapModel
 
                     if (UnityEngine.Random.Range(1, 101) == 1)
                     {
-                        //tempSpace = new SpaceModel(row, column, this);
-                        //map[row][column] = tempSpace;
-                        //link.CreateStationView((StationModel)tempSpace);
                         StationModel station = new StationModel(tempSpace);
-                        link.CreateStationView(station);
+                        int stationType = UnityEngine.Random.Range(1, 5);
+                        link.CreateStationView(station, tempSpace, stationType);
                     }
                 }
             }
@@ -89,11 +88,9 @@ public class MapModel
 
                     if (UnityEngine.Random.Range(1, 101) == 1)
                     {
-                        //tempSpace = new SpaceModel(row, column, this);
-                        //map[row][column] = tempSpace;
-                        //link.CreateStationView((StationModel)tempSpace);
                         StationModel station = new StationModel(tempSpace);
-                        link.CreateStationView(station);
+                        int stationType = UnityEngine.Random.Range(1, 5);
+                        link.CreateStationView(station, tempSpace, stationType);
                     }
                 }
             }

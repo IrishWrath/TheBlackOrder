@@ -92,7 +92,7 @@ public class ModelLink
     }
 
     // Same as above for a Space GameObject
-    public void CreateStationView(StationModel stationModel)
+    public void CreateStationView(StationModel stationModel, SpaceModel stationLocation, int stationType)
     {
         // Creates the player GameObject in the correct position. TODO update this formula for hexes
         GameObject stationView = Object.Instantiate(GameController.GetStationView(),
@@ -108,5 +108,7 @@ public class ModelLink
         stationModel.SetController(stationController);
         // Pass the dockui from gamecontroller to the stationcontroller
         stationController.SetDockUI(GameController.GetDockUI());
+
+        stationModel.createStation(stationLocation, stationType);
     }
 }

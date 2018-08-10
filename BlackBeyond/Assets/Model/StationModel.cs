@@ -23,9 +23,17 @@ public class StationModel
 
     Dictionary<SpaceModel, Station> allStations = new Dictionary<SpaceModel, Station>();
 
-    public void addStation(SpaceModel stationID, Station newStation)
+    public void createStation(SpaceModel stationLocation, int stationType)
     {
-        //allStations.Add(stationID, newStation);
+        int reset = 999;
+
+        GenerateStationResources(reset);
+
+        GenerateStationResources(stationType); // IF THE LOADING TIME TAKES TOO LONG, THIS NEEDS TO BE DONE ONLY WHEN A STATION IS DOCKED AT
+
+        Station newStation = new Station(stationLocation, stationType, metalAvailable, metalPrice, organicAvailable, organicPrice, fuelAvailable, fuelPrice, gasAvailable, gasPrice, waterAvailable, waterPrice);
+
+        allStations.Add(stationLocation, newStation);
     }
 
     private int GetResourceAvailable(int minRange, int maxRange)
@@ -173,7 +181,6 @@ public class StationModel
     {
         this.stationController = controller;
     }
-
 }
 
 public class Station
