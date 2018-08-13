@@ -5,12 +5,8 @@ using System;
 
 public class StationModel
 {
-    // Shouldn't be here, since this is a manager class.
-    //private StationController stationController;
-    //private SpaceModel stationSpaceModel;
-    
-
     // Station Resources
+    public SpaceModel thisStationLocation;
     public int currentStationType = 0;
     public int metalAvailable = 0;
     public int metalPrice = 0;
@@ -48,6 +44,13 @@ public class StationModel
         {
             return null;
         }
+    }
+
+    public void UpdateStation(SpaceModel stationLocation)
+    {
+        allStations.Remove(stationLocation);
+
+        Station newStation = new Station(stationLocation, currentStationType, metalAvailable, metalPrice, organicAvailable, organicPrice, fuelAvailable, fuelPrice, gasAvailable, gasPrice, waterAvailable, waterPrice);
     }
 
     private int GetResourceAvailable(int minRange, int maxRange)
@@ -203,7 +206,7 @@ public class Station
     private readonly SpaceModel currentStation;
     private StationController stationController;
 
-    public int currentStationType = 0;
+    public int stationType = 0;
     public int metalAvailable = 0;
     public int metalPrice = 0;
     public int organicAvailable = 0;
@@ -215,10 +218,10 @@ public class Station
     public int waterAvailable = 0;
     public int waterPrice = 0;
 
-    public Station(SpaceModel stationLocation, int stationType, int newMetalAvail, int newMetalPrice, int newOrganicAvail, int newOrganicPrice, int newFuelAvail, int newFuelPrice, int newGasAvail, int newGasPrice, int newWaterAvail, int newWaterPrice)
+    public Station(SpaceModel stationLocation, int newStationType, int newMetalAvail, int newMetalPrice, int newOrganicAvail, int newOrganicPrice, int newFuelAvail, int newFuelPrice, int newGasAvail, int newGasPrice, int newWaterAvail, int newWaterPrice)
     {
         this.currentStation = stationLocation;
-        currentStationType = stationType;
+        stationType = newStationType;
         metalAvailable = newMetalAvail;
         metalPrice = newMetalPrice;
         organicAvailable = newOrganicAvail;
@@ -244,5 +247,60 @@ public class Station
     public void SetController(StationController stationController)
     {
         this.stationController = stationController;
+    }
+
+    public int GetStationType()
+    {
+        return stationType;
+    }
+
+    public int GetMetalAvail()
+    {
+        return metalAvailable;
+    }
+
+    public int GetMetalPrice()
+    {
+        return metalPrice;
+    }
+
+    public int GetOrganicAvail()
+    {
+        return organicAvailable;
+    }
+
+    public int GetOrganicPrice()
+    {
+        return organicPrice;
+    }
+
+    public int GetFuelAvail()
+    {
+        return fuelAvailable;
+    }
+
+    public int GetFuelPrice()
+    {
+        return fuelPrice;
+    }
+
+    public int GetGasAvail()
+    {
+        return gasAvailable;
+    }
+
+    public int GetGasPrice()
+    {
+        return gasPrice;
+    }
+
+    public int GetWaterAvail()
+    {
+        return waterAvailable;
+    }
+
+    public int GetWaterPrice()
+    {
+        return waterPrice;
     }
 }
