@@ -12,6 +12,8 @@ public class PlayerModel : ShipModel
     public int gasResource = 0;
     public int waterResource = 0;
 
+    public int money = 50;
+
     List<PathfindingNode> validMovementSpaces;
 
     private PlayerController playerController;
