@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     private ModelLink modelLink;
     private StationModel stationModel;
 
+    private TradeGUIController tradeGUIController;
 
     // The Prefab for Spaces
     public GameObject spaceView;
@@ -47,6 +48,8 @@ public class GameController : MonoBehaviour
     {
 		        //Get the path of the Game data folder
         string m_Path = Application.dataPath;
+
+        tradeGUIController = dockUI.GetComponent<TradeGUIController>();
 
         stationModel = new StationModel();
 
@@ -139,6 +142,8 @@ public class GameController : MonoBehaviour
         }
         //play button sound
         soundController.PlaySound(SoundController.Sound.buttonPress);
+
+        dockUI.SetActive(true);
     }
 
     // This function is called whe the player presses "end turn"
