@@ -51,7 +51,7 @@ public class GameController : MonoBehaviour
 
         tradeGUIController = dockUI.GetComponent<TradeGUIController>();
 
-        stationModel = new StationModel();
+        stationModel = new StationModel(tradeGUIController);
 
 		//Creates the sound view and sound controller.
 		this.soundView = UnityEngine.Object.Instantiate(this.soundView);

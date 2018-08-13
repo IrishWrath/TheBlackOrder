@@ -20,6 +20,12 @@ public class StationModel
     public int waterPrice = 0;
 
     Dictionary<SpaceModel, Station> allStations = new Dictionary<SpaceModel, Station>();
+    private TradeGUIController tradeGUIController;
+
+    public StationModel(TradeGUIController tradeGUIController)
+    {
+        this.tradeGUIController = tradeGUIController;
+    }
 
     public void CreateStation(SpaceModel stationLocation, int stationType, ModelLink link)
     {
