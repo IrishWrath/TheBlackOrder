@@ -3458,12 +3458,13 @@ MonoBehaviour:
   text: {fileID: 462693107}
   dock: {fileID: 1465701136}
   playerFuel: {fileID: 835484793}
-  playerIce: {fileID: 1087778009}
+  playerWater: {fileID: 1087778009}
   playerOrganics: {fileID: 1551905298}
   playerMetal: {fileID: 1640074255}
   playerGas: {fileID: 1286799474}
+  playerMoney: {fileID: 1464988856}
   fuelCost: {fileID: 1590318177}
-  iceCost: {fileID: 527624893}
+  waterCost: {fileID: 527624893}
   organicsCost: {fileID: 832806794}
   metalCost: {fileID: 475949844}
   gasCost: {fileID: 1066467405}
