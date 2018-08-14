@@ -5,6 +5,11 @@ using System;
 
 public class StationModel
 {
+    public enum StationType
+    {
+        General, Refinery, Factory, Mining, Planet, Reset = -1
+    }
+
     // Station Resources
     public SpaceModel thisStationLocation;
     public int currentStationType = 0;
@@ -27,11 +32,10 @@ public class StationModel
         this.tradeGUIController = tradeGUIController;
     }
 
-    public void CreateStation(SpaceModel stationLocation, int stationType, ModelLink link)
+    public void CreateStation(SpaceModel stationLocation, StationType stationType, ModelLink link)
     {
-        int reset = 999;
-
-        GenerateStationResources(reset);
+        //int reset = 999;
+        GenerateStationResources(StationType.Reset);
 
         GenerateStationResources(stationType); // IF THE LOADING TIME TAKES TOO LONG, THIS NEEDS TO BE DONE ONLY WHEN A STATION IS DOCKED AT
 
@@ -106,11 +110,11 @@ public class StationModel
         return resourcePrice;
     }
 
-    private void GenerateStationResources(int station)
+    private void GenerateStationResources(StationType station)
     {
         switch(station)
         {
-            case 1://General Trade Station
+            case StationType.General://General Trade Station
                 metalAvailable = GetResourceAvailable(100, 400);
                 metalPrice = GetResourcePrice(metalAvailable);
                 organicAvailable = GetResourceAvailable(100, 400);
@@ -122,13 +126,13 @@ public class StationModel
                 waterAvailable = GetResourceAvailable(100, 400);
                 waterPrice = GetResourcePrice(waterAvailable);
                 break;
-            case 2://Factory Station
+            case StationType.Factory://Factory Station
                 waterAvailable = GetResourceAvailable(300, 600);
                 waterPrice = GetResourcePrice(waterAvailable);
                 gasAvailable = GetResourceAvailable(50, 200);
                 gasPrice = GetResourcePrice(gasAvailable);
                 break;
-            case 3://Refinery Station
+            case StationType.Refinery://Refinery Station
                 fuelAvailable = GetResourceAvailable(300, 600);
                 fuelPrice = GetResourcePrice(fuelAvailable);
                 gasAvailable = GetResourceAvailable(300, 600);
@@ -136,13 +140,13 @@ public class StationModel
                 metalAvailable = GetResourceAvailable(50, 200);
                 metalPrice = GetResourcePrice(metalAvailable);
                 break;
-            case 4://Mining Station
+            case StationType.Mining://Mining Station
                 metalAvailable = GetResourceAvailable(300, 600);
                 metalPrice = GetResourcePrice(metalAvailable);
                 organicAvailable = GetResourceAvailable(50, 200);
                 organicPrice = GetResourcePrice(organicAvailable);
                 break;
-            case 5://Farming Station
+            case StationType.Planet://Farming Station
                 organicAvailable = GetResourceAvailable(300, 600);
                 organicPrice = GetResourcePrice(organicAvailable);
                 waterAvailable = GetResourceAvailable(50, 200);
@@ -212,7 +216,7 @@ public class Station
     private readonly SpaceModel currentStation;
     private StationController stationController;
 
-    public int stationType = 0;
+    public StationModel.StationType stationType;
     public int metalAvailable = 0;
     public int metalPrice = 0;
     public int organicAvailable = 0;
@@ -224,7 +228,7 @@ public class Station
     public int waterAvailable = 0;
     public int waterPrice = 0;
 
-    public Station(SpaceModel stationLocation, int newStationType, int newMetalAvail, int newMetalPrice, int newOrganicAvail, int newOrganicPrice, int newFuelAvail, int newFuelPrice, int newGasAvail, int newGasPrice, int newWaterAvail, int newWaterPrice)
+    public Station(SpaceModel stationLocation, StationModel.StationType newStationType, int newMetalAvail, int newMetalPrice, int newOrganicAvail, int newOrganicPrice, int newFuelAvail, int newFuelPrice, int newGasAvail, int newGasPrice, int newWaterAvail, int newWaterPrice)
     {
         this.currentStation = stationLocation;
         stationType = newStationType;
@@ -255,7 +259,7 @@ public class Station
         this.stationController = stationController;
     }
 
-    public int GetStationType()
+    public StationModel.StationType GetStationType()
     {
         return stationType;
     }

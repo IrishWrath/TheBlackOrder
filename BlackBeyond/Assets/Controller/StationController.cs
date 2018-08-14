@@ -9,10 +9,14 @@ public class StationController : MonoBehaviour
 
     private Station station;
     private PlayerModel playerModel;
-    private ShipModel shipModel;
+    //private ShipModel shipModel;
 
-    public Sprite defaultSprite;
-    public Sprite stationSprite;
+    public Sprite generalStation;
+    public Sprite miningStation;
+    public Sprite refinerylStation;
+    public Sprite factoryStation;
+    public Sprite planetStation;
+
 
     public void SetModel(Station station)
     {
@@ -36,34 +40,46 @@ public class StationController : MonoBehaviour
         return stationView.transform.position;
     }
 
-    public void SetStation()
+    public void SetStation(StationModel.StationType stationType)
     {
-        defaultSprite = stationSprite;
-        stationView.GetComponent<SpriteRenderer>().sprite = stationSprite;
+        switch(stationType)
+        {
+            case StationModel.StationType.General:
+                stationView.GetComponent<SpriteRenderer>().sprite = generalStation;
+                break;
+            case StationModel.StationType.Factory:
+                stationView.GetComponent<SpriteRenderer>().sprite = factoryStation;
+                break;
+            case StationModel.StationType.Mining:
+                stationView.GetComponent<SpriteRenderer>().sprite = miningStation;
+                break;
+            case StationModel.StationType.Planet:
+                stationView.GetComponent<SpriteRenderer>().sprite = planetStation;
+                break;
+            case StationModel.StationType.Refinery:
+                stationView.GetComponent<SpriteRenderer>().sprite = refinerylStation;
+                break;
+        }
     }
 
-    public bool ConfirmCargoSpaceAvailable(int purchaseQuantity)
-    {
-        if (shipModel.GetAvailableCargoSpace() >= purchaseQuantity)
-            return true;
+    // model method, should be in Station
+    //public bool ConfirmCargoSpaceAvailable(int purchaseQuantity)
+    //{
+    //    if (shipModel.GetAvailableCargoSpace() >= purchaseQuantity)
+    //        return true;
 
-        else
-            return false;
-    }
+    //    else
+    //        return false;
+    //}
 
-    public void ShowDockUI()
-    {
-        dockUI.SetActive(true);
-    }
-
-    public void HideDockUI()
-    {
-        dockUI.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    // TradeGUIController methods
+    //public void ShowDockUI()
+    //{
+    //    dockUI.SetActive(true);
+    //}
+    //
+    //public void HideDockUI()
+    //{
+    //    dockUI.SetActive(false);
+    //}
 }
