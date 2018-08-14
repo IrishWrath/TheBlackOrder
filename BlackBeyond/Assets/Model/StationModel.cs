@@ -7,12 +7,12 @@ public class StationModel
 {
     public enum StationType
     {
-        General, Refinery, Factory, Mining, Planet, Reset = -1
+        General = 1, Refinery = 2, Factory = 3, Mining = 4, Planet = 5, Reset = -1
     }
 
     // Station Resources
     public SpaceModel thisStationLocation;
-    public int currentStationType = 0;
+    public StationType currentStationType;
     public int metalAvailable = 0;
     public int metalPrice = 0;
     public int organicAvailable = 0;

@@ -13,7 +13,7 @@ public class StationController : MonoBehaviour
 
     public Sprite generalStation;
     public Sprite miningStation;
-    public Sprite refinerylStation;
+    public Sprite refineryStation;
     public Sprite factoryStation;
     public Sprite planetStation;
 
@@ -57,7 +57,7 @@ public class StationController : MonoBehaviour
                 stationView.GetComponent<SpriteRenderer>().sprite = planetStation;
                 break;
             case StationModel.StationType.Refinery:
-                stationView.GetComponent<SpriteRenderer>().sprite = refinerylStation;
+                stationView.GetComponent<SpriteRenderer>().sprite = refineryStation;
                 break;
         }
     }

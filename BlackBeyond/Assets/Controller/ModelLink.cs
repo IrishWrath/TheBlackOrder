@@ -113,5 +113,6 @@ public class ModelLink
         stationController.SetDockUI(GameController.GetDockUI());
 
         //stationModel.createStation(stationLocation, stationType);
+        stationController.SetStation(station.GetStationType());
     }
 }

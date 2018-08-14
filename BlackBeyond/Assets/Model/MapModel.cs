@@ -53,8 +53,8 @@ public class MapModel
 
                     if (UnityEngine.Random.Range(1, 101) == 1)
                     {
-                        int stationType = UnityEngine.Random.Range(1, 5);
-                        stationModel.CreateStation(tempSpace, stationType, link);
+                        int stationType = UnityEngine.Random.Range(1, 6);
+                        stationModel.CreateStation(tempSpace, (StationModel.StationType)stationType, link);
                     }
                 }
             }
@@ -88,8 +88,8 @@ public class MapModel
 
                     if (UnityEngine.Random.Range(1, 101) == 1)
                     {
-                        int stationType = UnityEngine.Random.Range(1, 5);
-                        stationModel.CreateStation(tempSpace, stationType, link);
+                        int stationType = UnityEngine.Random.Range(1, 6);
+                        stationModel.CreateStation(tempSpace, (StationModel.StationType)stationType, link);
                     }
                 }
             }
