@@ -55,7 +55,7 @@ MonoBehaviour:
   generalStation: {fileID: 21300000, guid: 0e9ea46c0620f4625a762ac074c2d96e, type: 3}
   miningStation: {fileID: 21300000, guid: 7c4142a4f4f3f4c65831751890619fd7, type: 3}
   refineryStation: {fileID: 21300000, guid: 498e1051101bd4fc29e163d55ea843d1, type: 3}
-  factoryStation: {fileID: 21300000, guid: 0e9ea46c0620f4625a762ac074c2d96e, type: 3}
+  factoryStation: {fileID: 21300000, guid: ca363a4ec04544a3d8db550f4a708866, type: 3}
   planetStation: {fileID: 21300000, guid: cc50bf9e818a94c4488711c57359d3fe, type: 3}
 --- !u!212 &212409936769107556
 SpriteRenderer:
