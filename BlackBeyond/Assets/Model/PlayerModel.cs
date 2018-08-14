@@ -83,6 +83,7 @@ public class PlayerModel : ShipModel
     // For turn structure
     public void EndTurn()
     {
+        SetHealth(GetHealth() + 1);
         ResetShotCounter();
         // Should block player actions until their turn TODO
         if (validMovementSpaces != null)

@@ -50,7 +50,7 @@ public abstract class ShipModel
 
     public void SetHealth(int health)
     {
-        shipHealth = health;
+        shipHealth = Math.Min(maxHealth, health);
         // update health bar
         shipController.UpdateHealth(shipHealth, maxHealth);
 
