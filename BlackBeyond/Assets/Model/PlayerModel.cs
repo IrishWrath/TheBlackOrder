@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerModel : ShipModel
 {
@@ -235,6 +236,6 @@ public class PlayerModel : ShipModel
     public override void Die()
     {
         // end game
-        shipHealth = maxHealth;
+        SceneManager.LoadScene("GameOver");
     }
 }
