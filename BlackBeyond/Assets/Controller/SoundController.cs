@@ -49,13 +49,14 @@ public class SoundController : MonoBehaviour{
 		//for music
         for (int i = 0; i < 3; i++)
         {
-            sounds[i].volume = musicSlider.value;
+            sounds[i].volume = musicSlider.value*0.9f;
         }
+
 	
 		//for sfx
 		for (int i = 3; i < sounds.Length; i++)
         {
-            sounds[i].volume = sfxSlider.value;
+            sounds[i].volume = sfxSlider.value*0.5f;
         }
 
 	}

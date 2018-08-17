@@ -23,6 +23,7 @@ public class TradeGUIController : MonoBehaviour
     public GameObject metalCost;
     public GameObject gasCost;
 
+    private SoundController soundController;
     private Station station;
 
     public void ShowUI(int playerFuelNum, int playerWaterNum, int playerOrganicsNum, int playerMetalNum, int playerGasNum, int playerMoneyNum,
@@ -45,6 +46,7 @@ public class TradeGUIController : MonoBehaviour
         this.station = station;
 
         dock.SetActive(true);
+        soundController.SwitchMusic(SoundController.Sound.trade);
     }
 
 
@@ -53,7 +55,9 @@ public class TradeGUIController : MonoBehaviour
     {
         // buy fuel, set numbers
 
-        station.BuyFuel(); // Buys 1 fuel. Make sure this doesn't go above max
+        if (station.BuyFuel()){ // Buys 1 fuel. Make sure this doesn't go above max
+            soundController.PlaySound(SoundController.Sound.buy);
+        }
         int fuelCostNum = station.GetFuelPrice();
         int playerFuelNum = station.GetPlayerFuel(); // Station gets from player
         int playerMoneyNum = station.GetPlayerMoney();
@@ -61,11 +65,15 @@ public class TradeGUIController : MonoBehaviour
         playerFuel.GetComponent<Text>().text = playerFuelNum.ToString();
         fuelCost.GetComponent<Text>().text = "$" + fuelCostNum;
         playerMoney.GetComponent<Text>().text = playerMoneyNum.ToString();
+        
 
     }
     public void BuyWater()
     {
-        station.BuyWater(); 
+        if (station.BuyWater())
+        {
+            soundController.PlaySound(SoundController.Sound.buy);
+        }
         int costNum = station.GetWaterPrice();
         int resourceNum = station.GetPlayerWater(); 
         int playerMoneyNum = station.GetPlayerMoney();
@@ -76,7 +84,10 @@ public class TradeGUIController : MonoBehaviour
     }
     public void BuyOrganics()
     {
-        station.BuyOrganics();
+        if (station.BuyOrganics())
+        {
+            soundController.PlaySound(SoundController.Sound.buy);
+        }
         int costNum = station.GetOrganicPrice();
         int resourceNum = station.GetPlayerOrganics();
         int playerMoneyNum = station.GetPlayerMoney();
@@ -87,7 +98,10 @@ public class TradeGUIController : MonoBehaviour
     }
     public void BuyMetal()
     {
-        station.BuyMetal();
+        if (station.BuyMetal())
+        {
+            soundController.PlaySound(SoundController.Sound.buy);
+        }
         int costNum = station.GetMetalPrice();
         int resourceNum = station.GetPlayerMetal();
         int playerMoneyNum = station.GetPlayerMoney();
@@ -98,7 +112,10 @@ public class TradeGUIController : MonoBehaviour
     }
     public void BuyGas()
     {
-        station.BuyGas();
+        if (station.BuyGas())
+        {
+            soundController.PlaySound(SoundController.Sound.buy);
+        }
         int costNum = station.GetGasPrice();
         int resourceNum = station.GetPlayerGas();
         int playerMoneyNum = station.GetPlayerMoney();
@@ -111,9 +128,12 @@ public class TradeGUIController : MonoBehaviour
     // ----------------------------- Sell Methods -----------------------------
     public void SellWater()
     {
-        // buy Water, set numbers
+        // sell* Water, set numbers
 
-        station.SellWater(); // Sells 1 Water. Make sure this method doesn't go below zero
+        if (station.SellWater())
+        { // Sells 1 Water. Make sure this method doesn't go below zero
+            soundController.PlaySound(SoundController.Sound.buy);
+        }
 
         int waterCostNum = station.GetWaterPrice(); 
 
@@ -126,7 +146,10 @@ public class TradeGUIController : MonoBehaviour
     }
     public void SellOrganics()
     {
-        station.SellOrganics();
+        if (station.SellOrganics())
+        { 
+            soundController.PlaySound(SoundController.Sound.buy);
+        }
         int costNum = station.GetOrganicPrice();
         int resourceNum = station.GetPlayerOrganics();
         int playerMoneyNum = station.GetPlayerMoney();
@@ -137,7 +160,10 @@ public class TradeGUIController : MonoBehaviour
     }
     public void SellMetal()
     {
-        station.SellMetal();
+        if (station.SellMetal())
+        {
+            soundController.PlaySound(SoundController.Sound.buy);
+        }
         int costNum = station.GetMetalPrice();
         int resourceNum = station.GetPlayerMetal();
         int playerMoneyNum = station.GetPlayerMoney();
@@ -148,7 +174,10 @@ public class TradeGUIController : MonoBehaviour
     }
     public void SellGas()
     {
-        station.SellGas();
+        if (station.SellGas())
+        {
+            soundController.PlaySound(SoundController.Sound.buy);
+        }
         int costNum = station.GetGasPrice();
         int resourceNum = station.GetPlayerGas();
         int playerMoneyNum = station.GetPlayerMoney();
@@ -162,5 +191,11 @@ public class TradeGUIController : MonoBehaviour
     public void Undock()
     {
         dock.SetActive(false);
+        soundController.SwitchMusic(SoundController.Sound.main);
+    }
+
+    public void SetSoundController(SoundController soundController)
+    {
+        this.soundController = soundController;
     }
 }
