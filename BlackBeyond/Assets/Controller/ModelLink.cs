@@ -11,10 +11,13 @@ public class ModelLink
     public GameController GameController { get; private set; }
     public Transform MapContainer { get; private set; }
 
-    public ModelLink(GameController gameController, GameObject mapGameObject)
+    private StationModel stationModel;
+
+    public ModelLink(GameController gameController, GameObject mapGameObject, StationModel stationModel)
     {
         this.GameController = gameController;
         this.MapContainer = mapGameObject.transform;
+        this.stationModel = stationModel;
     }
 
     // Creates the view and gets the controller for a Space
@@ -91,19 +94,24 @@ public class ModelLink
     }
 
     // Same as above for a Space GameObject
-    public void CreateStationView(StationModel stationModel)
+    public void CreateStationView(Station station)
     {
         // Creates the player GameObject in the correct position. TODO update this formula for hexes
         GameObject stationView = Object.Instantiate(GameController.GetStationView(),
-                                                   stationModel.GetSpace().GetController().GetPosition(), Quaternion.identity, MapContainer);
+                                                   station.GetSpace().GetController().GetPosition(), Quaternion.identity, MapContainer);
 
         // Gets the controller from the GameObject.
         StationController stationController = stationView.GetComponent<StationController>();
         // Lets the Controller access the GameObject
         stationController.SetStationView(stationView);
         // Lets the Controller access the Model
-        stationController.SetModel(stationModel);
+        stationController.SetModel(station);
         // Lets the Model access the Controller, as a callback
-        stationModel.SetController(stationController);
+        station.SetController(stationController);
+        // Pass the dockui from gamecontroller to the stationcontroller
+        stationController.SetDockUI(GameController.GetDockUI());
+
+        //stationModel.createStation(stationLocation, stationType);
+        stationController.SetStation(station.GetStationType());
     }
 }

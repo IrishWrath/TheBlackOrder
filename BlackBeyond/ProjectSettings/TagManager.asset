@@ -46,6 +46,9 @@ TagManager:
   - name: Terrain
     uniqueID: 3723654535
     locked: 0
+  - name: Stations
+    uniqueID: 1488289343
+    locked: 0
   - name: Tiles
     uniqueID: 3349764137
     locked: 0

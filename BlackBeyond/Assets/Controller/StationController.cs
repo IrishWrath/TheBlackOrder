@@ -4,32 +4,82 @@ using System.Collections;
 
 public class StationController : MonoBehaviour
 {
-    private StationModel stationModel;
-    private PlayerModel playerModel;
-    private ShipModel shipModel;
+    private GameObject stationView;
+    private GameObject dockUI;
 
-    public void SetModel(StationModel stationModel)
+    private Station station;
+    private PlayerModel playerModel;
+    //private ShipModel shipModel;
+
+    public Sprite generalStation;
+    public Sprite miningStation;
+    public Sprite refineryStation;
+    public Sprite factoryStation;
+    public Sprite planetStation;
+
+
+    public void SetModel(Station station)
     {
-        this.stationModel = stationModel;
+        this.station = station;
     }
 
+    public void SetDockUI(GameObject dockUI)
+    {
+        this.dockUI = dockUI;
+    }
+
+    // Sets the view
     public void SetStationView(GameObject stationView)
     {
-        throw new NotImplementedException();
+        this.stationView = stationView;
     }
 
-    public bool ConfirmCargoSpaceAvailable(int purchaseQuantity)
+    // Returns the view's position
+    public Vector2 GetPosition()
     {
-        if (shipModel.GetAvailableCargoSpace() >= purchaseQuantity)
-            return true;
-
-        else
-            return false;
+        return stationView.transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetStation(StationModel.StationType stationType)
     {
-
+        switch(stationType)
+        {
+            case StationModel.StationType.General:
+                stationView.GetComponent<SpriteRenderer>().sprite = generalStation;
+                break;
+            case StationModel.StationType.Factory:
+                stationView.GetComponent<SpriteRenderer>().sprite = factoryStation;
+                break;
+            case StationModel.StationType.Mining:
+                stationView.GetComponent<SpriteRenderer>().sprite = miningStation;
+                break;
+            case StationModel.StationType.Planet:
+                stationView.GetComponent<SpriteRenderer>().sprite = planetStation;
+                break;
+            case StationModel.StationType.Refinery:
+                stationView.GetComponent<SpriteRenderer>().sprite = refineryStation;
+                break;
+        }
     }
+
+    // model method, should be in Station
+    //public bool ConfirmCargoSpaceAvailable(int purchaseQuantity)
+    //{
+    //    if (shipModel.GetAvailableCargoSpace() >= purchaseQuantity)
+    //        return true;
+
+    //    else
+    //        return false;
+    //}
+
+    // TradeGUIController methods
+    //public void ShowDockUI()
+    //{
+    //    dockUI.SetActive(true);
+    //}
+    //
+    //public void HideDockUI()
+    //{
+    //    dockUI.SetActive(false);
+    //}
 }

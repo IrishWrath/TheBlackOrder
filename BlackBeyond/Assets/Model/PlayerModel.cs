@@ -8,12 +8,13 @@ public class PlayerModel : ShipModel
 {
 
     // Player trade info
-    public int playerCurrency = 0;
+    public int playerCurrency = 5000;
     public int metalResource = 0;
     public int organicResource = 0;
-    public int fuelResource = 0;
+    public int fuelResource = 150;
     public int gasResource = 0;
     public int waterResource = 0;
+
 
     List<PathfindingNode> validMovementSpaces;
     List<PathfindingNode> validShootingSpaces;
@@ -22,9 +23,13 @@ public class PlayerModel : ShipModel
 
     public bool playerCanMove = false;
     private MapModel mapModel;
+    private GameController gameController;
+    private StationModel stationModel;
 
-    public PlayerModel(SpaceModel currentSpace, MapModel mapModel)
+    public PlayerModel(SpaceModel currentSpace, MapModel mapModel, GameController gameController, StationModel stationModel)
     {
+        this.gameController = gameController;
+        this.stationModel = stationModel;
         base.currentSpace = currentSpace;
 
         // Player stats, TODO
@@ -224,6 +229,13 @@ public class PlayerModel : ShipModel
             SetPlayerCanMove(false);
             animatingMovement = true;
 
+            fuelResource -= destination.GetCost();
+            if(fuelResource <= 0)
+            {
+                //lose
+            }
+
+            gameController.SetTradeable(stationModel.GetStation(destination.GetSpace()) != null);
 
             foreach (PathfindingNode node in validMovementSpaces)
             {

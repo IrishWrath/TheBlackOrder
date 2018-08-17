@@ -15,12 +15,14 @@ public class GameController : MonoBehaviour
 {
     public MapController MapControllerField { get; private set; }
 	public SoundController soundController { get; private set; }
+    public StationController stationController { get; private set; }
 
     // A model link.
     private ModelLink modelLink;
     private int turnNumber = 0;
-
     private bool playerTurn = true;
+    private StationModel stationModel;
+    private TradeGUIController tradeGUIController;
 
     // The Prefab for Spaces
     public GameObject spaceView;
@@ -34,6 +36,8 @@ public class GameController : MonoBehaviour
     public GameObject nebulaTerrain;
 	// The Prefab for our music
 	public GameObject soundView;
+
+    //public Button TradeButton;
 
     // The Asteroid Terrain
     public GameObject asteroidTerrain;
@@ -50,6 +54,7 @@ public class GameController : MonoBehaviour
 
     // Container for spaces
     public GameObject mapGameObject;
+    public GameObject dockUI;
 	
     // A reference to the player.
     private PlayerModel playerModel;
@@ -62,6 +67,10 @@ public class GameController : MonoBehaviour
 		        //Get the path of the Game data folder
         string m_Path = Application.dataPath;
 
+        tradeGUIController = dockUI.GetComponent<TradeGUIController>();
+
+        stationModel = new StationModel(tradeGUIController);
+
 		//Creates the sound view and sound controller.
 		this.soundView = UnityEngine.Object.Instantiate(this.soundView);
 		// Gets the controller from the musicView GameObject.
@@ -71,16 +80,18 @@ public class GameController : MonoBehaviour
 		this.soundController.SetSliders(this.musicSlider, this.sfxSlider);
 		
         //Output the Game data path to the console
-        this.modelLink = new ModelLink(this, mapGameObject);
+        this.modelLink = new ModelLink(this, mapGameObject, stationModel);
 
         // Creates the map.
-        this.MapControllerField = new MapController(125, 250, modelLink, this);
+
+        this.MapControllerField = new MapController(125, 250, modelLink, this, stationModel);
 
         // Gets a starting space for the player, based on coordinates. Moving away from coordinates, but they are fine for setup
         SpaceModel playerSpace = MapControllerField.Map.GetSpace(63, 125);
 
         // Create a player, and set up MVC connections
-        this.playerModel = new PlayerModel(playerSpace, MapControllerField.Map);
+        this.playerModel = new PlayerModel(playerSpace, MapControllerField.Map, this, stationModel);
+
         modelLink.CreatePlayerView(playerModel, playerMovementText);
 
         MapControllerField.Map.CreateHunterKiller(playerModel, this);
@@ -119,6 +130,11 @@ public class GameController : MonoBehaviour
 		return soundView;
 	}
 
+    public GameObject GetDockUI()
+    {
+        return dockUI;
+    }
+
     // called when the player presses the move button
     public void PlayerMoveButton()
     {
@@ -146,11 +162,26 @@ public class GameController : MonoBehaviour
     // called when the player presses the trade button, should be disabled if there is nothing to trade with
     public void PlayerTradeButton()
     {
-        if (playerTurn)
+
+        EventSystem.current.SetSelectedGameObject(null);
+        // player.OpenTrade
+        //StationModel station = new StationModel(MapController.Map.GetSpace(61,125));
+        //modelLink.CreateStationView(station); -- ERROR!!
+
+        Station station = stationModel.GetStation(playerModel.GetSpace());
+        if(station != null)
         {
-            EventSystem.current.SetSelectedGameObject(null);
-            // player.OpenTrade
+            station.ShowDockUI(playerModel);
         }
+        //play button sound
+        soundController.PlaySound(SoundController.Sound.buttonPress);
+
+        //dockUI.SetActive(true);
+    }
+
+    public void SetTradeable(bool isTradable)
+    {
+        TradeButton.interactable = isTradable;
     }
 
     // This function is called whe the player presses "end turn"
@@ -232,6 +263,10 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.S))
         {
             PlayerShootButton();
+        }
+        if (Input.GetKeyUp(KeyCode.T))
+        {
+            PlayerTradeButton();
         }
     }
 

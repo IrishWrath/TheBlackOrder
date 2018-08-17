@@ -15,6 +15,7 @@ public class MapModel
     protected int columns;
 
     protected List<PirateAiModel> pirates = new List<PirateAiModel>();
+    public StationModel stationModel { get; protected set; }
 
     public static readonly int NEBULA_RATE = 1, ASTEROID_RATE = NEBULA_RATE + 1, PLATFORM_RATE = 2;
 
@@ -23,12 +24,13 @@ public class MapModel
     }
 
     // Create a map. TODO nothing in this map yet.
-    public MapModel(int rows, int columns, ModelLink link, GameController gameController)
+    public MapModel(int rows, int columns, ModelLink link, GameController gameController, StationModel stationModel)
     {
         this.gameController = gameController;
         this.link = link;
         this.rows = rows;
         this.columns = columns;
+        this.stationModel = stationModel;
         map = new SpaceModel[rows][];
         SpaceModel tempSpace;
         for (int row = 0; row < rows; row++)
@@ -61,6 +63,12 @@ public class MapModel
                     {
                         pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace, gameController));
                     }
+
+                    if (UnityEngine.Random.Range(1, 101) == 1)
+                    {
+                        int stationType = UnityEngine.Random.Range(1, 6);
+                        stationModel.CreateStation(tempSpace, (StationModel.StationType)stationType, link);
+                    }
                 }
             }
             else
@@ -89,6 +97,12 @@ public class MapModel
                     if (UnityEngine.Random.Range(1, 101) < PLATFORM_RATE)
                     {
                         pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace, gameController));
+                    }
+
+                    if (UnityEngine.Random.Range(1, 101) == 1)
+                    {
+                        int stationType = UnityEngine.Random.Range(1, 6);
+                        stationModel.CreateStation(tempSpace, (StationModel.StationType)stationType, link);
                     }
                 }
             }

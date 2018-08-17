@@ -17,8 +17,9 @@ public class ProceduralMapModel : MapModel
     private int[,] sectors;
 
 
-    public ProceduralMapModel(int rows, int columns, ModelLink link, GameController gameController) : base()
+    public ProceduralMapModel(int rows, int columns, ModelLink link, GameController gameController, StationModel stationModel) : base()
     {
+        base.stationModel = stationModel;
         base.gameController = gameController;
         base.link = link;
         this.rows = rows;
