@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TradeGUIController : MonoBehaviour 
 {
@@ -27,19 +28,19 @@ public class TradeGUIController : MonoBehaviour
     public void ShowUI(int playerFuelNum, int playerWaterNum, int playerOrganicsNum, int playerMetalNum, int playerGasNum, int playerMoneyNum,
                        int fuelCostNum, int waterCostNum, int organicsCostNum, int metalCostNum, int gasCostNum, Station station)
     {
-        playerFuel.GetComponent<TextMesh>().text = playerFuelNum.ToString();
-        playerWater.GetComponent<TextMesh>().text = playerWaterNum.ToString();
-        playerOrganics.GetComponent<TextMesh>().text = playerOrganicsNum.ToString();
-        playerMetal.GetComponent<TextMesh>().text = playerMetalNum.ToString();
-        playerGas.GetComponent<TextMesh>().text = playerGasNum.ToString();
+        playerFuel.GetComponent<Text>().text = playerFuelNum.ToString();
+        playerWater.GetComponent<Text>().text = playerWaterNum.ToString();
+        playerOrganics.GetComponent<Text>().text = playerOrganicsNum.ToString();
+        playerMetal.GetComponent<Text>().text = playerMetalNum.ToString();
+        playerGas.GetComponent<Text>().text = playerGasNum.ToString();
 
-        playerMoney.GetComponent<TextMesh>().text = playerMoney.ToString();
+        playerMoney.GetComponent<Text>().text = playerMoneyNum.ToString();
 
-        fuelCost.GetComponent<TextMesh>().text = "$" + fuelCostNum;
-        waterCost.GetComponent<TextMesh>().text = "$" + waterCostNum;
-        organicsCost.GetComponent<TextMesh>().text = "$" + organicsCostNum;
-        metalCost.GetComponent<TextMesh>().text = "$" + metalCostNum;
-        gasCost.GetComponent<TextMesh>().text = "$" + gasCostNum;
+        fuelCost.GetComponent<Text>().text = "$" + fuelCostNum;
+        waterCost.GetComponent<Text>().text = "$" + waterCostNum;
+        organicsCost.GetComponent<Text>().text = "$" + organicsCostNum;
+        metalCost.GetComponent<Text>().text = "$" + metalCostNum;
+        gasCost.GetComponent<Text>().text = "$" + gasCostNum;
 
         this.station = station;
 
@@ -52,31 +53,59 @@ public class TradeGUIController : MonoBehaviour
     {
         // buy fuel, set numbers
 
-        // station.BuyFuel(); // Buys 1 fuel. Make sure this doesn't go above max
-        // int fuelCostNum = station.GetFuelCost();
-        // int playerFuelNum = station.GetPlayerFuel(); // Station gets from player
-        // int playerMoneyNum = station.GetPlayerMoney();
+        station.BuyFuel(); // Buys 1 fuel. Make sure this doesn't go above max
+        int fuelCostNum = station.GetFuelPrice();
+        int playerFuelNum = station.GetPlayerFuel(); // Station gets from player
+        int playerMoneyNum = station.GetPlayerMoney();
 
-        // playerFuel.GetComponent<TextMesh>().text = playerFuelNum.ToString();
-        // fuelCost.GetComponent<TextMesh>().text = "$" + fuelCostNum;
-        // playerMoney.GetComponent<TextMesh>().text = playerMoneyNum.ToString();
+        playerFuel.GetComponent<Text>().text = playerFuelNum.ToString();
+        fuelCost.GetComponent<Text>().text = "$" + fuelCostNum;
+        playerMoney.GetComponent<Text>().text = playerMoneyNum.ToString();
 
     }
     public void BuyWater()
     {
-        //...
+        station.BuyWater(); 
+        int costNum = station.GetWaterPrice();
+        int resourceNum = station.GetPlayerWater(); 
+        int playerMoneyNum = station.GetPlayerMoney();
+
+        playerWater.GetComponent<Text>().text = resourceNum.ToString();
+        waterCost.GetComponent<Text>().text = "$" + costNum;
+        playerMoney.GetComponent<Text>().text = playerMoneyNum.ToString();
     }
     public void BuyOrganics()
     {
-        //...
+        station.BuyOrganics();
+        int costNum = station.GetOrganicPrice();
+        int resourceNum = station.GetPlayerOrganics();
+        int playerMoneyNum = station.GetPlayerMoney();
+
+        playerOrganics.GetComponent<Text>().text = resourceNum.ToString();
+        organicsCost.GetComponent<Text>().text = "$" + costNum;
+        playerMoney.GetComponent<Text>().text = playerMoneyNum.ToString();
     }
     public void BuyMetal()
     {
-        //...
+        station.BuyMetal();
+        int costNum = station.GetMetalPrice();
+        int resourceNum = station.GetPlayerMetal();
+        int playerMoneyNum = station.GetPlayerMoney();
+
+        playerMetal.GetComponent<Text>().text = resourceNum.ToString();
+        metalCost.GetComponent<Text>().text = "$" + costNum;
+        playerMoney.GetComponent<Text>().text = playerMoneyNum.ToString();
     }
     public void BuyGas()
     {
-        //...
+        station.BuyGas();
+        int costNum = station.GetGasPrice();
+        int resourceNum = station.GetPlayerGas();
+        int playerMoneyNum = station.GetPlayerMoney();
+
+        playerGas.GetComponent<Text>().text = resourceNum.ToString();
+        gasCost.GetComponent<Text>().text = "$" + costNum;
+        playerMoney.GetComponent<Text>().text = playerMoneyNum.ToString();
     }
 
     // ----------------------------- Sell Methods -----------------------------
@@ -84,28 +113,49 @@ public class TradeGUIController : MonoBehaviour
     {
         // buy Water, set numbers
 
-        // station.SellWater(); // Sells 1 Water. Make sure this method doesn't go below zero
+        station.SellWater(); // Sells 1 Water. Make sure this method doesn't go below zero
 
-        // int waterCostNum = station.GetWaterPrwater(); 
+        int waterCostNum = station.GetWaterPrice(); 
 
-        // int playerWaterNum = station.GetPlayerWater(); // Station gets from player
-        // int playerMoneyNum = station.GetPlayerMoney();
+        int playerWaterNum = station.GetPlayerWater(); // Station gets from player
+        int playerMoneyNum = station.GetPlayerMoney();
 
-        // playerWater.GetComponent<TextMesh>().text = playerWaterNum.ToString();
-        // waterCost.GetComponent<TextMesh>().text = "$" + waterCostNum;
-        // playerMoney.GetComponent<TextMesh>().text = playerMoneyNum.ToString();
+        playerWater.GetComponent<Text>().text = playerWaterNum.ToString();
+        waterCost.GetComponent<Text>().text = "$" + waterCostNum;
+        playerMoney.GetComponent<Text>().text = playerMoneyNum.ToString();
     }
     public void SellOrganics()
     {
-        //...
+        station.SellOrganics();
+        int costNum = station.GetOrganicPrice();
+        int resourceNum = station.GetPlayerOrganics();
+        int playerMoneyNum = station.GetPlayerMoney();
+
+        playerOrganics.GetComponent<Text>().text = resourceNum.ToString();
+        organicsCost.GetComponent<Text>().text = "$" + costNum;
+        playerMoney.GetComponent<Text>().text = playerMoneyNum.ToString();
     }
     public void SellMetal()
     {
-        //...
+        station.SellMetal();
+        int costNum = station.GetMetalPrice();
+        int resourceNum = station.GetPlayerMetal();
+        int playerMoneyNum = station.GetPlayerMoney();
+
+        playerMetal.GetComponent<Text>().text = resourceNum.ToString();
+        metalCost.GetComponent<Text>().text = "$" + costNum;
+        playerMoney.GetComponent<Text>().text = playerMoneyNum.ToString();
     }
     public void SellGas()
     {
-        //...
+        station.SellGas();
+        int costNum = station.GetGasPrice();
+        int resourceNum = station.GetPlayerGas();
+        int playerMoneyNum = station.GetPlayerMoney();
+
+        playerGas.GetComponent<Text>().text = resourceNum.ToString();
+        gasCost.GetComponent<Text>().text = "$" + costNum;
+        playerMoney.GetComponent<Text>().text = playerMoneyNum.ToString();
     }
 
     // ----------------------------- Other Methods -----------------------------

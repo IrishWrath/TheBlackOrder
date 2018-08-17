@@ -26,10 +26,12 @@ public class StationModel
 
     Dictionary<SpaceModel, Station> allStations = new Dictionary<SpaceModel, Station>();
     private TradeGUIController tradeGUIController;
+    private System.Random random;
 
     public StationModel(TradeGUIController tradeGUIController)
     {
         this.tradeGUIController = tradeGUIController;
+        random = new System.Random();
     }
 
     public void CreateStation(SpaceModel stationLocation, StationType stationType, ModelLink link)
@@ -39,9 +41,14 @@ public class StationModel
 
         GenerateStationResources(stationType); // IF THE LOADING TIME TAKES TOO LONG, THIS NEEDS TO BE DONE ONLY WHEN A STATION IS DOCKED AT
 
-        Station newStation = new Station(stationLocation, stationType, metalAvailable, metalPrice, organicAvailable, organicPrice, fuelAvailable, fuelPrice, gasAvailable, gasPrice, waterAvailable, waterPrice);
+        Station newStation = new Station(stationLocation, stationType, metalAvailable, metalPrice, organicAvailable, organicPrice, fuelAvailable, fuelPrice, gasAvailable, gasPrice, waterAvailable, waterPrice, this);
         link.CreateStationView(newStation);
         allStations.Add(stationLocation, newStation);
+    }
+
+    public TradeGUIController GetTradeGUI()
+    {
+        return tradeGUIController;
     }
 
     public Station GetStation(SpaceModel space)
@@ -56,56 +63,56 @@ public class StationModel
         }
     }
 
-    public void UpdateStation(SpaceModel stationLocation)
-    {
-        allStations.Remove(stationLocation);
+    //public void UpdateStation(SpaceModel stationLocation)
+    //{
+    //    allStations.Remove(stationLocation);
 
-        Station newStation = new Station(stationLocation, currentStationType, metalAvailable, metalPrice, organicAvailable, organicPrice, fuelAvailable, fuelPrice, gasAvailable, gasPrice, waterAvailable, waterPrice);
-    }
+    //    Station newStation = new Station(stationLocation, currentStationType, metalAvailable, metalPrice, organicAvailable, organicPrice, fuelAvailable, fuelPrice, gasAvailable, gasPrice, waterAvailable, waterPrice);
+    //}
 
     private int GetResourceAvailable(int minRange, int maxRange)
     {
-        System.Random random = new System.Random();
+        //System.Random random = new System.Random();
         int resourceAvailable = random.Next(minRange, maxRange);
         return resourceAvailable;
     }
 
-    private int GetResourcePrice(int resourceAvailable)
+    internal int GetResourcePrice(int resourceAvailable)
     {
         int resourcePrice = 0;
 
-        if(resourceAvailable > 0 && resourceAvailable <=99)
-            resourcePrice = 600;//expensive
+        if(resourceAvailable >= 0 && resourceAvailable <= 20)
+            resourcePrice = 60;//expensive
 
-        else if (resourceAvailable > 99 && resourceAvailable <= 149)
-            resourcePrice = 550;
+        else if (resourceAvailable > 20 && resourceAvailable <= 40)
+            resourcePrice = 55;
 
-        else if (resourceAvailable > 149 && resourceAvailable <= 199)
-            resourcePrice = 500;
+        else if (resourceAvailable > 40 && resourceAvailable <= 60)
+            resourcePrice = 50;
 
-        else if (resourceAvailable > 199 && resourceAvailable <= 249)
-            resourcePrice = 450;
+        else if (resourceAvailable > 60 && resourceAvailable <= 80)
+            resourcePrice = 45;
 
-        else if (resourceAvailable > 249 && resourceAvailable <= 299)
-            resourcePrice = 400;
+        else if (resourceAvailable > 80 && resourceAvailable <= 100)
+            resourcePrice = 40;
 
-        else if (resourceAvailable > 299 && resourceAvailable <= 349)
-            resourcePrice = 350;
+        else if (resourceAvailable > 100 && resourceAvailable <= 120)
+            resourcePrice = 35;
 
-        else if (resourceAvailable > 349 && resourceAvailable <= 399)
-            resourcePrice = 300;
+        else if (resourceAvailable > 120 && resourceAvailable <= 140)
+            resourcePrice = 30;
 
-        else if (resourceAvailable > 399 && resourceAvailable <= 449)
-            resourcePrice = 250;
+        else if (resourceAvailable > 140 && resourceAvailable <= 160)
+            resourcePrice = 25;
 
-        else if (resourceAvailable > 449 && resourceAvailable <= 499)
-            resourcePrice = 200;
+        else if (resourceAvailable > 160 && resourceAvailable <= 180)
+            resourcePrice = 20;
 
-        else if (resourceAvailable > 499 && resourceAvailable <= 549)
-            resourcePrice = 150;
+        else if (resourceAvailable > 180 && resourceAvailable <= 200)
+            resourcePrice = 15;
 
-        else if (resourceAvailable > 549 && resourceAvailable <= 600)
-            resourcePrice = 100;
+        else if (resourceAvailable > 200)
+            resourcePrice = 10;
 
         return resourcePrice;
     }
@@ -114,42 +121,67 @@ public class StationModel
     {
         switch(station)
         {
+            // These Stations trade a variety of things, but don't do much
             case StationType.General://General Trade Station
-                metalAvailable = GetResourceAvailable(100, 400);
+                metalAvailable = GetResourceAvailable(81, 140);
                 metalPrice = GetResourcePrice(metalAvailable);
-                organicAvailable = GetResourceAvailable(100, 400);
+                organicAvailable = GetResourceAvailable(81, 140);
                 organicPrice = GetResourcePrice(organicAvailable);
-                fuelAvailable = GetResourceAvailable(100, 400);
+                fuelAvailable = GetResourceAvailable(81, 140);
                 fuelPrice = GetResourcePrice(fuelAvailable);
-                gasAvailable = GetResourceAvailable(100, 400);
+                gasAvailable = GetResourceAvailable(81, 140);
                 gasPrice = GetResourcePrice(gasAvailable);
-                waterAvailable = GetResourceAvailable(100, 400);
+                waterAvailable = GetResourceAvailable(81, 140);
                 waterPrice = GetResourcePrice(waterAvailable);
                 break;
+            // These gigantic shipyards buy up everything they can. They may have some spare fuel, but it'll come at a price
             case StationType.Factory://Factory Station
-                waterAvailable = GetResourceAvailable(300, 600);
-                waterPrice = GetResourcePrice(waterAvailable);
-                gasAvailable = GetResourceAvailable(50, 200);
-                gasPrice = GetResourcePrice(gasAvailable);
-                break;
-            case StationType.Refinery://Refinery Station
-                fuelAvailable = GetResourceAvailable(300, 600);
-                fuelPrice = GetResourcePrice(fuelAvailable);
-                gasAvailable = GetResourceAvailable(300, 600);
-                gasPrice = GetResourcePrice(gasAvailable);
-                metalAvailable = GetResourceAvailable(50, 200);
+                metalAvailable = GetResourceAvailable(0, 100);
                 metalPrice = GetResourcePrice(metalAvailable);
+                organicAvailable = GetResourceAvailable(0, 100);
+                organicPrice = GetResourcePrice(organicAvailable);
+                fuelAvailable = GetResourceAvailable(61, 120);
+                fuelPrice = GetResourcePrice(fuelAvailable);
+                gasAvailable = GetResourceAvailable(0, 100);
+                gasPrice = GetResourcePrice(gasAvailable);
+                waterAvailable = GetResourceAvailable(0, 100);
+                waterPrice = GetResourcePrice(waterAvailable);
+                break;
+            // These stations suck up gas and refine it into fuel. They need metal for repairs.
+            case StationType.Refinery://Refinery Station
+                metalAvailable = GetResourceAvailable(15, 60);
+                metalPrice = GetResourcePrice(metalAvailable);
+                organicAvailable = GetResourceAvailable(61, 160);
+                organicPrice = GetResourcePrice(organicAvailable);
+                fuelAvailable = GetResourceAvailable(140, 205);
+                fuelPrice = GetResourcePrice(fuelAvailable);
+                gasAvailable = GetResourceAvailable(140, 210);
+                gasPrice = GetResourcePrice(gasAvailable);
+                waterAvailable = GetResourceAvailable(61, 120);
+                waterPrice = GetResourcePrice(waterAvailable);
                 break;
             case StationType.Mining://Mining Station
-                metalAvailable = GetResourceAvailable(300, 600);
+                metalAvailable = GetResourceAvailable(140, 210);
                 metalPrice = GetResourcePrice(metalAvailable);
-                organicAvailable = GetResourceAvailable(50, 200);
+                organicAvailable = GetResourceAvailable(15, 60);
                 organicPrice = GetResourcePrice(organicAvailable);
+                fuelAvailable = GetResourceAvailable(15, 60);
+                fuelPrice = GetResourcePrice(fuelAvailable);
+                gasAvailable = GetResourceAvailable(15, 60);
+                gasPrice = GetResourcePrice(gasAvailable);
+                waterAvailable = GetResourceAvailable(15, 60);
+                waterPrice = GetResourcePrice(waterAvailable);
                 break;
             case StationType.Planet://Farming Station
-                organicAvailable = GetResourceAvailable(300, 600);
+                metalAvailable = GetResourceAvailable(61, 160);
+                metalPrice = GetResourcePrice(metalAvailable);
+                organicAvailable = GetResourceAvailable(140, 210);
                 organicPrice = GetResourcePrice(organicAvailable);
-                waterAvailable = GetResourceAvailable(50, 200);
+                fuelAvailable = GetResourceAvailable(15, 60);
+                fuelPrice = GetResourcePrice(fuelAvailable);
+                gasAvailable = GetResourceAvailable(15, 60);
+                gasPrice = GetResourcePrice(gasAvailable);
+                waterAvailable = GetResourceAvailable(140, 210);
                 waterPrice = GetResourcePrice(waterAvailable);
                 break;
             default://Default to reset to zero
@@ -215,6 +247,7 @@ public class Station
     // This class will have getters for location and stationController, will act like a model class (like PirateModel or SpaceModel)
     private readonly SpaceModel currentStation;
     private StationController stationController;
+    private StationModel stationModel;
 
     public StationModel.StationType stationType;
     public int metalAvailable = 0;
@@ -227,9 +260,11 @@ public class Station
     public int gasPrice = 0;
     public int waterAvailable = 0;
     public int waterPrice = 0;
+    private PlayerModel player;
 
-    public Station(SpaceModel stationLocation, StationModel.StationType newStationType, int newMetalAvail, int newMetalPrice, int newOrganicAvail, int newOrganicPrice, int newFuelAvail, int newFuelPrice, int newGasAvail, int newGasPrice, int newWaterAvail, int newWaterPrice)
+    public Station(SpaceModel stationLocation, StationModel.StationType newStationType, int newMetalAvail, int newMetalPrice, int newOrganicAvail, int newOrganicPrice, int newFuelAvail, int newFuelPrice, int newGasAvail, int newGasPrice, int newWaterAvail, int newWaterPrice, StationModel stationModel)
     {
+        this.stationModel = stationModel;
         this.currentStation = stationLocation;
         stationType = newStationType;
         metalAvailable = newMetalAvail;
@@ -243,6 +278,141 @@ public class Station
         waterAvailable = newWaterAvail;
         waterPrice = newWaterPrice;
     }
+
+    public void BuyFuel()
+    {
+        if (fuelAvailable > 0)
+        {
+            if (player.playerCurrency >= fuelPrice)
+            {
+                player.playerCurrency -= fuelPrice;
+                player.fuelResource += 1;
+                fuelAvailable -= 1;
+                fuelPrice = stationModel.GetResourcePrice(fuelAvailable);
+            }
+        }
+    }
+
+    public void BuyWater()
+    {
+        if (waterAvailable > 0)
+        {
+            if (player.playerCurrency >= waterPrice)
+            {
+                player.playerCurrency -= waterPrice;
+                player.waterResource += 1;
+                waterAvailable -= 1;
+                waterPrice = stationModel.GetResourcePrice(waterAvailable);
+            }
+        }
+    }
+    public void BuyOrganics()
+    {
+        if (organicAvailable > 0)
+        {
+            if (player.playerCurrency >= organicPrice)
+            {
+                player.playerCurrency -= organicPrice;
+                player.organicResource += 1;
+                organicAvailable -= 1;
+                organicPrice = stationModel.GetResourcePrice(organicAvailable);
+            }
+        }
+    }
+    public void BuyMetal()
+    {
+        if (metalAvailable > 0)
+        {
+            if (player.playerCurrency >= metalPrice)
+            {
+                player.playerCurrency -= metalPrice;
+                player.metalResource += 1;
+                metalAvailable -= 1;
+                metalPrice = stationModel.GetResourcePrice(metalPrice);
+            }
+        }
+    }
+    public void BuyGas()
+    {
+        if (gasAvailable > 0)
+        {
+            if (player.playerCurrency >= gasPrice)
+            {
+                player.playerCurrency -= gasPrice;
+                player.gasResource += 1;
+                gasAvailable -= 1;
+                gasPrice = stationModel.GetResourcePrice(gasAvailable);
+            }
+        }
+    }
+
+    public void SellOrganics()
+    {
+        if (player.organicResource > 0)
+        {
+            player.playerCurrency += organicPrice;
+            player.organicResource -= 1;
+            organicAvailable += 1;
+            organicPrice = stationModel.GetResourcePrice(organicAvailable);
+        }
+    }
+    public void SellGas()
+    {
+        if (player.gasResource > 0)
+        {
+            player.playerCurrency += gasPrice;
+            player.gasResource -= 1;
+            gasAvailable += 1;
+            gasPrice = stationModel.GetResourcePrice(gasAvailable);
+        }
+    }
+    public void SellMetal()
+    {
+        if (player.metalResource > 0)
+        {
+            player.playerCurrency += metalPrice;
+            player.metalResource -= 1;
+            metalAvailable += 1;
+            metalPrice = stationModel.GetResourcePrice(metalAvailable);
+        }
+    }
+    public void SellWater()
+    {
+        if (player.waterResource > 0)
+        {
+            player.playerCurrency += waterPrice;
+            player.waterResource -= 1;
+            waterAvailable += 1;
+            waterPrice = stationModel.GetResourcePrice(waterAvailable);
+        }
+    }
+
+
+    public int GetPlayerFuel()
+    {
+        return player.fuelResource;
+    }
+    public int GetPlayerMoney()
+    {
+        return player.playerCurrency;
+    }
+    public int GetPlayerWater()
+    {
+        return player.waterResource;
+    }
+    public int GetPlayerOrganics()
+    {
+        return player.organicResource;
+    }
+    public int GetPlayerGas()
+    {
+        return player.gasResource;
+    }
+    public int GetPlayerMetal()
+    {
+        return player.metalResource;
+    }
+
 
     public SpaceModel GetStationLocation (Station station)
     {
@@ -312,5 +482,13 @@ public class Station
     public int GetWaterPrice()
     {
         return waterPrice;
+    }
+
+    public void ShowDockUI(PlayerModel player)
+    {
+        this.player = player;
+        stationModel.GetTradeGUI().ShowUI(player.fuelResource, player.waterResource, player.organicResource,
+                                          player.metalResource, player.gasResource, player.playerCurrency, fuelPrice, waterPrice,
+                                          organicPrice, metalPrice, gasPrice, this);
     }
 }

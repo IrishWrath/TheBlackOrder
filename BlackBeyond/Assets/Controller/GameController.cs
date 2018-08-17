@@ -31,6 +31,8 @@ public class GameController : MonoBehaviour
 	// The Prefab for our music
 	public GameObject soundView;
 
+    public Button TradeButton;
+
     // The Asteroid Terrain
     public GameObject asteroidTerrain;
 
@@ -70,7 +72,7 @@ public class GameController : MonoBehaviour
         SpaceModel playerSpace = MapController.Map.GetSpace(63, 125);
 
         // Create a player, and set up MVC connections
-        this.playerModel = new PlayerModel(playerSpace);
+        this.playerModel = new PlayerModel(playerSpace, this, stationModel);
         modelLink.CreatePlayerView(playerModel, playerMovementText);
     }
 
@@ -137,13 +139,17 @@ public class GameController : MonoBehaviour
         Station station = stationModel.GetStation(playerModel.GetSpace());
         if(station != null)
         {
-            // TODO, something like:
-            //station.ShowDockUI();
+            station.ShowDockUI(playerModel);
         }
         //play button sound
         soundController.PlaySound(SoundController.Sound.buttonPress);
 
-        dockUI.SetActive(true);
+        //dockUI.SetActive(true);
+    }
+
+    public void SetTradeable(bool isTradable)
+    {
+        TradeButton.interactable = isTradable;
     }
 
     // This function is called whe the player presses "end turn"
@@ -177,9 +183,9 @@ public class GameController : MonoBehaviour
         {
             PlayerMoveButton();
         }
-
-
-        // Oisín: I think it would be best to call a move method in ShipController (Not my one though. That doesn't work yet.)
-        //ship.gameObject.transform.position = newSpace.GetCallback().GetPosition();
+        if (Input.GetKeyUp(KeyCode.T))
+        {
+            PlayerTradeButton();
+        }
     }
 }

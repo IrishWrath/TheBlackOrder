@@ -5040,7 +5040,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2017111641}
   m_OnClick:
     m_PersistentCalls:
@@ -5126,6 +5126,7 @@ MonoBehaviour:
   nebulaTerrain: {fileID: 1261053534705998, guid: eb2017eec4c4c43b6b7db01479417c3d,
     type: 2}
   soundView: {fileID: 1096287472415392, guid: 11cd96ed06d3fba48988b500f6bd6ad7, type: 2}
+  TradeButton: {fileID: 2017111640}
   asteroidTerrain: {fileID: 1943183502530018, guid: a399f1ea39485455883fcd0db8c86118,
     type: 2}
   playerMovementText: {fileID: 1890571450}
