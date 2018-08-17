@@ -242,7 +242,7 @@ public class PlayerModel : ShipModel
 
             fuelResource -= destination.GetCost();
             playerController.SetFuel(fuelResource, fuelResourceMax);
-            if(fuelResource <= 0)
+            if(fuelResource < 0)
             {
                 SceneManager.LoadScene("GameOver");
             }

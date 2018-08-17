@@ -234,6 +234,10 @@ public class GameController : MonoBehaviour
         {
             MoveButton.interactable = true;
             ShootButton.interactable = true;
+            if (stationModel.GetStation(playerModel.GetSpace()) != null)
+            {
+                TradeButton.interactable = true;
+            }
             //if( player is on trade station)
             //TradeButton.interactable = true;
             EndTurnButton.interactable = true;
