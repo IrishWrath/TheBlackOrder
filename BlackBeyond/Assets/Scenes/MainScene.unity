@@ -5847,6 +5847,14 @@ MonoBehaviour:
   nebulaTerrain: {fileID: 1261053534705998, guid: eb2017eec4c4c43b6b7db01479417c3d,
     type: 2}
   soundView: {fileID: 1096287472415392, guid: 11cd96ed06d3fba48988b500f6bd6ad7, type: 2}
+  currency: {fileID: 1507837873}
+  metal: {fileID: 1516833074}
+  organics: {fileID: 797503566}
+  gas: {fileID: 224395687}
+  water: {fileID: 134852340}
+  fuel: {fileID: 1191355909}
+  fuelMax: {fileID: 1259847781}
+  totalSpace: {fileID: 1826210431}
   asteroidTerrain: {fileID: 1943183502530018, guid: a399f1ea39485455883fcd0db8c86118,
     type: 2}
   playerMovementText: {fileID: 1890571450}

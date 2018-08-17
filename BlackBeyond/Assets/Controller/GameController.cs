@@ -39,6 +39,16 @@ public class GameController : MonoBehaviour
 
     //public Button TradeButton;
 
+    //player resources
+    public GameObject currency;
+    public GameObject metal;
+    public GameObject organics;
+    public GameObject gas;
+    public GameObject water;
+    public GameObject fuel;
+    public GameObject fuelMax;
+    public GameObject totalSpace;
+
     // The Asteroid Terrain
     public GameObject asteroidTerrain;
 
@@ -92,7 +102,7 @@ public class GameController : MonoBehaviour
         // Create a player, and set up MVC connections
         this.playerModel = new PlayerModel(playerSpace, MapControllerField.Map, this, stationModel);
 
-        modelLink.CreatePlayerView(playerModel, playerMovementText);
+        modelLink.CreatePlayerView(playerModel, playerMovementText, currency, metal, organics, gas, water, fuel, fuelMax, totalSpace);
 
         MapControllerField.Map.CreateHunterKiller(playerModel, this);
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,7 +25,7 @@ public class ModelLink
     public void CreateSpaceView(SpaceModel spaceModel)
     {
         // Creates the space GameObject in the correct position. Formula works for hexes
-        GameObject spaceView = Object.Instantiate(GameController.GetSpaceView(), 
+        GameObject spaceView = UnityEngine.Object.Instantiate(GameController.GetSpaceView(), 
                                                   new Vector2((float)spaceModel.Column * 0.6f, (0 - spaceModel.Row * 1.04f)), Quaternion.identity, MapContainer);
         // Gets the controller from the GameObject.
         SpaceController spaceController = spaceView.GetComponent<SpaceController>();
@@ -40,7 +41,7 @@ public class ModelLink
     public void CreateNebulaSpace(NebulaSpaceModel nebulaSpaceModel)
     {
         CreateSpaceView(nebulaSpaceModel);
-        Object.Instantiate(GameController.GetNebula(),
+        UnityEngine.Object.Instantiate(GameController.GetNebula(),
                            nebulaSpaceModel.GetController().GetPosition(), Quaternion.identity, MapContainer);
         nebulaSpaceModel.GetController().SetNebula();
     }
@@ -49,16 +50,18 @@ public class ModelLink
     public void CreateAsteroidSpace(AsteroidSpaceModel asteroidSpaceModel)
     {
         CreateSpaceView(asteroidSpaceModel);
-        Object.Instantiate(GameController.GetAsteroid(),
+        UnityEngine.Object.Instantiate(GameController.GetAsteroid(),
                            asteroidSpaceModel.GetController().GetPosition(), Quaternion.identity, MapContainer);
         asteroidSpaceModel.GetController().SetAsteroid();
     }
 
     // Same as above for a Space GameObject
-    public void CreatePlayerView(PlayerModel playerModel, Text movementText)
+    public void CreatePlayerView(PlayerModel playerModel, Text movementText, GameObject currency, GameObject metal, 
+                                 GameObject organics, GameObject gas, GameObject water, GameObject fuel, GameObject fuelMax, 
+                                 GameObject totalSpace)
     {
         // Creates the player GameObject in the correct position.
-        GameObject playerView = Object.Instantiate(GameController.GetPlayerView(),
+        GameObject playerView = UnityEngine.Object.Instantiate(GameController.GetPlayerView(),
                                                    playerModel.GetSpace().GetController().GetPosition(), Quaternion.identity);
         // Sets the camera following the player
         Camera.main.transform.parent = playerView.transform;
@@ -74,13 +77,21 @@ public class ModelLink
         playerModel.SetController(playerController);
 
         playerController.SetMovementTextInterface(movementText);
+        playerController.currency = currency;
+        playerController.metal = metal;
+        playerController.gas = gas;
+        playerController.water = water;
+        playerController.fuel = fuel;
+        playerController.fuelMax = fuelMax;
+        playerController.totalSpace = totalSpace;
     }
+
 
     // Same as above for a Space GameObject
     public void CreatePirateView(PirateModel pirateModel)
     {
         // Creates the player GameObject in the correct position.
-        GameObject pirateView = Object.Instantiate(GameController.GetPirateView(),
+        GameObject pirateView = UnityEngine.Object.Instantiate(GameController.GetPirateView(),
                                                    pirateModel.GetSpace().GetController().GetPosition(), Quaternion.identity, MapContainer);
 
         // Gets the controller from the GameObject.
@@ -97,7 +108,7 @@ public class ModelLink
     public void CreateStationView(Station station)
     {
         // Creates the player GameObject in the correct position. TODO update this formula for hexes
-        GameObject stationView = Object.Instantiate(GameController.GetStationView(),
+        GameObject stationView = UnityEngine.Object.Instantiate(GameController.GetStationView(),
                                                    station.GetSpace().GetController().GetPosition(), Quaternion.identity, MapContainer);
 
         // Gets the controller from the GameObject.
