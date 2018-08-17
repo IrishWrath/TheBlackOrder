@@ -58,6 +58,12 @@ public class SoundController : MonoBehaviour{
         {
             sounds[i].volume = sfxSlider.value*0.5f;
         }
+        //buy sound too loud, turn it down.
+        sounds[9].volume = sfxSlider.value * 0.2f;
+        //dmg sound effect too loud too.
+        sounds[11].volume = sfxSlider.value * 0.3f;
+        //trade music too quiet.
+        sounds[2].volume = sfxSlider.value * 1.3f;
 
 	}
 	
