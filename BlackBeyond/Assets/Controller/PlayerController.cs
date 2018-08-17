@@ -8,13 +8,46 @@ using UnityEngine.EventSystems;
 // Class for Player only methods. 
 public class PlayerController : ShipController
 {
-    private Text movementText;
-    //private PlayerModel playerModel;
+    public GameObject currency;
+    public GameObject metal;
+    public GameObject organics;
+    public GameObject gas;
+    public GameObject water;
+    public GameObject fuel;
+    public GameObject fuelMax;
+    public GameObject totalSpace;
 
-    //public void SetModel(PlayerModel model)
-    //{
-    //    this.playerModel = model;
-    //}
+    public void SetCurrency(int number)
+    {
+        currency.GetComponent<Text>().text = number.ToString();
+    }
+    public void SetMetal(int number)
+    {
+        metal.GetComponent<Text>().text = number.ToString();
+    }
+    public void SetGas(int number)
+    {
+        gas.GetComponent<Text>().text = number.ToString();
+    }
+    public void SetWater(int number)
+    {
+        water.GetComponent<Text>().text = number.ToString();
+    }
+    public void SetOrganics(int number)
+    {
+        organics.GetComponent<Text>().text = number.ToString();
+    }
+    public void SetFuel(int number, int maxfuel)
+    {
+        fuel.GetComponent<Text>().text = number.ToString();
+        fuelMax.GetComponent<Text>().text = maxfuel.ToString();
+    }
+    public void SetTotal(int number)
+    {
+        totalSpace.GetComponent<Text>().text = number.ToString();
+    }
+
+    private Text movementText;
 
     public void SetMovementTextInterface(Text movementText)
     {

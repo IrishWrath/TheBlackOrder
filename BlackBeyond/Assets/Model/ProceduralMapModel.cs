@@ -78,7 +78,13 @@ public class ProceduralMapModel : MapModel
                     int asteroidRate = 100;
                     int platformRate = 1;
                     //empty space makes up the rest
-                    //TODO add planet rate
+
+                    int stationRate = 5;
+                    int refineryRate = 20;
+                    int miningRate = 20;
+                    int generalRate = 20;
+                    int planetRate = 20;
+                    int factoryRate = 20;
 
                     switch (sectorType)
                     {
@@ -108,6 +114,7 @@ public class ProceduralMapModel : MapModel
                             nebulaRate = 50;
                             asteroidRate = 50;
                             platformRate = 1;
+                            stationRate = 7;
 
                             break;
                         case 4:
@@ -115,7 +122,7 @@ public class ProceduralMapModel : MapModel
                             nebulaRate = 100;
                             asteroidRate = 100;
                             platformRate = 50;
-
+                            stationRate = 0;
                             break;
 
                         default:
@@ -150,6 +157,33 @@ public class ProceduralMapModel : MapModel
                         pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace, gameController));
                     }
 
+                    if (randomNumber > platformRate && randomNumber <= platformRate + stationRate)
+                    {
+                        int randomType = UnityEngine.Random.Range(1, generalRate + refineryRate + miningRate + planetRate + factoryRate + 1);
+                        StationModel.StationType type;
+                        if (randomType < generalRate)
+                        {
+                            type = StationModel.StationType.General;
+                        }
+                        else if(randomType < generalRate + refineryRate)
+                        {
+                            type = StationModel.StationType.Refinery;
+                        }
+                        else if (randomType < generalRate + refineryRate + miningRate)
+                        {
+                            type = StationModel.StationType.Mining;
+                        }
+                        else if (randomType < generalRate + refineryRate + miningRate + planetRate)
+                        {
+                            type = StationModel.StationType.Planet;
+                        }
+                        else
+                        {
+                            type = StationModel.StationType.Factory;
+                        }
+                        stationModel.CreateStation(tempSpace, type, link);
+                    }
+
                 }
             }
             else
@@ -163,7 +197,13 @@ public class ProceduralMapModel : MapModel
                     int asteroidRate = 100;
                     int platformRate = 1;
                     //empty space makes up the rest
-                    //TODO add planet rate
+
+                    int stationRate = 5;
+                    int refineryRate = 20;
+                    int miningRate = 20;
+                    int generalRate = 20;
+                    int planetRate = 20;
+                    int factoryRate = 20;
 
                     switch (sectorType)
                     {
@@ -193,6 +233,7 @@ public class ProceduralMapModel : MapModel
                             nebulaRate = 50;
                             asteroidRate = 50;
                             platformRate = 1;
+                            stationRate = 7;
 
                             break;
                         case 4:
@@ -200,7 +241,7 @@ public class ProceduralMapModel : MapModel
                             nebulaRate = 100;
                             asteroidRate = 100;
                             platformRate = 50;
-
+                            stationRate = 0;
                             break;
 
                         default:
@@ -233,6 +274,33 @@ public class ProceduralMapModel : MapModel
                     if (randomNumber <= platformRate)
                     {
                         pirates.Add(new PlatformAi(PirateModel.PirateType.Platform, this, link, tempSpace, gameController));
+                    }
+
+                    if (randomNumber > platformRate && randomNumber <= platformRate + stationRate)
+                    {
+                        int randomType = UnityEngine.Random.Range(1, generalRate + refineryRate + miningRate + planetRate + factoryRate + 1);
+                        StationModel.StationType type;
+                        if (randomType < generalRate)
+                        {
+                            type = StationModel.StationType.General;
+                        }
+                        else if (randomType < generalRate + refineryRate)
+                        {
+                            type = StationModel.StationType.Refinery;
+                        }
+                        else if (randomType < generalRate + refineryRate + miningRate)
+                        {
+                            type = StationModel.StationType.Mining;
+                        }
+                        else if (randomType < generalRate + refineryRate + miningRate + planetRate)
+                        {
+                            type = StationModel.StationType.Planet;
+                        }
+                        else
+                        {
+                            type = StationModel.StationType.Factory;
+                        }
+                        stationModel.CreateStation(tempSpace, type, link);
                     }
 
                 }

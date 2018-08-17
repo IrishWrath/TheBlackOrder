@@ -8,13 +8,15 @@ public class PlayerModel : ShipModel
 {
 
     // Player trade info
-    public int playerCurrency = 5000;
+    public int playerCurrency = 500;
     public int metalResource = 0;
     public int organicResource = 0;
     public int fuelResource = 150;
+    public int fuelResourceMax = 150;
     public int gasResource = 0;
     public int waterResource = 0;
 
+    public int TotalResources { get { return metalResource + organicResource + gasResource + waterResource; } }
 
     List<PathfindingNode> validMovementSpaces;
     List<PathfindingNode> validShootingSpaces;
@@ -45,6 +47,14 @@ public class PlayerModel : ShipModel
         base.maxCargoSpace = 50;
         this.mapModel = mapModel;
         UpdatePlayerLocation(currentSpace);
+
+        playerController.SetGas(gasResource);
+        playerController.SetMetal(metalResource);
+        playerController.SetOrganics(organicResource);
+        playerController.SetWater(waterResource);
+
+        playerController.SetFuel(fuelResource, fuelResourceMax);
+        playerController.SetTotal(maxCargoSpace);
     }
 
     public PlayerController GetController()
@@ -232,7 +242,7 @@ public class PlayerModel : ShipModel
             fuelResource -= destination.GetCost();
             if(fuelResource <= 0)
             {
-                //lose
+                SceneManager.LoadScene("GameOver");
             }
 
             gameController.SetTradeable(stationModel.GetStation(destination.GetSpace()) != null);
