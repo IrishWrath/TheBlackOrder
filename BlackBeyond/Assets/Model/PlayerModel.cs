@@ -65,6 +65,8 @@ public class PlayerModel : ShipModel
 
         playerController.SetFuel(fuelResource, fuelResourceMax);
         playerController.SetTotal(maxCargoSpace);
+
+        playerController.SetCurrency(playerCurrency);
     }
 
     public int GetCurrentPlayerMovement()

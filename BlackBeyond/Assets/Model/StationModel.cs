@@ -343,7 +343,6 @@ public class Station
 
                 metalAvailable -= 1;
                 metalPrice = stationModel.GetResourcePrice(metalAvailable);
-                Debug.Log(metalAvailable);
             }
         }
     }
@@ -405,7 +404,6 @@ public class Station
 
             metalAvailable += 1;
             metalPrice = stationModel.GetResourcePrice(metalAvailable);
-            Debug.Log(metalAvailable);
         }
     }
     public void SellWater()
