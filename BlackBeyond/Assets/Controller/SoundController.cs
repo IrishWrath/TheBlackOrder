@@ -49,14 +49,21 @@ public class SoundController : MonoBehaviour{
 		//for music
         for (int i = 0; i < 3; i++)
         {
-            sounds[i].volume = musicSlider.value;
+            sounds[i].volume = musicSlider.value*0.9f;
         }
+
 	
 		//for sfx
 		for (int i = 3; i < sounds.Length; i++)
         {
-            sounds[i].volume = sfxSlider.value;
+            sounds[i].volume = sfxSlider.value*0.5f;
         }
+        //buy sound too loud, turn it down.
+        sounds[9].volume = sfxSlider.value * 0.2f;
+        //dmg sound effect too loud too.
+        sounds[11].volume = sfxSlider.value * 0.3f;
+        //trade music too quiet.
+        sounds[2].volume = sfxSlider.value * 1.3f;
 
 	}
 	

@@ -78,7 +78,6 @@ public class GameController : MonoBehaviour
         string m_Path = Application.dataPath;
 
         tradeGUIController = dockUI.GetComponent<TradeGUIController>();
-
         stationModel = new StationModel(tradeGUIController);
 
 		//Creates the sound view and sound controller.
@@ -179,7 +178,9 @@ public class GameController : MonoBehaviour
         //modelLink.CreateStationView(station); -- ERROR!!
 
         Station station = stationModel.GetStation(playerModel.GetSpace());
-        if(station != null)
+        //make sure the station's model's controller has access to the sound controller.
+        station.GetStationModel().GetTradeGUI().SetSoundController(soundController);
+        if (station != null)
         {
             station.ShowDockUI(playerModel);
         }

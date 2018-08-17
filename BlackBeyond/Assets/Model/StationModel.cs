@@ -279,7 +279,7 @@ public class Station
         waterPrice = newWaterPrice;
     }
 
-    public void BuyFuel()
+    public bool BuyFuel()
     {
         if (fuelAvailable > 0)
         {
@@ -291,11 +291,14 @@ public class Station
                 player.GetController().SetFuel(player.fuelResource, player.fuelResourceMax);
                 fuelAvailable -= 1;
                 fuelPrice = stationModel.GetResourcePrice(fuelAvailable);
+                return true;
             }
+            return false;
         }
+        return false;
     }
 
-    public void BuyWater()
+    public bool BuyWater()
     {
         if (waterAvailable > 0)
         {
@@ -309,10 +312,13 @@ public class Station
 
                 waterAvailable -= 1;
                 waterPrice = stationModel.GetResourcePrice(waterAvailable);
+                return true;
             }
+            return false;
         }
+        return false;
     }
-    public void BuyOrganics()
+    public bool BuyOrganics()
     {
         if (organicAvailable > 0)
         {
@@ -326,10 +332,13 @@ public class Station
 
                 organicAvailable -= 1;
                 organicPrice = stationModel.GetResourcePrice(organicAvailable);
+                return true;
             }
+            return false;
         }
+        return false;
     }
-    public void BuyMetal()
+    public bool BuyMetal()
     {
         if (metalAvailable > 0)
         {
@@ -343,10 +352,13 @@ public class Station
 
                 metalAvailable -= 1;
                 metalPrice = stationModel.GetResourcePrice(metalAvailable);
+                return true;
             }
+            return false;
         }
+        return false;
     }
-    public void BuyGas()
+    public bool BuyGas()
     {
         if (gasAvailable > 0)
         {
@@ -360,11 +372,14 @@ public class Station
 
                 gasAvailable -= 1;
                 gasPrice = stationModel.GetResourcePrice(gasAvailable);
+                return true;
             }
+            return false;
         }
+        return false;
     }
 
-    public void SellOrganics()
+    public bool SellOrganics()
     {
         if (player.organicResource > 0)
         {
@@ -376,9 +391,11 @@ public class Station
 
             organicAvailable += 1;
             organicPrice = stationModel.GetResourcePrice(organicAvailable);
+            return true;
         }
+        return false;
     }
-    public void SellGas()
+    public bool SellGas()
     {
         if (player.gasResource > 0)
         {
@@ -390,9 +407,11 @@ public class Station
 
             gasAvailable += 1;
             gasPrice = stationModel.GetResourcePrice(gasAvailable);
+            return true;
         }
+        return false;
     }
-    public void SellMetal()
+    public bool SellMetal()
     {
         if (player.metalResource > 0)
         {
@@ -404,9 +423,11 @@ public class Station
 
             metalAvailable += 1;
             metalPrice = stationModel.GetResourcePrice(metalAvailable);
+            return true;
         }
+        return false;
     }
-    public void SellWater()
+    public bool SellWater()
     {
         if (player.waterResource > 0)
         {
@@ -418,7 +439,9 @@ public class Station
 
             waterAvailable += 1;
             waterPrice = stationModel.GetResourcePrice(waterAvailable);
+            return true;
         }
+        return false;
     }
 
 
@@ -466,6 +489,11 @@ public class Station
     public StationModel.StationType GetStationType()
     {
         return stationType;
+    }
+
+    public StationModel GetStationModel()
+    {
+        return stationModel;
     }
 
     public int GetMetalAvail()
