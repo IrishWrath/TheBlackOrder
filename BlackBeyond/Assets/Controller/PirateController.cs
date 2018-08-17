@@ -31,18 +31,22 @@ public class PirateController : ShipController
         switch(type)
         {
             case PirateModel.PirateType.Scout:
+                shipView.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
                 shipView.GetComponentInChildren<SpriteRenderer>().sprite = ScoutSprite;
                 break;
             case PirateModel.PirateType.Platform:
                 shipView.GetComponentInChildren<SpriteRenderer>().sprite = PlatformSprite;
                 break;
             case PirateModel.PirateType.Frigate:
+                shipView.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
                 shipView.GetComponentInChildren<SpriteRenderer>().sprite = FrigateSprite;
                 break;
             case PirateModel.PirateType.Destroyer:
+                shipView.transform.GetChild(0).GetChild(3).gameObject.SetActive(true);
                 shipView.GetComponentInChildren<SpriteRenderer>().sprite = DestroyerSprite;
                 break;
             case PirateModel.PirateType.Dreadnought:
+                shipView.transform.GetChild(0).GetChild(4).gameObject.SetActive(true);
                 shipView.GetComponentInChildren<SpriteRenderer>().sprite = DreadnoughtSprite;
                 break;
         }
