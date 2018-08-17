@@ -50,7 +50,9 @@ public abstract class ShipModel
 
     public void SetHealth(int health)
     {
+        int originalHealth = shipHealth;
         shipHealth = Math.Min(maxHealth, health);
+        
         // update health bar
         shipController.UpdateHealth(shipHealth, maxHealth);
 
@@ -58,11 +60,37 @@ public abstract class ShipModel
         {
             // die
             Die();
-            soundController.PlaySound(SoundController.Sound.destroy, 0.4f);
+
+            if (this is PirateModel && originalHealth - shipHealth <= 1)
+            {
+                //do nothing;
+            }
+            else if(this is PirateModel) { soundController.PlaySound(SoundController.Sound.destroy, 0.4f); }
+            
         }
         else
         {
-            soundController.PlaySound(SoundController.Sound.damage, 0.3f);
+            PirateModel sub = this as PirateModel;
+            PlayerModel sub2 = this as PlayerModel;
+            if (sub != null)
+            {
+                if(originalHealth - shipHealth > 1)
+                {
+                    soundController.PlaySound(SoundController.Sound.damage, 0.3f);
+                }
+
+            }
+
+            if (sub2 != null)
+            {
+                if (originalHealth > shipHealth)
+                {
+                    soundController.PlaySound(SoundController.Sound.damage, 0.3f);
+                }
+
+            }
+
+
         }
     }
 
