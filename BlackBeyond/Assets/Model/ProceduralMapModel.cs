@@ -83,8 +83,8 @@ public class ProceduralMapModel : MapModel
                     int refineryRate = 20;
                     int miningRate = 20;
                     int generalRate = 20;
-                    int planetRate = 20;
-                    int factoryRate = 20;
+                    int planetRate = 30;
+                    int factoryRate = 10;
 
                     switch (sectorType)
                     {
@@ -94,12 +94,24 @@ public class ProceduralMapModel : MapModel
                             asteroidRate = 50;
                             platformRate = 1;
 
+                            refineryRate = 40;
+                            miningRate = 20;
+                            generalRate = 5;
+                            planetRate = 5;
+                            factoryRate = 5;
+
                             break;
                         case 1:
                             //Asteroid Field
                             nebulaRate = 50;
                             asteroidRate = 150;
                             platformRate = 1;
+
+                            refineryRate = 20;
+                            miningRate = 40;
+                            generalRate = 5;
+                            planetRate = 5;
+                            factoryRate = 5;
 
                             break;
                         case 2:
@@ -108,6 +120,12 @@ public class ProceduralMapModel : MapModel
                             asteroidRate = 30;
                             platformRate = 2;
 
+                            refineryRate = 10;
+                            miningRate = 10;
+                            generalRate = 20;
+                            planetRate = 5;
+                            factoryRate = 5;
+
                             break;
                         case 3:
                             //colonised
@@ -115,6 +133,12 @@ public class ProceduralMapModel : MapModel
                             asteroidRate = 50;
                             platformRate = 1;
                             stationRate = 7;
+
+                            refineryRate = 5;
+                            miningRate = 5;
+                            generalRate = 20;
+                            planetRate = 30;
+                            factoryRate = 15;
 
                             break;
                         case 4:
@@ -213,12 +237,24 @@ public class ProceduralMapModel : MapModel
                             asteroidRate = 50;
                             platformRate = 1;
 
+                            refineryRate = 40;
+                            miningRate = 20;
+                            generalRate = 5;
+                            planetRate = 5;
+                            factoryRate = 5;
+
                             break;
                         case 1:
                             //Asteroid Field
                             nebulaRate = 50;
                             asteroidRate = 150;
                             platformRate = 1;
+
+                            refineryRate = 20;
+                            miningRate = 40;
+                            generalRate = 5;
+                            planetRate = 5;
+                            factoryRate = 5;
 
                             break;
                         case 2:
@@ -227,6 +263,12 @@ public class ProceduralMapModel : MapModel
                             asteroidRate = 30;
                             platformRate = 2;
 
+                            refineryRate = 10;
+                            miningRate = 10;
+                            generalRate = 20;
+                            planetRate = 5;
+                            factoryRate = 5;
+
                             break;
                         case 3:
                             //colonised
@@ -234,6 +276,12 @@ public class ProceduralMapModel : MapModel
                             asteroidRate = 50;
                             platformRate = 1;
                             stationRate = 7;
+
+                            refineryRate = 5;
+                            miningRate = 5;
+                            generalRate = 20;
+                            planetRate = 30;
+                            factoryRate = 15;
 
                             break;
                         case 4:
