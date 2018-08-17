@@ -73,17 +73,19 @@ public class ModelLink
         playerController.SetShipView(playerView);
         // Lets the Controller access the Model
         playerController.SetModel(playerModel, GameController.soundController);
-        // Lets the Model access the Controller, as a callback
-        playerModel.SetController(playerController);
 
         playerController.SetMovementTextInterface(movementText);
         playerController.currency = currency;
         playerController.metal = metal;
         playerController.gas = gas;
         playerController.water = water;
+        playerController.organics = organics;
         playerController.fuel = fuel;
         playerController.fuelMax = fuelMax;
         playerController.totalSpace = totalSpace;
+
+        // Lets the Model access the Controller, as a callback
+        playerModel.SetController(playerController);
     }
 
 

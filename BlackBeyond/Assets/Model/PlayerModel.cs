@@ -11,8 +11,8 @@ public class PlayerModel : ShipModel
     public int playerCurrency = 500;
     public int metalResource = 0;
     public int organicResource = 0;
-    public int fuelResource = 150;
-    public int fuelResourceMax = 150;
+    public int fuelResource = 50;
+    public int fuelResourceMax = 50;
     public int gasResource = 0;
     public int waterResource = 0;
 
@@ -44,17 +44,9 @@ public class PlayerModel : ShipModel
         base.currentShotCounter = 1;
         base.shipHealth = 15;
         base.maxHealth = 15;
-        base.maxCargoSpace = 50;
+        base.maxCargoSpace = 25;
         this.mapModel = mapModel;
         UpdatePlayerLocation(currentSpace);
-
-        playerController.SetGas(gasResource);
-        playerController.SetMetal(metalResource);
-        playerController.SetOrganics(organicResource);
-        playerController.SetWater(waterResource);
-
-        playerController.SetFuel(fuelResource, fuelResourceMax);
-        playerController.SetTotal(maxCargoSpace);
     }
 
     public PlayerController GetController()
@@ -66,6 +58,13 @@ public class PlayerModel : ShipModel
     {
         this.playerController = controller;
         base.SetController(controller);
+        playerController.SetGas(gasResource);
+        playerController.SetMetal(metalResource);
+        playerController.SetOrganics(organicResource);
+        playerController.SetWater(waterResource);
+
+        playerController.SetFuel(fuelResource, fuelResourceMax);
+        playerController.SetTotal(maxCargoSpace);
     }
 
     public int GetCurrentPlayerMovement()
@@ -240,6 +239,7 @@ public class PlayerModel : ShipModel
             animatingMovement = true;
 
             fuelResource -= destination.GetCost();
+            playerController.SetFuel(fuelResource, fuelResourceMax);
             if(fuelResource <= 0)
             {
                 SceneManager.LoadScene("GameOver");

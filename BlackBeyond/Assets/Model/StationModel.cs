@@ -283,10 +283,12 @@ public class Station
     {
         if (fuelAvailable > 0)
         {
-            if (player.playerCurrency >= fuelPrice)
+            if (player.playerCurrency >= fuelPrice && player.fuelResource < player.fuelResourceMax)
             {
                 player.playerCurrency -= fuelPrice;
                 player.fuelResource += 1;
+                player.GetController().SetCurrency(player.playerCurrency);
+                player.GetController().SetFuel(player.fuelResource, player.fuelResourceMax);
                 fuelAvailable -= 1;
                 fuelPrice = stationModel.GetResourcePrice(fuelAvailable);
             }
@@ -297,10 +299,14 @@ public class Station
     {
         if (waterAvailable > 0)
         {
-            if (player.playerCurrency >= waterPrice)
+            if (player.playerCurrency >= waterPrice && player.TotalResources < player.GetMaxCargoSpace())
             {
                 player.playerCurrency -= waterPrice;
                 player.waterResource += 1;
+
+                player.GetController().SetCurrency(player.playerCurrency);
+                player.GetController().SetWater(player.waterResource);
+
                 waterAvailable -= 1;
                 waterPrice = stationModel.GetResourcePrice(waterAvailable);
             }
@@ -310,10 +316,14 @@ public class Station
     {
         if (organicAvailable > 0)
         {
-            if (player.playerCurrency >= organicPrice)
+            if (player.playerCurrency >= organicPrice && player.TotalResources < player.GetMaxCargoSpace())
             {
                 player.playerCurrency -= organicPrice;
                 player.organicResource += 1;
+
+                player.GetController().SetCurrency(player.playerCurrency);
+                player.GetController().SetOrganics(player.organicResource);
+
                 organicAvailable -= 1;
                 organicPrice = stationModel.GetResourcePrice(organicAvailable);
             }
@@ -323,12 +333,17 @@ public class Station
     {
         if (metalAvailable > 0)
         {
-            if (player.playerCurrency >= metalPrice)
+            if (player.playerCurrency >= metalPrice && player.TotalResources < player.GetMaxCargoSpace())
             {
                 player.playerCurrency -= metalPrice;
                 player.metalResource += 1;
+
+                player.GetController().SetCurrency(player.playerCurrency);
+                player.GetController().SetMetal(player.metalResource);
+
                 metalAvailable -= 1;
-                metalPrice = stationModel.GetResourcePrice(metalPrice);
+                metalPrice = stationModel.GetResourcePrice(metalAvailable);
+                Debug.Log(metalAvailable);
             }
         }
     }
@@ -336,10 +351,14 @@ public class Station
     {
         if (gasAvailable > 0)
         {
-            if (player.playerCurrency >= gasPrice)
+            if (player.playerCurrency >= gasPrice && player.TotalResources < player.GetMaxCargoSpace())
             {
                 player.playerCurrency -= gasPrice;
                 player.gasResource += 1;
+
+                player.GetController().SetCurrency(player.playerCurrency);
+                player.GetController().SetGas(player.gasResource);
+
                 gasAvailable -= 1;
                 gasPrice = stationModel.GetResourcePrice(gasAvailable);
             }
@@ -352,6 +371,10 @@ public class Station
         {
             player.playerCurrency += organicPrice;
             player.organicResource -= 1;
+
+            player.GetController().SetCurrency(player.playerCurrency);
+            player.GetController().SetOrganics(player.organicResource);
+
             organicAvailable += 1;
             organicPrice = stationModel.GetResourcePrice(organicAvailable);
         }
@@ -362,6 +385,10 @@ public class Station
         {
             player.playerCurrency += gasPrice;
             player.gasResource -= 1;
+
+            player.GetController().SetCurrency(player.playerCurrency);
+            player.GetController().SetGas(player.gasResource);
+
             gasAvailable += 1;
             gasPrice = stationModel.GetResourcePrice(gasAvailable);
         }
@@ -372,8 +399,13 @@ public class Station
         {
             player.playerCurrency += metalPrice;
             player.metalResource -= 1;
+
+            player.GetController().SetCurrency(player.playerCurrency);
+            player.GetController().SetMetal(player.metalResource);
+
             metalAvailable += 1;
             metalPrice = stationModel.GetResourcePrice(metalAvailable);
+            Debug.Log(metalAvailable);
         }
     }
     public void SellWater()
@@ -382,6 +414,10 @@ public class Station
         {
             player.playerCurrency += waterPrice;
             player.waterResource -= 1;
+
+            player.GetController().SetCurrency(player.playerCurrency);
+            player.GetController().SetWater(player.waterResource);
+
             waterAvailable += 1;
             waterPrice = stationModel.GetResourcePrice(waterAvailable);
         }
